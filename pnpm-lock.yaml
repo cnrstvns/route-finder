@@ -15,6 +15,7 @@ specifiers:
   '@vercel/postgres': ^0.5.1
   autoprefixer: ^10.0.1
   clsx: ^2.0.0
+  dotenv: ^16.3.1
   drizzle-kit: ^0.20.6
   drizzle-orm: ^0.29.1
   eslint: ^8
@@ -42,6 +43,7 @@ dependencies:
   '@radix-ui/react-slot': 1.0.2_qjur23isozgejic6xjvb76mkmm
   '@vercel/postgres': 0.5.1
   clsx: 2.0.0
+  dotenv: 16.3.1
   drizzle-orm: 0.29.1_@vercel+postgres@0.5.1
   formik: 2.4.5_react@18.2.0
   next: 14.0.4_biqbaboplfbrettd7655fr4n2y
@@ -1889,6 +1891,11 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv/16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /dreamopt/0.8.0:
     resolution: {integrity: sha512-vyJTp8+mC+G+5dfgsY+r3ckxlz+QMX40VjPQsZc5gxVAxLmi64TBoVkP54A/pRAXMXsbu2GMMBrZPxNv23waMg==}
