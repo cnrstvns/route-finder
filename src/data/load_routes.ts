@@ -32,6 +32,7 @@ import { airlines } from './load_airlines';
       },
     ).then((response) => response.json());
 
+    // @ts-expect-error
     const routes = response.routes;
 
     for (const route of routes) {
