@@ -1,0 +1,251 @@
+{
+  "id": "fd4196c2-c9eb-4b9f-b3b4-5a55a8117ac7",
+  "prevId": "167136ad-6b01-4cd4-92a1-99a37e374bb3",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "aircraft": {
+      "name": "aircraft",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model_name": {
+          "name": "model_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "aircraft_iata_code_unique": {
+          "name": "aircraft_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "airline": {
+      "name": "airline",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "airline_iata_code_unique": {
+          "name": "airline_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "airport": {
+      "name": "airport",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "airport_iata_code_unique": {
+          "name": "airport_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "route": {
+      "name": "route",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "airline_iata": {
+          "name": "airline_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "origin_iata": {
+          "name": "origin_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "destination_iata": {
+          "name": "destination_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aircraft_codes": {
+          "name": "aircraft_codes",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "average_duration": {
+          "name": "average_duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "route_airline_iata_airline_iata_code_fk": {
+          "name": "route_airline_iata_airline_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airline",
+          "columnsFrom": [
+            "airline_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "route_origin_iata_airport_iata_code_fk": {
+          "name": "route_origin_iata_airport_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airport",
+          "columnsFrom": [
+            "origin_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "route_destination_iata_airport_iata_code_fk": {
+          "name": "route_destination_iata_airport_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airport",
+          "columnsFrom": [
+            "destination_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

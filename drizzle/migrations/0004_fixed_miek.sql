@@ -1,0 +1,1 @@
+ALTER TABLE "airline" ADD COLUMN "slug" varchar;

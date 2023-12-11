@@ -1,0 +1,1 @@
+ALTER TABLE "airline" ALTER COLUMN "slug" SET NOT NULL;

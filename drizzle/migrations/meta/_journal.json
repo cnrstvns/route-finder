@@ -1,0 +1,48 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1702004593885,
+      "tag": "0000_whole_tiger_shark",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1702085664521,
+      "tag": "0001_green_genesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1702086623218,
+      "tag": "0002_aberrant_lucky_pierre",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1702098971091,
+      "tag": "0003_sour_mojo",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1702099846355,
+      "tag": "0004_fixed_miek",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1702099907788,
+      "tag": "0005_sturdy_abomination",
+      "breakpoints": true
+    }
+  ]
+}
