@@ -56,7 +56,7 @@ export default async function Routes({ searchParams }: PageParams) {
         />
       </div>
 
-      <div className="w-[calc(100vw-250px)]">
+      <div className="w-screen overflow-scroll lg:w-[calc(100vw-250px)]">
         <Table>
           <TableHeader>
             <TableRow>
