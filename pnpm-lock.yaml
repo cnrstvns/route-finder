@@ -5,7 +5,6 @@ specifiers:
   '@clerk/clerk-sdk-node': ^4.13.1
   '@clerk/nextjs': ^4.27.6
   '@fortawesome/fontawesome-svg-core': ^6.5.1
-  '@fortawesome/free-solid-svg-icons': ^6.5.1
   '@fortawesome/pro-regular-svg-icons': ^6.5.1
   '@fortawesome/pro-solid-svg-icons': ^6.5.1
   '@fortawesome/react-fontawesome': ^0.2.0
@@ -39,7 +38,6 @@ dependencies:
   '@clerk/clerk-sdk-node': 4.13.1_react@18.2.0
   '@clerk/nextjs': 4.27.6_hhw7wgihwfazgzbvi55hs2pcf4
   '@fortawesome/fontawesome-svg-core': 6.5.1
-  '@fortawesome/free-solid-svg-icons': 6.5.1
   '@fortawesome/pro-regular-svg-icons': 6.5.1
   '@fortawesome/pro-solid-svg-icons': 6.5.1
   '@fortawesome/react-fontawesome': 0.2.0_aftyofkicdoqjnxx422t7kpqoi
@@ -937,14 +935,6 @@ packages:
 
   /@fortawesome/fontawesome-svg-core/6.5.1:
     resolution: {integrity: sha512-MfRCYlQPXoLlpem+egxjfkEuP9UQswTrlCOsknus/NcMoblTH2g0jPrapbcIb04KGA7E2GZxbAccGZfWoYgsrQ==, tarball: '@fortawesome/fontawesome-svg-core/-/6.5.1/fontawesome-svg-core-6.5.1.tgz'}
-    engines: {node: '>=6'}
-    requiresBuild: true
-    dependencies:
-      '@fortawesome/fontawesome-common-types': 6.5.1
-    dev: false
-
-  /@fortawesome/free-solid-svg-icons/6.5.1:
-    resolution: {integrity: sha512-S1PPfU3mIJa59biTtXJz1oI0+KAXW6bkAb31XKhxdxtuXDiUIFsih4JR1v5BbxY7hVHsD1RKq+jRkVRaf773NQ==, tarball: '@fortawesome/free-solid-svg-icons/-/6.5.1/free-solid-svg-icons-6.5.1.tgz'}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
