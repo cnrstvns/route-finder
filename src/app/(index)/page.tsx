@@ -4,6 +4,7 @@ import { sql } from 'drizzle-orm';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Title } from './title';
+import { UserButton } from '@clerk/nextjs';
 
 type Airline = {
 	id: string;
@@ -35,8 +36,9 @@ export default async function Home({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<div className='w-full flex items-center px-4 bg-gray-100/40 h-[60px] border-b'>
+			<div className='w-full flex items-center justify-between px-4 bg-gray-100/40 h-[60px] border-b'>
 				<Search placeholder='Search for an airline...' />
+				<UserButton />
 			</div>
 
 			<Title />
