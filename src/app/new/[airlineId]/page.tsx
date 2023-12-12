@@ -1,33 +1,42 @@
 import { PageTitle } from '@/components/ui/page-title';
 import { aircraft, airline as airlineTable, db } from '@/db';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { RouteForm } from './form';
 
 type PageParams = { params: { airlineId: string } };
+type AircraftResults = {
+	rows: { id: number; iata_code: string; model_name: string }[];
+};
 
 export default async function NewFlight({ params }: PageParams) {
-  const airlineResults = await db
-    .select()
-    .from(airlineTable)
-    .where(eq(airlineTable.slug, params.airlineId));
-  const airline = airlineResults[0];
+	const airlineResults = await db
+		.select()
+		.from(airlineTable)
+		.where(eq(airlineTable.slug, params.airlineId));
+	const airline = airlineResults[0];
 
-  // TODO: make it so that only aircraft that this airline flies uses
-  const aircraftResults = await db.select().from(aircraft);
+	const aircraftQuery = sql`
+    select distinct aircraft.iata_code, aircraft.model_name
+    from route
+    join lateral unnest(string_to_array(route.aircraft_codes, ',')) as t(aircraft_type) on true
+    join aircraft on aircraft.iata_code = t.aircraft_type
+    where route.airline_iata = ${airline.iataCode};
+  `;
+	const aircraftResults: AircraftResults = await db.execute(aircraftQuery);
 
-  if (!airline) redirect('/');
+	if (!airline) redirect('/');
 
-  return (
-    <div>
-      <div className="mt-4">
-        <PageTitle
-          title={`New ${airline.name} Flight`}
-          subtitle="Choose how long you'd like to fly, and on what equipment. We'll do the rest."
-        />
-      </div>
+	return (
+		<div>
+			<div className='mt-4'>
+				<PageTitle
+					title={`New ${airline.name} Flight`}
+					subtitle="Choose how long you'd like to fly, and on what equipment. We'll do the rest."
+				/>
+			</div>
 
-      <RouteForm airline={airline.iataCode} aircraft={aircraftResults} />
-    </div>
-  );
+			<RouteForm airline={airline.iataCode} aircraft={aircraftResults.rows} />
+		</div>
+	);
 }

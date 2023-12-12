@@ -43,6 +43,20 @@
       "when": 1702099907788,
       "tag": "0005_sturdy_abomination",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1702353927032,
+      "tag": "0006_large_marvel_apes",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1702354298726,
+      "tag": "0007_tired_red_hulk",
+      "breakpoints": true
     }
   ]
 }

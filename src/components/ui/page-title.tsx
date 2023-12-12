@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 type PageTitleProps = {
   title: string;
@@ -10,8 +10,8 @@ const PageTitle = ({ title, subtitle, className }: PageTitleProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col space-y-1 px-4 md:px-6 border-b pb-6',
-        className,
+        "flex flex-col space-y-1 px-4 md:px-6 border-b pb-6",
+        className
       )}
     >
       <h1 className="font-semibold text-lg md:text-2xl">{title}</h1>
@@ -20,6 +20,6 @@ const PageTitle = ({ title, subtitle, className }: PageTitleProps) => {
   );
 };
 
-PageTitle.displayName = 'PageTitle';
+PageTitle.displayName = "PageTitle";
 
 export { PageTitle, type PageTitleProps };
