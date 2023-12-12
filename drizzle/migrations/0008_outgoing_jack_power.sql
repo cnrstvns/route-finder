@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS "model_name_index" ON "aircraft" ("model_name");
