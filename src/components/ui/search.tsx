@@ -30,14 +30,14 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
 	}
 
 	return (
-		<div className='relative w-72'>
-			<label htmlFor='search' className='sr-only'>
+		<div className="relative w-72">
+			<label htmlFor="search" className="sr-only">
 				Search
 			</label>
-			<div className='rounded-md shadow-sm'>
+			<div className="rounded-md shadow-sm">
 				<div
-					className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'
-					aria-hidden='true'
+					className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+					aria-hidden="true"
 				>
 					<FontAwesomeIcon
 						className={cn({ 'fa-spin': isPending })}
@@ -45,11 +45,11 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
 					/>
 				</div>
 				<input
-					type='text'
-					name='search'
-					id='search'
+					type="text"
+					name="search"
+					id="search"
 					disabled={disabled}
-					className='h-9 block focus:shadow-sm focus:outline-none w-full rounded-md border border-neutral-200 pl-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+					className="h-9 block focus:shadow-md focus:outline-none w-full rounded-md border border-neutral-200 pl-9 focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1 sm:text-sm"
 					placeholder={placeholder}
 					spellCheck={false}
 					onChange={(e) => handleSearch(e.target.value)}

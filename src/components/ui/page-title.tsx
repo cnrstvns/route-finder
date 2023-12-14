@@ -14,8 +14,8 @@ const PageTitle = ({ title, subtitle, className }: PageTitleProps) => {
 				className,
 			)}
 		>
-			<h1 className='font-semibold text-lg md:text-2xl'>{title}</h1>
-			{subtitle && <p className='text-gray-500 text-sm'>{subtitle}</p>}
+			<h1 className="font-semibold text-lg md:text-2xl">{title}</h1>
+			{subtitle && <p className="text-gray-500 text-sm">{subtitle}</p>}
 		</div>
 	);
 };

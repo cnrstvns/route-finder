@@ -25,7 +25,7 @@ const NavLink = ({ href, title, icon }: NavLinkProps) => {
 			)}
 			href={href}
 		>
-			{icon && <FontAwesomeIcon icon={icon} className='h-4 w-4' />}
+			{icon && <FontAwesomeIcon icon={icon} className="h-4 w-4" />}
 			{title}
 		</Link>
 	);

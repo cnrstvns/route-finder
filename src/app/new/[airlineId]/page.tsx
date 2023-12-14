@@ -29,7 +29,7 @@ export default async function NewFlight({ params }: PageParams) {
 
 	return (
 		<div>
-			<div className='mt-4'>
+			<div className="mt-4">
 				<PageTitle
 					title={`New ${airline.name} Flight`}
 					subtitle="Choose how long you'd like to fly, and on what equipment. We'll do the rest."

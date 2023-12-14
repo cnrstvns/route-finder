@@ -46,28 +46,28 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 			onChange={handleChange}
 			multiple
 		>
-			<div className='relative mt-1 z-10'>
+			<div className="relative mt-1 z-10">
 				<ListboxPrimitive.Button
 					className={cn(
 						'relative w-full cursor-pointer rounded-md border border-neutral-200 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-sky-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-300 sm:text-sm',
 						buttonClassName,
 					)}
 				>
-					<span className='block truncate'>{placeholderTitle}</span>
-					<span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+					<span className="block truncate">{placeholderTitle}</span>
+					<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 						<FontAwesomeIcon
 							icon={faChevronDown}
-							className='h-4 w-4 text-neutral-500'
+							className="h-4 w-4 text-neutral-500"
 						/>
 					</span>
 				</ListboxPrimitive.Button>
 				<Transition
 					as={Fragment}
-					leave='transition ease-in duration-100'
-					leaveFrom='opacity-100'
-					leaveTo='opacity-0'
+					leave="transition ease-in duration-100"
+					leaveFrom="opacity-100"
+					leaveTo="opacity-0"
 				>
-					<ListboxPrimitive.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm'>
+					<ListboxPrimitive.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
 						{items.map((item) => (
 							<ListboxPrimitive.Option
 								key={item.value}
@@ -89,8 +89,8 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 											{item.label}
 										</span>
 										{selected && (
-											<span className='absolute inset-y-0 left-0 flex items-center pl-3 text-sky-600'>
-												<FontAwesomeIcon icon={faCheck} className='h-4 w-4' />
+											<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-sky-600">
+												<FontAwesomeIcon icon={faCheck} className="h-4 w-4" />
 											</span>
 										)}
 									</>

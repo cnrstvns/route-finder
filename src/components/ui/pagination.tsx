@@ -1,0 +1,65 @@
+'use client';
+import { PAGE_SIZE } from '@/lib/constants';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
+import { Button } from './button';
+
+type PaginationProps = {
+	totalCount: number;
+};
+
+export const Pagination = ({ totalCount }: PaginationProps) => {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
+	const page = Number(searchParams.get('page') || 1);
+	const hasMore = page * PAGE_SIZE < totalCount;
+	const hasPrev = page > 1;
+	const showing = `Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
+		page * PAGE_SIZE,
+		totalCount,
+	)} of ${totalCount}`;
+
+	const goToPrevious = useCallback(() => {
+		const params = new URLSearchParams(searchParams);
+		params.set('page', (page - 1).toString());
+
+		router.push(`${pathname}?${params.toString()}`);
+	}, [pathname, searchParams, router, page]);
+
+	const goToNext = useCallback(() => {
+		const params = new URLSearchParams(searchParams);
+		params.set('page', (page + 1).toString());
+
+		router.push(`${pathname}?${params.toString()}`);
+	}, [pathname, searchParams, router, page]);
+
+	return (
+		<div className="flex w-full justify-between items-center border-t py-2 px-6">
+			<div className="text-neutral-500 text-sm">{showing}</div>
+
+			<div className="space-x-2">
+				<Button
+					onClick={goToPrevious}
+					disabled={!hasPrev}
+					type="button"
+					variant="secondary"
+					size="sm"
+				>
+					Previous
+				</Button>
+				<Button
+					onClick={goToNext}
+					disabled={!hasMore}
+					type="button"
+					variant="secondary"
+					size="sm"
+				>
+					Next
+				</Button>
+			</div>
+		</div>
+	);
+};

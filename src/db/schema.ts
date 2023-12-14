@@ -1,5 +1,4 @@
 import {
-	bigint,
 	index,
 	integer,
 	pgTable,
@@ -51,6 +50,9 @@ export const airport = pgTable(
 	(table) => {
 		return {
 			iataCodeIndex: index('iata_code_index').on(table.iataCode),
+			nameIndex: index('name_index').on(table.name),
+			cityIndex: index('city_index').on(table.city),
+			countryIndex: index('country_index').on(table.country),
 		};
 	},
 );
@@ -61,6 +63,7 @@ export const aircraft = pgTable(
 		id: serial('id').primaryKey(),
 		iataCode: varchar('iata_code').notNull().unique(),
 		modelName: varchar('model_name').notNull(),
+		shortName: varchar('short_name').notNull().default(''),
 	},
 	(table) => {
 		return {

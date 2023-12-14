@@ -8,8 +8,8 @@ const Title = () => {
 	return (
 		<PageTitle
 			title={`Welcome back${user ? `, ${user.firstName}` : ''}`}
-			subtitle='Where will we fly today? To get started, choose an airline.'
-			className='mt-4'
+			subtitle="Where will we fly today? To get started, choose an airline."
+			className="mt-4"
 		/>
 	);
 };

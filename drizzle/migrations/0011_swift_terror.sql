@@ -1,0 +1,1 @@
+ALTER TABLE "aircraft" ALTER COLUMN "short_name" SET DEFAULT '';

@@ -28,14 +28,14 @@ export default async function Aircraft({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<div className='w-full z-50 fixed top-0 flex items-center px-4 bg-gray-50 h-[60px] border-b'>
-				<Search placeholder='Search for an aircraft...' />
+			<div className="w-full z-50 fixed top-0 flex items-center px-4 bg-gray-50 h-[60px] border-b">
+				<Search placeholder="Search for an aircraft..." />
 			</div>
 
 			<PageTitle
-				title='Aircraft'
-				subtitle='List of aircraft and their IATA codes.'
-				className='pt-4 mt-[60px]'
+				title="Aircraft"
+				subtitle="List of aircraft and their IATA codes."
+				className="pt-4 mt-[60px]"
 			/>
 
 			<Table>
@@ -43,19 +43,19 @@ export default async function Aircraft({ searchParams }: PageParams) {
 					<TableRow>
 						<TableHead>Aircraft</TableHead>
 						<TableHead>IATA Code</TableHead>
+						<TableHead>Short Name</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{aircrafts.map((aircraft) => (
 						<TableRow key={aircraft.id}>
 							<TableCell>
-								<div className='flex items-center'>
-									<div className='text-sm font-medium text-gray-900'>
-										{aircraft.modelName}
-									</div>
-								</div>
+								<span className="text-sm font-medium text-gray-900">
+									{aircraft.modelName}
+								</span>
 							</TableCell>
 							<TableCell>{aircraft.iataCode}</TableCell>
+							<TableCell>{aircraft.shortName}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

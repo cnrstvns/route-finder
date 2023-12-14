@@ -51,11 +51,11 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 			initialValues={initalValues}
 			validationSchema={validationSchema}
 			onSubmit={handleSubmit}
-			className='p-6 mt-4 mx-3 space-y-3'
+			className="p-6 mt-4 mx-3 space-y-3"
 		>
 			{({ setFieldValue, isValid }) => (
-				<Form className='mt-5 md:mt-4 mx-6 space-y-3'>
-					<div className='font-semibold text-md md:text-lg'>
+				<Form className="mt-5 md:mt-4 mx-6 space-y-3">
+					<div className="font-semibold text-md md:text-lg">
 						How long would you like to fly?
 					</div>
 
@@ -67,15 +67,15 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 					/>
 
 					<div>
-						<div className='font-semibold text-md md:text-lg'>
+						<div className="font-semibold text-md md:text-lg">
 							What equipment would you like to fly?
 						</div>
-						<div className='text-sm text-neutral-500'>
+						<div className="text-sm text-neutral-500">
 							Please choose at least one aircraft.
 						</div>
 					</div>
 					<Listbox
-						name='aircraft'
+						name="aircraft"
 						items={aircraft.map((a) => ({
 							label: `${a.model_name} (${a.iata_code})`,
 							value: a.iata_code,
@@ -83,7 +83,7 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 						onChange={(values) => setFieldValue('aircraft', values)}
 					/>
 
-					<Button disabled={!isValid} size='md' variant='default' type='submit'>
+					<Button disabled={!isValid} size="md" variant="default" type="submit">
 						Get recommended routes
 					</Button>
 				</Form>

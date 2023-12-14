@@ -1,0 +1,1 @@
+ALTER TABLE "aircraft" ADD COLUMN "short_name" varchar;
