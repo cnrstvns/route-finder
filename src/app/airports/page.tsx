@@ -90,7 +90,7 @@ export default async function Airports({ searchParams }: PageParams) {
 					))}
 				</TableBody>
 			</Table>
-			<Pagination totalCount={totalCount} resource="airports" />
+			<Pagination totalCount={totalCount} />
 		</div>
 	);
 }
