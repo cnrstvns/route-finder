@@ -1,4 +1,6 @@
+import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
+import { Pagination } from '@/components/ui/pagination';
 import { Search } from '@/components/ui/search';
 import {
 	Table,
@@ -9,36 +11,56 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { airline, db } from '@/db';
-import { ilike, or } from 'drizzle-orm';
+import { PAGE_SIZE } from '@/lib/constants';
+import { ilike, or, sql } from 'drizzle-orm';
 
-type PageParams = { searchParams: { q: string } };
+type PageParams = { searchParams: { q: string; page?: string } };
+type AirlineResult = {
+	id: number;
+	name: string;
+	iata_code: string;
+};
 
 export default async function Airlines({ searchParams }: PageParams) {
-	const airlines = await db
-		.select()
-		.from(airline)
-		.where(
-			searchParams.q
-				? or(
-						ilike(airline.name, `%${searchParams.q}%`),
-						ilike(airline.iataCode, `%${searchParams.q}%`),
-				  )
-				: undefined,
-		)
-		.orderBy(airline.name);
+	const page = Number(searchParams.page ?? 1);
+	const query = sql`SELECT * from ${airline}`;
+
+	if (searchParams.q) {
+		query.append(
+			sql`WHERE ${or(
+				ilike(airline.name, `%${searchParams.q}%`),
+				ilike(airline.iataCode, `%${searchParams.q}%`),
+			)}`,
+		);
+	}
+
+	const countQuery = await db.execute<{ count: number }>(
+		sql`SELECT count(*) FROM (${query})`,
+	);
+	const totalCount = countQuery.rows[0].count;
+
+	query.append(sql`
+		ORDER BY
+			${airline.iataCode}
+		LIMIT
+			${PAGE_SIZE}
+		OFFSET
+			${page * PAGE_SIZE - PAGE_SIZE}
+`);
+
+	const { rows: airlines } = await db.execute<AirlineResult>(query);
 
 	return (
 		<div>
-			<div className="w-full flex items-center px-4 bg-gray-100/40 h-[60px] border-b">
+			<Header>
 				<Search placeholder="Search for an airline..." />
-			</div>
+			</Header>
 
-			<div className="mt-4">
-				<PageTitle
-					title="Airlines"
-					subtitle="List of airlines and their IATA codes."
-				/>
-			</div>
+			<PageTitle
+				title="Airlines"
+				subtitle="List of airlines and their IATA codes."
+				header
+			/>
 
 			<Table className="w-full divide-y divide-gray-200">
 				<TableHeader>
@@ -55,11 +77,12 @@ export default async function Airlines({ searchParams }: PageParams) {
 									{airline.name}
 								</span>
 							</TableCell>
-							<TableCell>{airline.iataCode}</TableCell>
+							<TableCell>{airline.iata_code}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
+			<Pagination totalCount={totalCount} resource="airline" />
 		</div>
 	);
 }

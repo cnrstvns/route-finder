@@ -15,7 +15,6 @@ import { PAGE_SIZE } from '@/lib/constants';
 import { ilike, or, sql } from 'drizzle-orm';
 
 type PageParams = { searchParams: { q: string; page?: string } };
-
 type AirportResult = {
 	id: number;
 	iata_code: string;
@@ -45,7 +44,9 @@ export default async function Airports({ searchParams }: PageParams) {
 	const totalCount = countQuery.rows[0].count;
 
 	query.append(sql`
-    ORDER BY ${airport.iataCode} LIMIT
+    ORDER BY
+			${airport.iataCode}
+		LIMIT
       ${PAGE_SIZE}
     OFFSET
       ${page * PAGE_SIZE - PAGE_SIZE}
@@ -59,12 +60,11 @@ export default async function Airports({ searchParams }: PageParams) {
 				<Search placeholder="Search for an airport..." />
 			</Header>
 
-			<div className="mt-20">
-				<PageTitle
-					title="Airports"
-					subtitle="List of airports and their IATA codes."
-				/>
-			</div>
+			<PageTitle
+				title="Airports"
+				subtitle="List of airports and their IATA codes."
+				header
+			/>
 
 			<Table className="w-full divide-y divide-gray-200">
 				<TableHeader>
@@ -90,7 +90,7 @@ export default async function Airports({ searchParams }: PageParams) {
 					))}
 				</TableBody>
 			</Table>
-			<Pagination totalCount={totalCount} />
+			<Pagination totalCount={totalCount} resource="airport" />
 		</div>
 	);
 }

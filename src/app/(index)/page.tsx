@@ -5,6 +5,7 @@ import { sql } from 'drizzle-orm';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Title } from './title';
+import { Header } from '@/components/navigation/header';
 
 type Airline = {
 	id: string;
@@ -36,10 +37,10 @@ export default async function Home({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<div className="w-full flex items-center justify-between px-4 bg-gray-100/40 h-[60px] border-b">
+			<Header className="flex justify-between">
 				<Search placeholder="Search for an airline..." />
 				<UserButton />
-			</div>
+			</Header>
 
 			<Title />
 

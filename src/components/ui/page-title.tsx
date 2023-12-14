@@ -4,13 +4,17 @@ type PageTitleProps = {
 	title: string;
 	subtitle?: string;
 	className?: string;
+	header?: boolean;
 };
 
-const PageTitle = ({ title, subtitle, className }: PageTitleProps) => {
+const PageTitle = ({ title, subtitle, header, className }: PageTitleProps) => {
 	return (
 		<div
 			className={cn(
-				'flex flex-col space-y-1 px-4 md:px-6 border-b pb-6',
+				'flex flex-col space-y-1 px-4 md:px-6 border-b py-6',
+				{
+					'mt-[60px]': header,
+				},
 				className,
 			)}
 		>

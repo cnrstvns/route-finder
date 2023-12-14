@@ -1,4 +1,6 @@
+import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
+import { Pagination } from '@/components/ui/pagination';
 import { Search } from '@/components/ui/search';
 import {
 	Table,
@@ -9,12 +11,20 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { aircraft, db } from '@/db';
-import { ilike, or } from 'drizzle-orm';
+import { PAGE_SIZE } from '@/lib/constants';
+import { ilike, or, sql } from 'drizzle-orm';
 
-type PageParams = { searchParams: { q: string } };
+type PageParams = { searchParams: { q: string; page?: number } };
+type AircraftResult = {
+	id: number;
+	iata_code: string;
+	model_name: string;
+	short_name: string;
+};
 
 export default async function Aircraft({ searchParams }: PageParams) {
-	const aircrafts = await db
+	const page = Number(searchParams.page ?? 1);
+	const query = db
 		.select()
 		.from(aircraft)
 		.where(
@@ -24,18 +34,29 @@ export default async function Aircraft({ searchParams }: PageParams) {
 						ilike(aircraft.iataCode, `%${searchParams.q}%`),
 				  )
 				: undefined,
-		);
+		)
+		.orderBy(aircraft.modelName);
+
+	const countQuery = await db.execute<{ count: number }>(
+		sql`SELECT count(*) FROM ${query}`,
+	);
+	const totalCount = countQuery.rows[0].count;
+
+	query.limit(PAGE_SIZE);
+	query.offset(page * PAGE_SIZE - PAGE_SIZE);
+
+	const { rows: aircrafts } = await db.execute<AircraftResult>(query);
 
 	return (
 		<div>
-			<div className="w-full z-50 fixed top-0 flex items-center px-4 bg-gray-50 h-[60px] border-b">
+			<Header>
 				<Search placeholder="Search for an aircraft..." />
-			</div>
+			</Header>
 
 			<PageTitle
 				title="Aircraft"
 				subtitle="List of aircraft and their IATA codes."
-				className="pt-4 mt-[60px]"
+				header
 			/>
 
 			<Table>
@@ -51,15 +72,16 @@ export default async function Aircraft({ searchParams }: PageParams) {
 						<TableRow key={aircraft.id}>
 							<TableCell>
 								<span className="text-sm font-medium text-gray-900">
-									{aircraft.modelName}
+									{aircraft.model_name}
 								</span>
 							</TableCell>
-							<TableCell>{aircraft.iataCode}</TableCell>
-							<TableCell>{aircraft.shortName}</TableCell>
+							<TableCell>{aircraft.iata_code}</TableCell>
+							<TableCell>{aircraft.short_name}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
+			<Pagination totalCount={totalCount} resource="aircraft" />
 		</div>
 	);
 }

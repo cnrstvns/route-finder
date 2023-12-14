@@ -7,9 +7,10 @@ import { Button } from './button';
 
 type PaginationProps = {
 	totalCount: number;
+	resource: string;
 };
 
-export const Pagination = ({ totalCount }: PaginationProps) => {
+export const Pagination = ({ totalCount, resource }: PaginationProps) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -20,7 +21,7 @@ export const Pagination = ({ totalCount }: PaginationProps) => {
 	const showing = `Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
 		page * PAGE_SIZE,
 		totalCount,
-	)} of ${totalCount}`;
+	)} of ${totalCount} ${totalCount === 1 ? resource : `${resource}s`}`;
 
 	const goToPrevious = useCallback(() => {
 		const params = new URLSearchParams(searchParams);
