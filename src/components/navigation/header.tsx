@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { Search } from '../ui/search';
 import { UserButton } from '@clerk/nextjs';
+import { Search } from '../ui/search';
 
 type HeaderProps = {
 	className?: string;

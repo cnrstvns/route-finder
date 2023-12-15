@@ -1,9 +1,9 @@
+import { Header } from '@/components/navigation/header';
 import { airline, db, route } from '@/db';
 import { sql } from 'drizzle-orm';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Title } from './title';
-import { Header } from '@/components/navigation/header';
 
 type Airline = {
 	id: string;
