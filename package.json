@@ -5,9 +5,11 @@
 	"scripts": {
 		"dev": "doppler run -- next dev",
 		"build": "yarn db:push && next build",
-		"start": "doppler run -- next start",
-		"db:generate": "doppler run -- drizzle-kit generate:pg",
-		"db:push": "doppler run -- drizzle-kit push:pg --config=drizzle.config.ts",
+		"start": "next start",
+		"db:generate:dev": "doppler run -- drizzle-kit generate:pg",
+		"db:generate": "drizzle-kit generate:pg",
+		"db:push:dev": "doppler run -- drizzle-kit push:pg --config=drizzle.config.ts",
+		"db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
 		"lint": "biome check src",
 		"lint:fix": "biome check --apply src"
 	},
