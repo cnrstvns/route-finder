@@ -70,11 +70,11 @@ export default async function Routes({ searchParams }: PageParams) {
 	`;
 
 	const countQuery = await db.execute<{ count: number }>(
-		sql`SELECT count(*) FROM (${query})`,
+		sql`SELECT count(*) FROM (${query});`,
 	);
 	const totalCount = countQuery.rows[0].count;
 
-	query.append(sql`LIMIT ${PAGE_SIZE} OFFSET ${page * PAGE_SIZE - PAGE_SIZE}`);
+	query.append(sql`LIMIT ${PAGE_SIZE} OFFSET ${page * PAGE_SIZE - PAGE_SIZE};`);
 
 	const { rows: routes } = await db.execute<RouteResult>(query);
 
