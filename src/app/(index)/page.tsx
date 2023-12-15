@@ -1,6 +1,4 @@
-import { Search } from '@/components/ui/search';
 import { airline, db, route } from '@/db';
-import { UserButton } from '@clerk/nextjs';
 import { sql } from 'drizzle-orm';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,6 +20,7 @@ export default async function Home({ searchParams }: PageParams) {
     select a.id, a.name, a.slug, a.logo_path, count(r.id) as route_count
     from ${airline} a
     join ${route} r on r.airline_iata = a.iata_code group by a.id, a.name
+		order by a.name
   `;
 
 	if (searchParams.q) {
@@ -37,10 +36,7 @@ export default async function Home({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<Header className="flex justify-between">
-				<Search placeholder="Search for an airline..." />
-				<UserButton />
-			</Header>
+			<Header searchPlaceholder="Search for an airline..." profile />
 
 			<Title />
 

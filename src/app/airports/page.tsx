@@ -1,7 +1,6 @@
 import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
-import { Search } from '@/components/ui/search';
 import {
 	Table,
 	TableBody,
@@ -56,9 +55,7 @@ export default async function Airports({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<Header>
-				<Search placeholder="Search for an airport..." />
-			</Header>
+			<Header searchPlaceholder="Search for an airport..." profile />
 
 			<PageTitle
 				title="Airports"
