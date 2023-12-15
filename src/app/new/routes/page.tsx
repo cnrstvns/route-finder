@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { PageTitle } from '@/components/ui/page-title';
+import { Pagination } from '@/components/ui/pagination';
 import {
 	Table,
 	TableBody,
@@ -10,6 +11,7 @@ import {
 } from '@/components/ui/table';
 import { Tooltip } from '@/components/ui/tooltip';
 import { db, route } from '@/db';
+import { PAGE_SIZE } from '@/lib/constants';
 import { formatMinutes } from '@/lib/time';
 import { like, or, sql } from 'drizzle-orm';
 
@@ -19,6 +21,7 @@ type PageParams = {
 		minDuration: string;
 		aircraft: string;
 		airline: string;
+		page?: string;
 	};
 };
 
@@ -33,6 +36,7 @@ type RouteResult = {
 };
 
 export default async function Routes({ searchParams }: PageParams) {
+	const page = Number(searchParams.page ?? 1);
 	const aircraftWhere = searchParams.aircraft
 		.split(',')
 		.map((a) => like(route.aircraftCodes, `%${a}%`));
@@ -62,16 +66,23 @@ export default async function Routes({ searchParams }: PageParams) {
 			origin.name,
 			destination.name
 		ORDER BY
-			average_duration;
+			average_duration
 	`;
+
+	const countQuery = await db.execute<{ count: number }>(
+		sql`SELECT count(*) FROM (${query})`,
+	);
+	const totalCount = countQuery.rows[0].count;
+
+	query.append(sql`LIMIT ${PAGE_SIZE} OFFSET ${page * PAGE_SIZE - PAGE_SIZE}`);
 
 	const { rows: routes } = await db.execute<RouteResult>(query);
 
 	return (
 		<div>
-			<div className="mt-4">
+			<div>
 				<PageTitle
-					title={`${routes.length} Routes Found`}
+					title={`${totalCount} Routes Found`}
 					subtitle="Pick a route, and get to flying!"
 				/>
 			</div>
@@ -120,6 +131,7 @@ export default async function Routes({ searchParams }: PageParams) {
 						))}
 					</TableBody>
 				</Table>
+				<Pagination totalCount={totalCount} resource="route" />
 			</div>
 		</div>
 	);
