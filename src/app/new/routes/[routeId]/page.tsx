@@ -1,5 +1,3 @@
-import { db, route as routeTable } from '@/db';
-
 type PageParams = {
 	searchParams: {
 		routeId: string;
