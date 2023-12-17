@@ -37,9 +37,10 @@ type RouteResult = {
 
 export default async function Routes({ searchParams }: PageParams) {
 	const page = Number(searchParams.page ?? 1);
-	const aircraftWhere = searchParams.aircraft
-		.split(',')
-		.map((a) => like(route.aircraftCodes, `%${a}%`));
+	const aircraft = searchParams.aircraft.split(',');
+	const aircraftWhere = aircraft.map((a) =>
+		like(route.aircraftCodes, `%${a}%`),
+	);
 
 	const query = sql`
 		SELECT
@@ -49,7 +50,7 @@ export default async function Routes({ searchParams }: PageParams) {
 			route.average_duration,
 			origin.name AS origin_name,
 			destination.name AS destination_name,
-			STRING_AGG(aircraft.short_name, ',') AS aircraft_short_names
+			STRING_AGG(aircraft.iata_code, ',') AS aircraft_short_names
 		FROM
 			route
 			JOIN airport AS origin ON route.origin_iata = origin.iata_code
@@ -121,11 +122,22 @@ export default async function Routes({ searchParams }: PageParams) {
 								</TableCell>
 								<TableCell>{formatMinutes(r.average_duration)}</TableCell>
 								<TableCell className="space-x-2">
-									{r.aircraft_short_names.split(',').map((ac) => (
-										<Badge key={ac} variant="blue">
-											{ac}
-										</Badge>
-									))}
+									{r.aircraft_short_names
+										.split(',')
+										.filter((ac) => aircraft.includes(ac))
+										.map((ac) => (
+											<Badge key={ac} variant="blue">
+												{ac}
+											</Badge>
+										))}
+									{r.aircraft_short_names
+										.split(',')
+										.filter((ac) => !aircraft.includes(ac))
+										.map((ac) => (
+											<Badge key={ac} variant="gray">
+												{ac}
+											</Badge>
+										))}
 								</TableCell>
 							</TableRow>
 						))}
