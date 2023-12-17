@@ -46,6 +46,8 @@ export const airport = pgTable(
 		name: varchar('name').notNull(),
 		city: varchar('city').notNull(),
 		country: varchar('country').notNull(),
+		latitude: varchar('latitude').notNull().default(''),
+		longitude: varchar('longitude').notNull().default(''),
 	},
 	(table) => {
 		return {

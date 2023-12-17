@@ -8,7 +8,7 @@ const Navbar = () => {
 	return (
 		<div className="flex-1 overflow-auto py-2">
 			<nav className="grid items-start px-4 text-sm font-medium">
-				<NavLink href="/" title="Home" icon={faHomeAlt} />
+				<NavLink href="/home" title="Home" icon={faHomeAlt} />
 				<NavLink href="/aircraft" title="Aircraft" icon={faPlane} />
 				<NavLink href="/airlines" title="Airlines" icon={faSeatAirline} />
 				<NavLink href="/airports" title="Airports" icon={faTowerControl} />
