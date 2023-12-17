@@ -183,9 +183,10 @@ export default async function Page() {
 								<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
 									Trusted by enthusiasts like you
 								</h2>
-								<p className="mt-4 text-lg leading-8 text-gray-600">
+								<p className="mt-4 max-w-xl mx-auto text-lg leading-8 text-gray-600">
 									Loaded with thousands of data points to enhance your
-									experience.
+									experience. Our datasets are constantly being expanded to
+									improve your experience.
 								</p>
 							</div>
 							<dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-1 lg:grid-cols-3">
