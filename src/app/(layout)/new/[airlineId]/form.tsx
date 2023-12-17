@@ -4,6 +4,7 @@ import { Listbox } from '@/components/ui/listbox';
 import { Slider } from '@/components/ui/slider';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
+import posthog from 'posthog-js';
 import { useCallback } from 'react';
 import * as yup from 'yup';
 
@@ -38,6 +39,13 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 			const trueMax = Math.max(+values.minDuration, +values.maxDuration);
 			const trueMin = Math.min(+values.minDuration, +values.maxDuration);
 
+			posthog.capture('Searched for route', {
+				minDuration: trueMin,
+				maxDuration: trueMax,
+				aircraft: values.aircraft.toString(),
+				airline: airline,
+			});
+
 			router.push(
 				`/new/routes?minDuration=${trueMin}&maxDuration=${trueMax}&aircraft=${values.aircraft.toString()}&airline=${airline}`,
 			);
@@ -51,10 +59,10 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 			initialValues={initalValues}
 			validationSchema={validationSchema}
 			onSubmit={handleSubmit}
-			className="p-6 mt-4 mx-3 space-y-3"
+			className="p-6 mt-4 mx-3"
 		>
 			{({ setFieldValue, isValid }) => (
-				<Form className="mt-5 md:mt-4 mx-6 space-y-3">
+				<Form className="mt-5 md:mt-4 mx-6 space-y-5">
 					<div className="font-semibold text-md md:text-lg">
 						How long would you like to fly?
 					</div>

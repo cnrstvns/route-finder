@@ -2,6 +2,7 @@
 import { PAGE_SIZE } from '@/lib/constants';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import posthog from 'posthog-js';
 import { useCallback } from 'react';
 import { Button } from './button';
 
@@ -27,12 +28,24 @@ export const Pagination = ({ totalCount, resource }: PaginationProps) => {
 		const params = new URLSearchParams(searchParams);
 		params.set('page', (page - 1).toString());
 
+		posthog.capture('Clicked to previous page', {
+			pathname,
+			from: page,
+			to: page - 1,
+		});
+
 		router.push(`${pathname}?${params.toString()}`);
 	}, [pathname, searchParams, router, page]);
 
 	const goToNext = useCallback(() => {
 		const params = new URLSearchParams(searchParams);
 		params.set('page', (page + 1).toString());
+
+		posthog.capture('Clicked to next page', {
+			pathname,
+			from: page,
+			to: page + 1,
+		});
 
 		router.push(`${pathname}?${params.toString()}`);
 	}, [pathname, searchParams, router, page]);

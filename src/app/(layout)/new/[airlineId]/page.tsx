@@ -1,5 +1,5 @@
 import { PageTitle } from '@/components/ui/page-title';
-import { aircraft, airline as airlineTable, db } from '@/db';
+import { airline as airlineTable, db } from '@/db';
 import { eq, sql } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { RouteForm } from './form';
@@ -29,12 +29,10 @@ export default async function NewFlight({ params }: PageParams) {
 
 	return (
 		<div>
-			<div className="mt-4">
-				<PageTitle
-					title={`New ${airline.name} Flight`}
-					subtitle="Choose how long you'd like to fly, and on what equipment. We'll do the rest."
-				/>
-			</div>
+			<PageTitle
+				title={`New ${airline.name} Flight`}
+				subtitle="Choose how long you'd like to fly, and on what equipment. We'll do the rest."
+			/>
 
 			<RouteForm airline={airline.iataCode} aircraft={aircraftResults.rows} />
 		</div>
