@@ -8,5 +8,7 @@ declare namespace NodeJS {
 		NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: string;
 		CLERK_SECRET_KEY: string;
 		CLERK_WEBHOOK_SIGNING_SECRET: string;
+		NEXT_PUBLIC_POSTHOG_KEY: string;
+		NEXT_PUBLIC_POSTHOG_HOST: string;
 	}
 }
