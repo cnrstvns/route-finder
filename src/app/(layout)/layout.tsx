@@ -14,10 +14,11 @@ export default function Layout({ children }: LayoutProps) {
 						<div className="flex fixed w-[250px] h-screen flex-col gap-2">
 							<div className="flex h-[60px] items-center border-b px-6">
 								<Link
-									className="flex items-center gap-2 font-semibold"
+									className="flex text-lg items-center font-semibold"
 									href="#"
 								>
-									<span>RouteFinder</span>
+									<span>Route</span>
+									<span className="text-indigo-600">Finder</span>
 								</Link>
 							</div>
 							<Navbar />
