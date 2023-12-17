@@ -1,8 +1,8 @@
-import { count } from 'drizzle-orm';
 import { airline, airport, db, route } from '@/db';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/pro-regular-svg-icons/faChevronRight';
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons/faArrowRight';
+import { faChevronRight } from '@fortawesome/pro-regular-svg-icons/faChevronRight';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { count } from 'drizzle-orm';
 import { unstable_cache } from 'next/cache';
 
 const navigation = [
@@ -10,7 +10,12 @@ const navigation = [
 		name: 'Twitter',
 		href: 'https://x.com/cnrstvns',
 		icon: () => (
-			<svg fill="currentColor" viewBox="0 0 24 24">
+			<svg
+				className="h-6 w-6"
+				aria-hidden
+				fill="currentColor"
+				viewBox="0 0 24 24"
+			>
 				<title>X</title>
 				<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
 			</svg>
@@ -20,7 +25,12 @@ const navigation = [
 		name: 'GitHub',
 		href: 'https://github.com/cnrstvns',
 		icon: () => (
-			<svg fill="currentColor" viewBox="0 0 24 24">
+			<svg
+				className="h-6 w-6"
+				aria-hidden
+				fill="currentColor"
+				viewBox="0 0 24 24"
+			>
 				<title>GitHub</title>
 				<path
 					fillRule="evenodd"
@@ -75,8 +85,8 @@ export default async function Page() {
 					aria-label="Global"
 				>
 					<div className="flex lg:flex-1">
-						<a href="#" className="-m-1.5 p-1.5">
-							<span className="sr-only">Your Company</span>
+						<a href="/" className="-m-1.5 p-1.5">
+							<span className="sr-only">RouteFinder</span>
 							<img
 								className="h-8 w-auto"
 								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -86,10 +96,10 @@ export default async function Page() {
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<a
-							href="#"
+							href="/sign-in"
 							className="text-sm font-semibold leading-6 text-gray-900"
 						>
-							Log in <span aria-hidden="true">&rarr;</span>
+							Sign in <span aria-hidden="true">&rarr;</span>
 						</a>
 					</div>
 				</nav>
@@ -113,6 +123,7 @@ export default async function Page() {
 						</pattern>
 					</defs>
 					<svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+						<title>background</title>
 						<path
 							d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
 							strokeWidth={0}
@@ -153,7 +164,7 @@ export default async function Page() {
 						</p>
 						<div className="mt-10 justify-center flex items-center gap-x-6">
 							<a
-								href="#"
+								href="/sign-up"
 								className="rounded-md group flex items-center bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
 								Get started for free
@@ -205,7 +216,7 @@ export default async function Page() {
 									className="text-gray-400 hover:text-gray-500"
 								>
 									<span className="sr-only">{item.name}</span>
-									<item.icon className="h-6 w-6" aria-hidden="true" />
+									<item.icon />
 								</a>
 							))}
 						</div>

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { Navbar } from '@/components/navigation/navbar';
+import Link from 'next/link';
 
 type LayoutProps = {
 	children: React.ReactNode;

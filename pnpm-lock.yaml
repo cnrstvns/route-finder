@@ -14,7 +14,6 @@ specifiers:
   '@radix-ui/react-tooltip': ^1.0.7
   '@react-three/drei': ^9.92.3
   '@react-three/fiber': ^8.15.12
-  '@types/d3-geo': ^3.1.0
   '@types/node': ^20
   '@types/react': ^18
   '@types/react-dom': ^18
@@ -75,7 +74,6 @@ dependencies:
 
 devDependencies:
   '@biomejs/biome': 1.4.1
-  '@types/d3-geo': 3.1.0
   '@types/node': 20.10.4
   '@types/react': 18.2.42
   '@types/react-dom': 18.2.17
@@ -1822,12 +1820,6 @@ packages:
       '@types/node': 20.10.4
     dev: false
 
-  /@types/d3-geo/3.1.0:
-    resolution: {integrity: sha512-856sckF0oP/diXtS4jNsiQw/UuK5fQG8l/a9VVLeSouf1/PPbBE1i1W852zVwKwYCBkFJJB7nCFTbk6UMEXBOQ==}
-    dependencies:
-      '@types/geojson': 7946.0.13
-    dev: true
-
   /@types/draco3d/1.4.9:
     resolution: {integrity: sha512-4MMUjMQb4yA5fJ4osXx+QxGHt0/ZSy4spT6jL1HM7Tn8OJEC35siqdnpOo+HxPhYjqEFumKfGVF9hJfdyKBIBA==}
     dev: false
@@ -1849,10 +1841,6 @@ packages:
       '@types/qs': 6.9.10
       '@types/serve-static': 1.15.5
     dev: false
-
-  /@types/geojson/7946.0.13:
-    resolution: {integrity: sha512-bmrNrgKMOhM3WsafmbGmC+6dsF2Z308vLFsQ3a/bT8X8Sv5clVYpPars/UPq+sAaJP+5OoLAYgwbkS5QEJdLUQ==}
-    dev: true
 
   /@types/hoist-non-react-statics/3.3.5:
     resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
