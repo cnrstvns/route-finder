@@ -4,6 +4,7 @@ import { eq } from 'drizzle-orm';
 import status from 'http-status';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
+import { posthog } from '@/lib/analytics';
 
 export async function POST(req: Request) {
 	const svixId = req.headers.get('svix-id') ?? '';
@@ -36,6 +37,14 @@ export async function POST(req: Request) {
 				requestedDeletionAt: null,
 			});
 
+			posthog.capture({
+				distinctId: payload.data.id,
+				event: 'User signed up',
+				properties: {
+					email: primaryEmailAddress?.email_address,
+				},
+			});
+
 			break;
 		}
 
@@ -55,6 +64,14 @@ export async function POST(req: Request) {
 				})
 				.where(eq(user.clerkId, updatedUser.id));
 
+			posthog.capture({
+				distinctId: payload.data.id,
+				event: 'User updated email',
+				properties: {
+					email: primaryEmailAddress?.email_address,
+				},
+			});
+
 			break;
 		}
 
@@ -71,6 +88,14 @@ export async function POST(req: Request) {
 					requestedDeletionAt: new Date(),
 				})
 				.where(eq(user.clerkId, deletedUser.id));
+
+			posthog.capture({
+				distinctId: payload.data.id as string,
+				event: 'User deleted account',
+				properties: {
+					id: deletedUser.id,
+				},
+			});
 
 			break;
 		}
