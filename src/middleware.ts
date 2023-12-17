@@ -16,7 +16,7 @@ export default authMiddleware({
 		});
 	},
 	ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk'],
-	publicRoutes: ['/sign-in', '/sign-up'],
+	publicRoutes: ['/sign-in', '/sign-up', '/'],
 	signInUrl: '/sign-in',
 });
 
