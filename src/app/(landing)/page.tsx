@@ -93,7 +93,7 @@ export default async function Page() {
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<a
-							href="/sign-in"
+							href="/home"
 							className="text-sm font-semibold leading-6 text-gray-900"
 						>
 							Sign in <span aria-hidden="true">&rarr;</span>
@@ -141,7 +141,7 @@ export default async function Page() {
 									Beta Release
 								</span>
 								<span className="h-4 w-px bg-gray-900/10" aria-hidden="true" />
-								<a href="/sign-in" className="flex items-center gap-x-1">
+								<a href="/home" className="flex items-center gap-x-1">
 									<span className="absolute inset-0" aria-hidden="true" />
 									Available now for all users
 									<FontAwesomeIcon
@@ -161,7 +161,7 @@ export default async function Page() {
 						</p>
 						<div className="mt-10 justify-center flex items-center gap-x-6">
 							<a
-								href="/sign-up"
+								href="/home"
 								className="rounded-md group flex items-center bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
 								Get started for free
