@@ -2,9 +2,9 @@
 import { PAGE_SIZE } from '@/lib/constants';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import posthog from 'posthog-js';
 import { useCallback } from 'react';
 import { Button } from './button';
-import posthog from 'posthog-js';
 
 type PaginationProps = {
 	totalCount: number;

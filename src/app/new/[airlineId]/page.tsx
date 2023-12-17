@@ -1,5 +1,5 @@
 import { PageTitle } from '@/components/ui/page-title';
-import { aircraft, airline as airlineTable, db } from '@/db';
+import { airline as airlineTable, db } from '@/db';
 import { eq, sql } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { RouteForm } from './form';

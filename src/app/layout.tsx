@@ -2,8 +2,8 @@ import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Navbar } from '../components/navigation/navbar';
-import { PostHog } from './posthog';
 import './globals.css';
+import { PostHog } from './posthog';
 
 export const metadata: Metadata = {
 	title: 'RouteFinder',

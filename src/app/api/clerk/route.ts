@@ -1,10 +1,10 @@
 import { db, user } from '@/db';
+import { posthog } from '@/lib/analytics';
 import type { WebhookEvent } from '@clerk/clerk-sdk-node';
 import { eq } from 'drizzle-orm';
 import status from 'http-status';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
-import { posthog } from '@/lib/analytics';
 
 export async function POST(req: Request) {
 	const svixId = req.headers.get('svix-id') ?? '';

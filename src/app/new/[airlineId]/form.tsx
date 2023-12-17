@@ -4,9 +4,9 @@ import { Listbox } from '@/components/ui/listbox';
 import { Slider } from '@/components/ui/slider';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
+import posthog from 'posthog-js';
 import { useCallback } from 'react';
 import * as yup from 'yup';
-import posthog from 'posthog-js';
 
 type RouteFormProps = {
 	aircraft: { id: number; iata_code: string; model_name: string }[];
