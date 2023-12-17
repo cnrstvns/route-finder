@@ -86,12 +86,9 @@ export default async function Page() {
 				>
 					<div className="flex lg:flex-1">
 						<a href="/" className="-m-1.5 p-1.5">
-							<span className="sr-only">RouteFinder</span>
-							<img
-								className="h-8 w-auto"
-								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-								alt=""
-							/>
+							<div className="font-semibold text-xl">
+								Route<span className="text-indigo-600">Finder</span>
+							</div>
 						</a>
 					</div>
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -181,11 +178,12 @@ export default async function Page() {
 						<div className="mx-auto max-w-2xl lg:max-w-none">
 							<div className="text-center">
 								<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-									Trusted by enthusiasts like you
+									Trusted by enthusiasts{' '}
+									<span className="underline text-indigo-600">like you</span>
 								</h2>
 								<p className="mt-4 max-w-xl mx-auto text-lg leading-8 text-gray-600">
-									Loaded with thousands of data points to enhance your
-									experience. Our datasets are constantly being expanded to
+									RouteFinder is loaded with thousands of data points to enhance
+									your simulation. Our datasets are constantly being expanded to
 									improve your experience.
 								</p>
 							</div>
