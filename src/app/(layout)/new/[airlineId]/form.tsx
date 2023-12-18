@@ -63,8 +63,13 @@ const RouteForm = ({ aircraft, airline }: RouteFormProps) => {
 		>
 			{({ setFieldValue, isValid }) => (
 				<Form className="mt-5 md:mt-4 mx-6 space-y-5">
-					<div className="font-semibold text-md md:text-lg">
-						How long would you like to fly?
+					<div>
+						<div className="font-semibold text-md md:text-lg">
+							How long would you like to fly?
+						</div>
+						<div className="text-sm text-neutral-500">
+							Please choose a minimum and maximum duration.
+						</div>
 					</div>
 
 					<Slider
