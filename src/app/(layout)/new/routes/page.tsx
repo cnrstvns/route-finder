@@ -1,19 +1,16 @@
-import { Badge } from '@/components/ui/badge';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
 import {
 	Table,
 	TableBody,
-	TableCell,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { Tooltip } from '@/components/ui/tooltip';
 import { db, route } from '@/db';
 import { PAGE_SIZE } from '@/lib/constants';
-import { formatMinutes } from '@/lib/time';
 import { like, or, sql } from 'drizzle-orm';
+import Row from './row';
 
 type PageParams = {
 	searchParams: {
@@ -99,47 +96,7 @@ export default async function Routes({ searchParams }: PageParams) {
 					</TableHeader>
 					<TableBody>
 						{routes.map((r) => (
-							<TableRow key={r.id}>
-								<TableCell>
-									<Tooltip
-										trigger={
-											<span className="font-medium text-black">
-												{r.origin_iata}
-											</span>
-										}
-										children={r.origin_name}
-									/>
-								</TableCell>
-								<TableCell>
-									<Tooltip
-										trigger={
-											<span className="font-medium text-black">
-												{r.destination_iata}
-											</span>
-										}
-										children={r.destination_name}
-									/>{' '}
-								</TableCell>
-								<TableCell>{formatMinutes(r.average_duration)}</TableCell>
-								<TableCell className="space-x-2">
-									{r.aircraft_short_names
-										.split(',')
-										.filter((ac) => aircraft.includes(ac))
-										.map((ac) => (
-											<Badge key={ac} variant="blue">
-												{ac}
-											</Badge>
-										))}
-									{r.aircraft_short_names
-										.split(',')
-										.filter((ac) => !aircraft.includes(ac))
-										.map((ac) => (
-											<Badge key={ac} variant="gray">
-												{ac}
-											</Badge>
-										))}
-								</TableCell>
-							</TableRow>
+							<Row route={r} aircraft={aircraft} />
 						))}
 					</TableBody>
 				</Table>
