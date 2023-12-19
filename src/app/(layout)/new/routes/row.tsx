@@ -1,10 +1,10 @@
 'use client';
-
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Tooltip } from '@/components/ui/tooltip';
 import { formatMinutes } from '@/lib/time';
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 type RouteResult = {
 	id: number;
@@ -16,15 +16,19 @@ type RouteResult = {
 	aircraft_short_names: string;
 };
 
-export default function Row({
-	aircraft,
-	route,
-}: { aircraft: string[]; route: RouteResult }) {
+type RowProps = {
+  aircraft: string[];
+  route: RouteResult
+}
+
+export default function Row({ aircraft, route }: RowProps) {
 	const router = useRouter();
+  const navigate = useCallback((r:string) => { router.push(r) }, []);
+
 	return (
 		<TableRow
 			className="cursor-pointer"
-			onClick={() => router.push(`/new/routes/${route.id}`)}
+			onClick={() => navigate(`/new/routes/${route.id}`)}
 			key={route.id}
 		>
 			<TableCell>
