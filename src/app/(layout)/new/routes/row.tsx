@@ -23,7 +23,9 @@ type RowProps = {
 
 export default function Row({ aircraft, route }: RowProps) {
 	const router = useRouter();
-  const navigate = useCallback((r:string) => { router.push(r) }, []);
+  	const navigate = useCallback((r: string) => {
+		router.push(r) 
+	}, [router]);
 
 	return (
 		<TableRow
