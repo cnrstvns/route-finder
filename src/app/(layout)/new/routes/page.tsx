@@ -96,7 +96,7 @@ export default async function Routes({ searchParams }: PageParams) {
 					</TableHeader>
 					<TableBody>
 						{routes.map((r) => (
-							<Row route={r} aircraft={aircraft} />
+							<Row key={r.id} route={r} aircraft={aircraft} />
 						))}
 					</TableBody>
 				</Table>
