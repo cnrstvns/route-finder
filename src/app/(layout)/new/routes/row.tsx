@@ -17,15 +17,18 @@ type RouteResult = {
 };
 
 type RowProps = {
-  aircraft: string[];
-  route: RouteResult
-}
+	aircraft: string[];
+	route: RouteResult;
+};
 
 export default function Row({ aircraft, route }: RowProps) {
 	const router = useRouter();
-  	const navigate = useCallback((r: string) => {
-		router.push(r) 
-	}, [router]);
+	const navigate = useCallback(
+		(r: string) => {
+			router.push(r);
+		},
+		[router],
+	);
 
 	return (
 		<TableRow
