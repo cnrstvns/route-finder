@@ -34,7 +34,6 @@ export default function Row({ aircraft, route }: RowProps) {
 		<TableRow
 			className="cursor-pointer"
 			onClick={() => navigate(`/new/routes/${route.id}`)}
-			key={route.id}
 		>
 			<TableCell>
 				<Tooltip
@@ -52,7 +51,7 @@ export default function Row({ aircraft, route }: RowProps) {
 						</span>
 					}
 					children={route.destination_name}
-				/>{' '}
+				/>
 			</TableCell>
 			<TableCell>{formatMinutes(route.average_duration)}</TableCell>
 			<TableCell className="space-x-2">
