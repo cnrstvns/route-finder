@@ -66,7 +66,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 			</div>
 			<div className="flex flex-col">
 				<div className="text-xl font-semibold">{airline.name}</div>
-				<div className="text-gray-500">{airline.route_count} routes</div>
+				<div className="text-neutral-500">{airline.route_count} routes</div>
 			</div>
 		</Link>
 	);

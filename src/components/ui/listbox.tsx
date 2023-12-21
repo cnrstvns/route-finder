@@ -49,7 +49,7 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 			<div className="relative mt-1 z-10">
 				<ListboxPrimitive.Button
 					className={cn(
-						'relative w-full cursor-pointer rounded-md border border-neutral-200 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-sky-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-300 sm:text-sm',
+						'relative w-full rounded-md border border-neutral-200 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-sky-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-300 sm:text-sm',
 						buttonClassName,
 					)}
 				>
@@ -74,7 +74,7 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 								className={({ active }) =>
 									cn('relative cursor-default select-none py-2 pl-10 pr-4', {
 										'bg-sky-100 text-sky-900': active,
-										'text-gray-900': !active,
+										'text-neutral-900': !active,
 									})
 								}
 								value={item.value}

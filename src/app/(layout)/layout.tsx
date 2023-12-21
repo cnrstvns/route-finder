@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
 		<body className="overscroll-none">
 			<main>
 				<div className="grid min-h-screen w-full lg:grid-cols-[250px_1fr]">
-					<div className="hidden border-r bg-gray-50 lg:block">
+					<div className="hidden border-r bg-neutral-50 lg:block">
 						<div className="flex fixed w-[250px] h-screen flex-col gap-2">
 							<div className="flex h-[60px] items-center border-b px-6">
 								<Link

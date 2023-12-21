@@ -68,7 +68,7 @@ export default async function Aircraft({ searchParams }: PageParams) {
 					{aircrafts.map((aircraft) => (
 						<TableRow key={aircraft.id}>
 							<TableCell>
-								<span className="text-sm font-medium text-gray-900">
+								<span className="text-sm font-medium text-neutral-900">
 									{aircraft.model_name}
 								</span>
 							</TableCell>
