@@ -40,7 +40,7 @@ export default async function Home({ searchParams }: PageParams) {
 
 			<Title />
 
-			<div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+			<div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 dark:bg-zinc-900">
 				{airlines.map((airline) => (
 					<AirlineCard key={airline.id} airline={airline} />
 				))}
@@ -53,7 +53,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 	return (
 		<Link
 			href={`/new/${airline.slug}`}
-			className="border flex space-x-3 rounded-md shadow-sm py-4 px-4 hover:shadow-md transition-all duration-250"
+			className="border flex space-x-3 rounded-md shadow-sm py-4 px-4 hover:shadow-md hover:bg-neutral-50 dark:hover:bg-zinc-800/50 transition-all duration-100 cursor-default dark:border-white/10"
 		>
 			<div className="flex flex-col h-full justify-center">
 				<Image
@@ -65,8 +65,12 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 				/>
 			</div>
 			<div className="flex flex-col">
-				<div className="text-xl font-semibold">{airline.name}</div>
-				<div className="text-neutral-500">{airline.route_count} routes</div>
+				<div className="text-xl font-semibold dark:text-zinc-200">
+					{airline.name}
+				</div>
+				<div className="text-neutral-500 dark:text-zinc-400">
+					{airline.route_count} routes
+				</div>
 			</div>
 		</Link>
 	);

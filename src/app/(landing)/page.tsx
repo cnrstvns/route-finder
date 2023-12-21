@@ -136,7 +136,7 @@ export default async function Page() {
 				<div className="flex items-center justify-center py-40 px-10 md:px-0 text-center">
 					<div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
 						<div className="flex items-center w-full justify-center">
-							<div className="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-neutral-600 ring-1 ring-neutral-900/10 hover:ring-neutral-900/20">
+							<div className="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-neutral-600 ring-1 transition-all ring-neutral-900/10 hover:ring-neutral-900/20">
 								<span className="font-semibold text-indigo-600">
 									Beta Release
 								</span>

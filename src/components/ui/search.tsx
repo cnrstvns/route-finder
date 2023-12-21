@@ -40,7 +40,7 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
 					aria-hidden="true"
 				>
 					<FontAwesomeIcon
-						className={cn({ 'fa-spin': isPending })}
+						className={cn('dark:text-zinc-400', { 'fa-spin': isPending })}
 						icon={isPending ? faSpinnerThird : faMagnifyingGlass}
 					/>
 				</div>
@@ -49,7 +49,7 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
 					name="search"
 					id="search"
 					disabled={disabled}
-					className="h-9 block focus:shadow-md focus:outline-none w-full rounded-md border border-neutral-200 pl-9 focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1 sm:text-sm"
+					className="h-9 block focus:shadow-md focus:outline-none w-full rounded-md border border-neutral-200 dark:border-zinc-700 dark:bg-neutral-800 dark:text-white dark:placeholder:text-zinc-400 pl-9 focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1 sm:text-sm"
 					placeholder={placeholder}
 					spellCheck={false}
 					onChange={(e) => handleSearch(e.target.value)}

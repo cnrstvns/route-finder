@@ -245,18 +245,19 @@ export default async function Page({ params, searchParams }: PageParams) {
 								/>
 							</div>
 						</Button>
-						<Link
-							href={`https://skyvector.com?fpl=${route.origin_icao}%20${route.destination_icao}`}
-							target="_blank"
-							className="w-full"
-						>
-							<Button variant="black" size="md" className="w-full">
+
+						<Button variant="black" size="md" className="w-full" asChild>
+							<Link
+								href={`https://skyvector.com?fpl=${route.origin_icao}%20${route.destination_icao}`}
+								target="_blank"
+								className="w-full"
+							>
 								<div className="flex items-center">
 									Open in SkyVector
 									<FontAwesomeIcon icon={faMap} className="h-5 w-5 ml-2" />
 								</div>
-							</Button>
-						</Link>
+							</Link>
+						</Button>
 					</CardFooter>
 				</Card>
 			</div>

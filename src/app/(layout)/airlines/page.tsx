@@ -59,18 +59,18 @@ export default async function Airlines({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table className="w-full divide-y divide-neutral-200">
+			<Table className="w-full divide-y divide-gray-200">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Airline</TableHead>
 						<TableHead>IATA Code</TableHead>
 					</TableRow>
 				</TableHeader>
-				<TableBody className="bg-white divide-y divide-neutral-200">
+				<TableBody className="bg-white divide-y divide-gray-200">
 					{airlines.map((airline) => (
 						<TableRow key={airline.id}>
 							<TableCell className="px-6 py-4 whitespace-nowrap">
-								<span className="text-sm font-medium text-neutral-900">
+								<span className="text-sm font-medium text-gray-900">
 									{airline.name}
 								</span>
 							</TableCell>
