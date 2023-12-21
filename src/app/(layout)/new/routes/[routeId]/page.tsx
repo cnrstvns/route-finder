@@ -1,11 +1,4 @@
-import { eq, like, or, sql } from 'drizzle-orm';
-import { db, route as routeTable, aircraft as aircraftTable } from '@/db';
-import { generateFlightNumber } from '@/lib/flight-number';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMap } from '@fortawesome/pro-solid-svg-icons/faMap';
-import { PageTitle } from '@/components/ui/page-title';
 import {
 	Card,
 	CardContent,
@@ -15,10 +8,22 @@ import {
 	CardRow,
 	CardTitle,
 } from '@/components/ui/card';
+import { PageTitle } from '@/components/ui/page-title';
+import { aircraft as aircraftTable, db, route as routeTable } from '@/db';
 import { distanceInNauticalMiles } from '@/lib/distance';
-import { formatMinutes } from '@/lib/time';
 import { formatElevation } from '@/lib/elevation';
+import { generateFlightNumber } from '@/lib/flight-number';
+import { formatMinutes } from '@/lib/time';
+import { faMap } from '@fortawesome/pro-solid-svg-icons/faMap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { eq, like, or, sql } from 'drizzle-orm';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Link from 'next/link';
+const Preview = dynamic(() => import('./preview'), {
+	ssr: false,
+	loading: () => <p>...</p>,
+});
 
 type PageParams = {
 	params: {
@@ -258,6 +263,16 @@ export default async function Page({ params, searchParams }: PageParams) {
 							</Button>
 						</Link>
 					</CardFooter>
+				</Card>
+				<Card>
+					<CardHeader>
+						<CardTitle>Preview</CardTitle>
+						<CardDescription>Preview of your flight's route</CardDescription>
+					</CardHeader>
+
+					<CardContent className="flex space-y-3 md:space-y-0 flex-col md:flex-row space-x-0 md:space-x-2">
+						<Preview route={route} />
+					</CardContent>
 				</Card>
 			</div>
 		</div>
