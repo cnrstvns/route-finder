@@ -24,16 +24,16 @@ type RowProps = {
 export default function Row({ aircraft, route }: RowProps) {
 	const router = useRouter();
 	const navigate = useCallback(
-		(r: string) => {
-			router.push(r);
+		() => {
+			router.push(`/new/routes/${route.id}?aircraft=${aircraft.toString()}`);
 		},
-		[router],
+		[router, aircraft, route],
 	);
 
 	return (
 		<TableRow
 			className="cursor-pointer"
-			onClick={() => navigate(`/new/routes/${route.id}`)}
+			onClick={navigate}
 		>
 			<TableCell>
 				<Tooltip

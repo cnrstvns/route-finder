@@ -43,15 +43,18 @@ export const airport = pgTable(
 	{
 		id: serial('id').primaryKey(),
 		iataCode: varchar('iata_code').notNull().unique(),
+		icaoCode: varchar('icao_code'),
 		name: varchar('name').notNull(),
 		city: varchar('city').notNull(),
 		country: varchar('country').notNull(),
 		latitude: varchar('latitude').notNull().default(''),
 		longitude: varchar('longitude').notNull().default(''),
+		elevation: varchar('elevation'),
 	},
 	(table) => {
 		return {
 			iataCodeIndex: index('iata_code_index').on(table.iataCode),
+			icaoCodeIndex: index('icao_code').on(table.icaoCode),
 			nameIndex: index('name_index').on(table.name),
 			cityIndex: index('city_index').on(table.city),
 			countryIndex: index('country_index').on(table.country),

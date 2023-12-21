@@ -4,7 +4,7 @@ import * as React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	asChild?: boolean;
-	variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link';
+	variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link' | 'black';
 	size: 'sm' | 'md' | 'lg' | 'icon';
 }
 
@@ -22,9 +22,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 						'h-10 w-10': size === 'icon',
 					},
 					{
-						'bg-sky-300 text-neutral-800  hover:bg-sky-300/80 active:bg-sky-300/60':
+						'bg-sky-300 text-neutral-800 hover:bg-sky-300/80 active:bg-sky-300/60':
 							variant === 'default',
-						'bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 hover:border-neutral-300 active:bg-neutral-300 active:border-neutral-400':
+						'bg-black text-white hover:bg-black/80 active:bg-black/60':
+							variant === 'black',
+						'bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 hover:border-neutral-300 active:bg-neutral-300':
 							variant === 'secondary',
 						'bg-rose-600 text-white hover:bg-rose-600/90 active:bg-rose-600/80':
 							variant === 'destructive',
@@ -32,6 +34,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 						'text-sky-600 underline-offset-4 hover:underline':
 							variant === 'link',
 					},
+					className,
 				)}
 				ref={ref}
 				{...props}

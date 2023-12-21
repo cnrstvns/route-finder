@@ -1,0 +1,1 @@
+ALTER TABLE "airport" ADD COLUMN "elevation" varchar;
