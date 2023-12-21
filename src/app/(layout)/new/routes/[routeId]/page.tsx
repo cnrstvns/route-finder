@@ -263,6 +263,3 @@ export default async function Page({ params, searchParams }: PageParams) {
 		</div>
 	);
 }
-
-// skyvector link
-// https://skyvector.com/?fpl=%20KLRU%20KCVN
