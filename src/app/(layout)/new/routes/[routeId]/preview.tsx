@@ -39,30 +39,36 @@ type PreviewProps = {
 	route: RouteResult;
 };
 
-export default function Preview({ route }: PreviewProps) {
+const Preview = ({ route }: PreviewProps) => {
 	const globeEl = useRef<GlobeMethods>();
 
-	const startLat = parseFloat(route.origin_latitude);
-	const startLng = parseFloat(route.origin_longitude);
-	const endLat = parseFloat(route.destination_latitude);
-	const endLng = parseFloat(route.destination_longitude);
+	const startLatitude = parseFloat(route.origin_latitude);
+	const startLongitude = parseFloat(route.origin_longitude);
+	const endLatitude = parseFloat(route.destination_latitude);
+	const endLongitude = parseFloat(route.destination_longitude);
 
 	const arcsData = [
-		{ startLat, startLng, endLat, endLng, color: 'rgba(255, 0, 0, 1)' },
+		{
+			startLat: startLatitude,
+			startLng: startLongitude,
+			endLat: endLatitude,
+			endLng: endLongitude,
+			color: 'rgba(255, 0, 0, 1)',
+		},
 	];
 
 	const labelsData: LabelData[] = [
 		{
-			lat: startLat,
-			lng: startLng,
+			lat: startLatitude,
+			lng: startLongitude,
 			text: route.origin_name,
 			color: 'lightblue',
 			size: 1.5,
 			altitude: 0.01,
 		},
 		{
-			lat: endLat,
-			lng: endLng,
+			lat: endLatitude,
+			lng: endLongitude,
 			text: route.destination_name,
 			color: 'lightgreen',
 			size: 1.5,
@@ -71,7 +77,12 @@ export default function Preview({ route }: PreviewProps) {
 	];
 
 	useEffect(() => {
-		const midpoint = calculateMidpoint(startLat, startLng, endLat, endLng);
+		const midpoint = calculateMidpoint({
+			latitudeOne: startLatitude,
+			longitudeOne: startLongitude,
+			latitudeTwo: endLatitude,
+			longitudeTwo: endLongitude,
+		});
 		if (globeEl.current) {
 			const altitude = 1.75;
 			globeEl.current.pointOfView(
@@ -79,7 +90,7 @@ export default function Preview({ route }: PreviewProps) {
 				1000,
 			);
 		}
-	}, [startLat, startLng, endLat, endLng]);
+	}, [startLatitude, startLongitude, endLatitude, endLongitude]);
 
 	return (
 		<div className="flex justify-center items-center w-full h-full">
@@ -107,23 +118,34 @@ export default function Preview({ route }: PreviewProps) {
 			/>
 		</div>
 	);
-}
+};
 
-function calculateMidpoint(
-	lat1: number,
-	lng1: number,
-	lat2: number,
-	lng2: number,
-) {
-	const dLng = Math.abs(lng2 - lng1);
+export default Preview;
+
+const calculateMidpoint = ({
+	latitudeOne,
+	longitudeOne,
+	latitudeTwo,
+	longitudeTwo,
+}: {
+	latitudeOne: number;
+	latitudeTwo: number;
+	longitudeOne: number;
+	longitudeTwo: number;
+}) => {
+	const dLng = Math.abs(longitudeTwo - longitudeOne);
 	const rad = Math.PI / 180;
-	const a = Math.cos(lat2 * rad) * Math.cos(dLng * rad);
-	const b = Math.cos(lat2 * rad) * Math.sin(dLng * rad);
+	const a = Math.cos(latitudeTwo * rad) * Math.cos(dLng * rad);
+	const b = Math.cos(latitudeTwo * rad) * Math.sin(dLng * rad);
 	const latMid = Math.atan2(
-		Math.sin(lat1 * rad) + Math.sin(lat2 * rad),
-		Math.sqrt((Math.cos(lat1 * rad) + a) * (Math.cos(lat1 * rad) + a) + b * b),
+		Math.sin(latitudeOne * rad) + Math.sin(latitudeTwo * rad),
+		Math.sqrt(
+			(Math.cos(latitudeOne * rad) + a) * (Math.cos(latitudeOne * rad) + a) +
+				b * b,
+		),
 	);
-	const lngMid = lng1 * rad + Math.atan2(b, Math.cos(lat1 * rad) + a);
+	const lngMid =
+		longitudeOne * rad + Math.atan2(b, Math.cos(latitudeOne * rad) + a);
 
 	return { latitude: latMid / rad, longitude: lngMid / rad };
-}
+};
