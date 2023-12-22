@@ -187,7 +187,10 @@ export default async function Page({ params, searchParams }: PageParams) {
 					</CardHeader>
 					<CardContent>
 						{aircraft.map((ac) => (
-							<div key={ac.id} className="py-2 border-b last-of-type:border-0">
+							<div
+								key={ac.id}
+								className="py-2 border-b dark:border-white/10 last-of-type:border-0"
+							>
 								<div className="font-medium text-lg">{ac.model_name}</div>
 								<CardRow
 									key={ac.id}

@@ -32,7 +32,9 @@ export default function Row({ aircraft, route }: RowProps) {
 			<TableCell>
 				<Tooltip
 					trigger={
-						<span className="font-medium text-black">{route.origin_iata}</span>
+						<span className="font-medium text-black dark:text-zinc-200">
+							{route.origin_iata}
+						</span>
 					}
 					children={route.origin_name}
 				/>
@@ -40,7 +42,7 @@ export default function Row({ aircraft, route }: RowProps) {
 			<TableCell>
 				<Tooltip
 					trigger={
-						<span className="font-medium text-black">
+						<span className="font-medium text-black dark:text-zinc-200">
 							{route.destination_iata}
 						</span>
 					}

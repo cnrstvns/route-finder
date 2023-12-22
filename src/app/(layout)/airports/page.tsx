@@ -63,7 +63,7 @@ export default async function Airports({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table className="w-full divide-y divide-neutral-200">
+			<Table className="w-full">
 				<TableHeader>
 					<TableRow>
 						<TableHead>IATA Code</TableHead>
@@ -72,11 +72,11 @@ export default async function Airports({ searchParams }: PageParams) {
 						<TableHead>Country</TableHead>
 					</TableRow>
 				</TableHeader>
-				<TableBody className="bg-white divide-y divide-neutral-200">
+				<TableBody className="bg-white">
 					{airports.map((airport) => (
 						<TableRow key={airport.id}>
 							<TableCell>
-								<div className="text-sm font-medium text-neutral-900">
+								<div className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
 									{airport.iata_code}
 								</div>
 							</TableCell>

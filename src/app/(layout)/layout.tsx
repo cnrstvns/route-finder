@@ -18,14 +18,16 @@ export default function Layout({ children }: LayoutProps) {
 									href="#"
 								>
 									<span className="dark:text-white">Route</span>
-									<span className="text-indigo-600">Finder</span>
+									<span className="text-indigo-600 dark:text-indigo-500">
+										Finder
+									</span>
 								</Link>
 							</div>
 							<Navbar />
 						</div>
 					</div>
 					<div className="flex flex-col">
-						<div className="flex flex-1 flex-col gap-4 md:gap-8 dark:bg-zinc-900">
+						<div className="flex flex-1 flex-col gap-4 md:gap-8">
 							{children}
 						</div>
 					</div>

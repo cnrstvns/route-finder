@@ -66,11 +66,11 @@ export default async function Airlines({ searchParams }: PageParams) {
 						<TableHead>IATA Code</TableHead>
 					</TableRow>
 				</TableHeader>
-				<TableBody className="bg-white divide-y divide-gray-200">
+				<TableBody className="bg-white">
 					{airlines.map((airline) => (
 						<TableRow key={airline.id}>
 							<TableCell className="px-6 py-4 whitespace-nowrap">
-								<span className="text-sm font-medium text-gray-900">
+								<span className="text-sm font-medium text-gray-900 dark:text-zinc-200">
 									{airline.name}
 								</span>
 							</TableCell>

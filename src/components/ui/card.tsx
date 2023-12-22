@@ -14,7 +14,7 @@ const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
 		<div
 			ref={ref}
 			className={cn(
-				'rounded-lg border bg-card text-black shadow-sm',
+				'rounded-lg border bg-card text-black dark:text-white dark:border-white/10 shadow-sm',
 				className,
 			)}
 			{...props}
@@ -56,7 +56,7 @@ const CardDescription = forwardRef<
 >(({ className, ...props }, ref) => (
 	<p
 		ref={ref}
-		className={cn('text-sm text-neutral-500', className)}
+		className={cn('text-sm text-neutral-500 dark:text-zinc-400', className)}
 		{...props}
 	/>
 ));
@@ -99,18 +99,24 @@ const CardRow = forwardRef<HTMLDivElement, CardRowProps>(
 				onMouseEnter={() => setHovering(true)}
 				onMouseLeave={() => setHovering(false)}
 				className={cn(
-					'flex items-center justify-between border-b py-1.5 text-sm first-of-type:pt-0 last-of-type:border-0',
+					'flex items-center justify-between border-b py-1.5 text-sm first-of-type:pt-0 last-of-type:border-0 dark:border-white/10',
 					className,
 				)}
 				{...props}
 			>
-				<div className="text-neutral-700 font-medium">{label}</div>
-				{!copyable && <div className="text-neutral-500">{value}</div>}
+				<div className="text-neutral-700 dark:text-white/80 font-medium">
+					{label}
+				</div>
+				{!copyable && (
+					<div className="text-neutral-500 dark:text-zinc-500">{value}</div>
+				)}
 				{copyable &&
 					(() => {
 						if (copied) return <div className="text-indigo-500">Copied</div>;
 						if (hovering) return <div className="text-indigo-500">Copy</div>;
-						return <div className="text-neutral-500">{value}</div>;
+						return (
+							<div className="text-neutral-500 dark:text-zinc-500">{value}</div>
+						);
 					})()}
 			</div>
 		);
