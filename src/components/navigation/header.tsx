@@ -12,7 +12,7 @@ const Header = ({ searchPlaceholder, profile, className }: HeaderProps) => {
 	return (
 		<div
 			className={cn(
-				'w-full lg:w-[calc(100%-250px)] fixed top-0 z-50 flex items-center px-4 bg-gray-50 h-[60px] border-b',
+				'w-full lg:w-[calc(100%-250px)] fixed top-0 z-50 flex items-center px-4 bg-neutral-50 dark:bg-zinc-900 h-[60px] border-b dark:border-white/10',
 				{
 					'justify-between': searchPlaceholder && profile,
 					'justify-end': !searchPlaceholder && profile,

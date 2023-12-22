@@ -94,7 +94,7 @@ export default async function Page() {
 					<div className="hidden lg:flex lg:flex-1 lg:justify-end">
 						<a
 							href="/home"
-							className="text-sm font-semibold leading-6 text-gray-900"
+							className="text-sm font-semibold leading-6 text-neutral-900"
 						>
 							Sign in <span aria-hidden="true">&rarr;</span>
 						</a>
@@ -104,7 +104,7 @@ export default async function Page() {
 
 			<div className="relative isolate pt-14">
 				<svg
-					className="absolute inset-0 -z-10 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+					className="absolute inset-0 -z-10 h-full w-full stroke-neutral-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
 					aria-hidden="true"
 				>
 					<defs>
@@ -119,7 +119,7 @@ export default async function Page() {
 							<path d="M100 200V.5M.5 .5H200" fill="none" />
 						</pattern>
 					</defs>
-					<svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+					<svg x="50%" y={-1} className="overflow-visible fill-neutral-50">
 						<title>background</title>
 						<path
 							d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
@@ -136,11 +136,14 @@ export default async function Page() {
 				<div className="flex items-center justify-center py-40 px-10 md:px-0 text-center">
 					<div className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto">
 						<div className="flex items-center w-full justify-center">
-							<div className="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+							<div className="relative flex items-center gap-x-4 rounded-full px-4 py-1 text-sm leading-6 text-neutral-600 ring-1 transition-all ring-neutral-900/10 hover:ring-neutral-900/20">
 								<span className="font-semibold text-indigo-600">
 									Beta Release
 								</span>
-								<span className="h-4 w-px bg-gray-900/10" aria-hidden="true" />
+								<span
+									className="h-4 w-px bg-neutral-900/10"
+									aria-hidden="true"
+								/>
 								<a href="/home" className="flex items-center gap-x-1">
 									<span className="absolute inset-0" aria-hidden="true" />
 									Available now for all users
@@ -151,10 +154,10 @@ export default async function Page() {
 								</a>
 							</div>
 						</div>
-						<h1 className="mt-10 max-w-4xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+						<h1 className="mt-10 max-w-4xl text-4xl font-bold tracking-tight text-neutral-900 sm:text-6xl">
 							Find real-world routes to fly in your simulator
 						</h1>
-						<p className="mt-6 text-lg leading-8 text-gray-600">
+						<p className="mt-6 text-lg leading-8 text-neutral-600">
 							We've curated over 15,000 real-world routes flown by dozens of
 							airlines. Figuring out where to fly shouldn't be a chore. Get
 							started today.
@@ -177,11 +180,11 @@ export default async function Page() {
 					<div className="mx-auto max-w-7xl px-6 lg:px-8">
 						<div className="mx-auto max-w-2xl lg:max-w-none">
 							<div className="text-center">
-								<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+								<h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
 									Trusted by enthusiasts{' '}
 									<span className="underline text-indigo-600">like you</span>
 								</h2>
-								<p className="mt-4 max-w-xl mx-auto text-lg leading-8 text-gray-600">
+								<p className="mt-4 max-w-xl mx-auto text-lg leading-8 text-neutral-600">
 									RouteFinder is loaded with thousands of data points to enhance
 									your simulation. Our datasets are constantly being expanded to
 									improve your experience.
@@ -191,12 +194,12 @@ export default async function Page() {
 								{stats.map((stat) => (
 									<div
 										key={stat.label}
-										className="flex flex-col bg-gray-400/5 p-8"
+										className="flex flex-col bg-neutral-400/5 p-8"
 									>
-										<dt className="text-sm pt-2 font-semibold leading-6 text-gray-600">
+										<dt className="text-sm pt-2 font-semibold leading-6 text-neutral-600">
 											{stat.label}
 										</dt>
-										<dd className="order-first text-5xl font-bold tracking-tight text-gray-900">
+										<dd className="order-first text-5xl font-bold tracking-tight text-neutral-900">
 											{stat.value.toLocaleString()}
 										</dd>
 									</div>
@@ -212,7 +215,7 @@ export default async function Page() {
 								<a
 									key={item.name}
 									href={item.href}
-									className="text-gray-400 hover:text-gray-500"
+									className="text-neutral-400 hover:text-neutral-500"
 								>
 									<span className="sr-only">{item.name}</span>
 									<item.icon />
@@ -220,7 +223,7 @@ export default async function Page() {
 							))}
 						</div>
 						<div className="mt-8 md:order-1 md:mt-0">
-							<p className="text-center text-xs leading-5 text-gray-500">
+							<p className="text-center text-xs leading-5 text-neutral-500">
 								&copy; 2023 Connor Stevens. All rights reserved.
 							</p>
 						</div>

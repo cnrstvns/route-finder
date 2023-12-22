@@ -51,7 +51,7 @@ export const Pagination = ({ totalCount, resource }: PaginationProps) => {
 	}, [pathname, searchParams, router, page]);
 
 	return (
-		<div className="flex w-full justify-between items-center border-t py-2 px-6">
+		<div className="flex w-full justify-between items-center border-t dark:border-white/10 py-2 px-6">
 			<div className="text-neutral-500 text-sm">{showing}</div>
 
 			<div className="space-x-2">
