@@ -114,7 +114,7 @@ const Preview = ({ route }: PreviewProps) => {
 				labelDotRadius={0.3}
 				width={300}
 				height={300}
-				backgroundColor="white"
+				backgroundColor="rgba(0,0,0,0)"
 			/>
 		</div>
 	);
