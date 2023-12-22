@@ -23,22 +23,18 @@ type RowProps = {
 
 export default function Row({ aircraft, route }: RowProps) {
 	const router = useRouter();
-	const navigate = useCallback(
-		() => {
-			router.push(`/new/routes/${route.id}?aircraft=${aircraft.toString()}`);
-		},
-		[router, aircraft, route],
-	);
+	const navigate = useCallback(() => {
+		router.push(`/new/routes/${route.id}?aircraft=${aircraft.toString()}`);
+	}, [router, aircraft, route]);
 
 	return (
-		<TableRow
-			className="cursor-pointer"
-			onClick={navigate}
-		>
+		<TableRow onClick={navigate}>
 			<TableCell>
 				<Tooltip
 					trigger={
-						<span className="font-medium text-black">{route.origin_iata}</span>
+						<span className="font-medium text-black dark:text-zinc-200">
+							{route.origin_iata}
+						</span>
 					}
 					children={route.origin_name}
 				/>
@@ -46,7 +42,7 @@ export default function Row({ aircraft, route }: RowProps) {
 			<TableCell>
 				<Tooltip
 					trigger={
-						<span className="font-medium text-black">
+						<span className="font-medium text-black dark:text-zinc-200">
 							{route.destination_iata}
 						</span>
 					}
