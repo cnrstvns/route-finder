@@ -82,16 +82,17 @@ export default function Preview({ route }: PreviewProps) {
 	}, [startLat, startLng, endLat, endLng]);
 
 	return (
-		<div className="flex justify-center items-center w-full h-full -z-10">
+		<div className="flex justify-center items-center w-full h-full">
 			<Globe
 				ref={globeEl}
 				globeImageUrl="//unpkg.com/three-globe/example/img/earth-day.jpg"
 				arcsData={arcsData}
 				arcColor="color"
-				arcDashLength={0.1}
-				arcDashGap={0.1}
-				arcDashAnimateTime={4000}
-				arcStroke={2}
+				showAtmosphere={false}
+				arcDashLength={1}
+				arcDashGap={1}
+				arcDashAnimateTime={3000}
+				arcStroke={1}
 				labelsData={labelsData}
 				labelLat={(d) => (d as LabelData).lat}
 				labelLng={(d) => (d as LabelData).lng}
@@ -99,6 +100,7 @@ export default function Preview({ route }: PreviewProps) {
 				labelColor={(d) => (d as LabelData).color}
 				labelSize={(d) => (d as LabelData).size}
 				labelAltitude={(d) => (d as LabelData).altitude}
+				labelDotRadius={0.3}
 				width={300}
 				height={300}
 				backgroundColor="white"

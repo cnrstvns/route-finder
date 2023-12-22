@@ -20,6 +20,7 @@ import { eq, like, or, sql } from 'drizzle-orm';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+
 const Preview = dynamic(() => import('./preview'), {
 	ssr: false,
 	loading: () => <p>...</p>,
