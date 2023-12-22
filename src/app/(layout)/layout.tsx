@@ -27,7 +27,7 @@ export default function Layout({ children }: LayoutProps) {
 						</div>
 					</div>
 					<div className="flex flex-col">
-						<div className="flex flex-1 flex-col gap-4 md:gap-8">
+						<div className="flex flex-1 flex-col gap-4 md:gap-8 dark:bg-zinc-900">
 							{children}
 						</div>
 					</div>
