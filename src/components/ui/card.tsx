@@ -99,7 +99,7 @@ const CardRow = forwardRef<HTMLDivElement, CardRowProps>(
 				onMouseEnter={() => setHovering(true)}
 				onMouseLeave={() => setHovering(false)}
 				className={cn(
-					'flex items-center justify-between border-b py-1.5 text-sm first-of-type:pt-0 last-of-type:border-0 dark:border-white/10',
+					'flex items-center cursor-default justify-between border-b py-1.5 text-sm first-of-type:pt-0 last-of-type:border-0 dark:border-white/10',
 					className,
 				)}
 				{...props}
