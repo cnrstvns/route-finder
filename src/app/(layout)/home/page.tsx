@@ -64,7 +64,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 					height={48}
 				/>
 			</div>
-			<div className="flex flex-col">
+			<div className="flex flex-col h-full justify-center">
 				<div className="text-xl font-semibold dark:text-zinc-200">
 					{airline.name}
 				</div>

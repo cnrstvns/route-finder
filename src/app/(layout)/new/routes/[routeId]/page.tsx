@@ -1,3 +1,4 @@
+import { Header } from '@/components/navigation/header';
 import { Button } from '@/components/ui/button';
 import {
 	Card,
@@ -130,9 +131,11 @@ export default async function Page({ params, searchParams }: PageParams) {
 
 	return (
 		<div>
+			<Header profile />
 			<PageTitle
 				title={`Today's flight to ${route.destination_city}`}
 				subtitle={`${flightNumber} from ${route.origin_city} to ${route.destination_city}`}
+				header
 			/>
 
 			<div className="w-full grid grid-cols-1 md:grid-cols-2 p-4 gap-4 items-start">
