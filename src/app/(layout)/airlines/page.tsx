@@ -59,26 +59,28 @@ export default async function Airlines({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table className="w-full">
-				<TableHeader>
-					<TableRow>
-						<TableHead>Airline</TableHead>
-						<TableHead>IATA Code</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody className="bg-white">
-					{airlines.map((airline) => (
-						<TableRow key={airline.id}>
-							<TableCell className="px-6 py-4 whitespace-nowrap">
-								<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
-									{airline.name}
-								</span>
-							</TableCell>
-							<TableCell>{airline.iata_code}</TableCell>
+			<div className="overflow-auto w-screen md:w-full">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Airline</TableHead>
+							<TableHead>IATA Code</TableHead>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableHeader>
+					<TableBody className="bg-white">
+						{airlines.map((airline) => (
+							<TableRow key={airline.id}>
+								<TableCell className="px-6 py-4 whitespace-nowrap">
+									<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
+										{airline.name}
+									</span>
+								</TableCell>
+								<TableCell>{airline.iata_code}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 			<Pagination totalCount={totalCount} resource="airline" />
 		</div>
 	);

@@ -11,6 +11,7 @@ import { db, route } from '@/db';
 import { PAGE_SIZE } from '@/lib/constants';
 import { like, or, sql } from 'drizzle-orm';
 import Row from './row';
+import { Header } from '@/components/navigation/header';
 
 type PageParams = {
 	searchParams: {
@@ -78,13 +79,15 @@ export default async function Routes({ searchParams }: PageParams) {
 
 	return (
 		<div>
-			<div>
-				<PageTitle
-					title={`${totalCount} Routes Found`}
-					subtitle="Pick a route, and get to flying!"
-				/>
-			</div>
-			<div className="w-screen overflow-scroll lg:w-[calc(100vw-250px)]">
+			<Header profile />
+
+			<PageTitle
+				title={`${totalCount} Routes Found`}
+				subtitle="Pick a route, and get to flying!"
+				header
+			/>
+
+			<div className="overflow-auto w-screen md:w-full">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -100,8 +103,8 @@ export default async function Routes({ searchParams }: PageParams) {
 						))}
 					</TableBody>
 				</Table>
-				<Pagination totalCount={totalCount} resource="route" />
 			</div>
+			<Pagination totalCount={totalCount} resource="route" />
 		</div>
 	);
 }

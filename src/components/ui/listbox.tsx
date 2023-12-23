@@ -49,7 +49,7 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 			<div className="relative mt-1 z-10">
 				<ListboxPrimitive.Button
 					className={cn(
-						'relative w-full dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 rounded-md border border-neutral-200 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-sky-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-300 sm:text-sm',
+						'relative w-full dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 rounded-md border border-neutral-200 bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-sky-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-sky-300 text-sm',
 						buttonClassName,
 					)}
 				>
@@ -67,7 +67,7 @@ const Listbox = ({ name, items, buttonClassName, onChange }: ListboxProps) => {
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<ListboxPrimitive.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md border dark:border-zinc-700 dark:bg-zinc-800 bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+					<ListboxPrimitive.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md border dark:border-zinc-700 dark:bg-zinc-800 bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none text-sm">
 						{items.map((item) => (
 							<ListboxPrimitive.Option
 								key={item.value}

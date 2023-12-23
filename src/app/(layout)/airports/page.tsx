@@ -63,30 +63,32 @@ export default async function Airports({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead>IATA Code</TableHead>
-						<TableHead>Name</TableHead>
-						<TableHead>City</TableHead>
-						<TableHead>Country</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody className="bg-white">
-					{airports.map((airport) => (
-						<TableRow key={airport.id}>
-							<TableCell>
-								<div className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
-									{airport.iata_code}
-								</div>
-							</TableCell>
-							<TableCell>{airport.name}</TableCell>
-							<TableCell>{airport.city}</TableCell>
-							<TableCell>{airport.country}</TableCell>
+			<div className="overflow-auto w-screen md:w-full">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>IATA Code</TableHead>
+							<TableHead>Name</TableHead>
+							<TableHead>City</TableHead>
+							<TableHead>Country</TableHead>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableHeader>
+					<TableBody className="bg-white">
+						{airports.map((airport) => (
+							<TableRow key={airport.id}>
+								<TableCell>
+									<div className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
+										{airport.iata_code}
+									</div>
+								</TableCell>
+								<TableCell>{airport.name}</TableCell>
+								<TableCell>{airport.city}</TableCell>
+								<TableCell>{airport.country}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 			<Pagination totalCount={totalCount} resource="airport" />
 		</div>
 	);

@@ -55,29 +55,30 @@ export default async function Aircraft({ searchParams }: PageParams) {
 				subtitle="List of aircraft and their IATA codes."
 				header
 			/>
-
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead>Aircraft</TableHead>
-						<TableHead>IATA Code</TableHead>
-						<TableHead>Short Name</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{aircrafts.map((aircraft) => (
-						<TableRow key={aircraft.id}>
-							<TableCell>
-								<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
-									{aircraft.model_name}
-								</span>
-							</TableCell>
-							<TableCell>{aircraft.iata_code}</TableCell>
-							<TableCell>{aircraft.short_name}</TableCell>
+			<div className="overflow-auto w-screen md:w-full">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Aircraft</TableHead>
+							<TableHead>IATA Code</TableHead>
+							<TableHead>Short Name</TableHead>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableHeader>
+					<TableBody>
+						{aircrafts.map((aircraft) => (
+							<TableRow key={aircraft.id}>
+								<TableCell>
+									<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
+										{aircraft.model_name}
+									</span>
+								</TableCell>
+								<TableCell>{aircraft.iata_code}</TableCell>
+								<TableCell>{aircraft.short_name}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</div>
 			<Pagination totalCount={totalCount} resource="aircraft" />
 		</div>
 	);
