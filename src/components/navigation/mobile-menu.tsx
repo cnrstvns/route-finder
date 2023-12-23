@@ -18,25 +18,21 @@ const MobileMenu = () => {
 
 	return (
 		<div className="flex lg:hidden">
-			<div className="relative flex items-center justify-center group">
-				<FontAwesomeIcon
-					onClick={handleToggle}
-					className="dark:text-white/60"
-					icon={faBars}
-				/>
-				<div
-					className={cn(
-						'h-9 w-9 absolute group-hover:border group-hover:border-neutral-300 group-hover:bg-neutral-200 dark:group-hover:bg-zinc-800 dark:group-hover:border-zinc-700 rounded-md -z-10',
-						{
-							'bg-neutral-200 dark:bg-zinc-800 border dark:border-zinc-700':
-								open,
-						},
-					)}
-				/>
-			</div>
+			<button
+				type="button"
+				onClick={handleToggle}
+				className={cn(
+					'h-9 w-9 cursor-default flex items-center justify-center hover:border hover:border-neutral-300 hover:bg-neutral-200 dark:hover:bg-zinc-800 dark:hover:border-zinc-700 rounded-md',
+					{
+						'bg-neutral-200 dark:bg-zinc-800 border dark:border-zinc-700': open,
+					},
+				)}
+			>
+				<FontAwesomeIcon className="dark:text-white/60" icon={faBars} />
+			</button>
 
 			<Dialog open={open} onClose={handleToggle}>
-				<div className="flex top-[60px] fixed w-screen items-center justify-center p-1">
+				<div className="flex top-[60px] fixed w-screen items-center justify-center p-1 select-none">
 					<Dialog.Panel className="w-full px-2 space-y-1 py-3 border shadow-lg rounded-md bg-neutral-50 dark:bg-zinc-900 dark:border-white/10">
 						{routes.map((r) => {
 							const active = r.href === pathName;

@@ -17,7 +17,7 @@ const Header = ({ searchPlaceholder, profile, className }: HeaderProps) => {
 				className,
 			)}
 		>
-			<div className="flex items-center space-x-5 lg:space-x-0">
+			<div className="flex items-center space-x-3 lg:space-x-0">
 				<MobileMenu />
 				{searchPlaceholder && <Search placeholder={searchPlaceholder} />}
 			</div>
