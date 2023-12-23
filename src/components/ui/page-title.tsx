@@ -11,7 +11,7 @@ const PageTitle = ({ title, subtitle, header, className }: PageTitleProps) => {
 	return (
 		<div
 			className={cn(
-				'flex flex-col space-y-1 px-4 md:px-6 border-b dark:border-white/10 py-6 dark:bg-zinc-900',
+				'flex flex-col w-full lg:w-[calc(100%-250px)] space-y-1 px-4 md:px-6 border-b dark:border-white/10 py-6 dark:bg-zinc-900',
 				{
 					'mt-[60px]': header,
 				},

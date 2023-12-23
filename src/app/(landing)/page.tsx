@@ -93,7 +93,7 @@ export default async function Page() {
 					</div>
 					<div className="flex lg:flex-1 lg:justify-end">
 						<a
-							href="/sign-in"
+							href="/home"
 							className="text-sm font-semibold leading-6 text-neutral-900"
 						>
 							Sign in <span aria-hidden="true">&rarr;</span>

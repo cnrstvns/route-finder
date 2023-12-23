@@ -63,7 +63,7 @@ export default async function Airports({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table className="w-full">
+			<Table>
 				<TableHeader>
 					<TableRow>
 						<TableHead>IATA Code</TableHead>

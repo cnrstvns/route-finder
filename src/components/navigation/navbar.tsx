@@ -4,14 +4,36 @@ import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
 import { faTowerControl } from '@fortawesome/pro-solid-svg-icons/faTowerControl';
 import { NavLink } from './nav-link';
 
+export const routes = [
+	{
+		title: 'Home',
+		href: '/home',
+		icon: faHomeAlt,
+	},
+	{
+		title: 'Aircraft',
+		href: '/aircraft',
+		icon: faPlane,
+	},
+	{
+		title: 'Airlines',
+		href: '/airlines',
+		icon: faSeatAirline,
+	},
+	{
+		title: 'Airports',
+		href: '/airports',
+		icon: faTowerControl,
+	},
+] as const;
+
 const Navbar = () => {
 	return (
 		<div className="flex-1 overflow-auto py-2">
 			<nav className="grid items-start px-4 text-sm font-medium">
-				<NavLink href="/home" title="Home" icon={faHomeAlt} />
-				<NavLink href="/aircraft" title="Aircraft" icon={faPlane} />
-				<NavLink href="/airlines" title="Airlines" icon={faSeatAirline} />
-				<NavLink href="/airports" title="Airports" icon={faTowerControl} />
+				{routes.map((r) => (
+					<NavLink key={r.href} href={r.href} title={r.title} icon={r.icon} />
+				))}
 			</nav>
 		</div>
 	);
