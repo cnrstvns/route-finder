@@ -59,7 +59,7 @@ export default async function Airlines({ searchParams }: PageParams) {
 				header
 			/>
 
-			<Table className="w-full divide-y divide-gray-200">
+			<Table className="w-full">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Airline</TableHead>
@@ -70,7 +70,7 @@ export default async function Airlines({ searchParams }: PageParams) {
 					{airlines.map((airline) => (
 						<TableRow key={airline.id}>
 							<TableCell className="px-6 py-4 whitespace-nowrap">
-								<span className="text-sm font-medium text-gray-900 dark:text-zinc-200">
+								<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
 									{airline.name}
 								</span>
 							</TableCell>

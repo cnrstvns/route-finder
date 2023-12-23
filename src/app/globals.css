@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cl-userButtonPopoverFooter  {
+  display: none;
+}
+
+.cl-userPreviewSecondaryIdentifier  {
+  @apply dark:text-zinc-400;
+}
+
+.cl-userButtonPopoverActionButton {
+  @apply dark:hover:bg-zinc-800 px-2 gap-1;
+}
+
+.cl-userButtonPopoverActionButtonIconBox svg {
+  @apply dark:text-zinc-300;
+}
+
+.cl-userButtonPopoverActionButtonText {
+  @apply dark:text-zinc-300;
+}

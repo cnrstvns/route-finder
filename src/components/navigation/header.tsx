@@ -21,7 +21,18 @@ const Header = ({ searchPlaceholder, profile, className }: HeaderProps) => {
 			)}
 		>
 			{searchPlaceholder && <Search placeholder={searchPlaceholder} />}
-			{profile && <UserButton />}
+			{profile && (
+				<UserButton
+					appearance={{
+						elements: {
+							userButtonTrigger:
+								'focus:ring focus:ring-1 focus:ring-indigo-400',
+							userButtonPopoverCard:
+								'bg-neutral-50 py-3 w-[270px] rounded-md shadow-xl border border-neutral-200 dark:text-white dark:bg-zinc-900 dark:border-white/10',
+						},
+					}}
+				/>
+			)}
 		</div>
 	);
 };
