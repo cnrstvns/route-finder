@@ -21,6 +21,7 @@ import { eq, like, or, sql } from 'drizzle-orm';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 const Preview = dynamic(() => import('./preview'), {
 	ssr: false,
@@ -68,6 +69,8 @@ type AircraftResult = {
 };
 
 export default async function Page({ params, searchParams }: PageParams) {
+	if (!searchParams.aircraft) redirect('/home');
+
 	const query = sql`
 		SELECT
 			route.id,
