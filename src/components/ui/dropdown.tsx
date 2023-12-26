@@ -2,7 +2,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu';
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps } from 'react';
 
 type DropdownItemProps = ComponentProps<typeof DropdownItemPrimitive> & {
 	onClick: () => void;
@@ -10,9 +10,7 @@ type DropdownItemProps = ComponentProps<typeof DropdownItemPrimitive> & {
 	icon: IconProp;
 };
 
-type DropdownContentProps = ComponentProps<typeof DropdownContentPrimitive> & {
-	children: ReactNode;
-};
+type DropdownContentProps = ComponentProps<typeof DropdownContentPrimitive>;
 
 const Dropdown = DropdownPrimitive.Root;
 const DropdownTrigger = DropdownPrimitive.Trigger;
