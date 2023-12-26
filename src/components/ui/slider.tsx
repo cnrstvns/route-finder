@@ -50,4 +50,4 @@ const Slider = ({ onChange }: SliderProps) => {
 
 Slider.displayName = 'Slider';
 
-export { Slider, type SliderProps };
+export { Slider };

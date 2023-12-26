@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
+
 export const formatMinutes = (minutes: number) => {
 	const hours = Math.floor(minutes / 60);
 	const remainingMinutes = minutes % 60;
@@ -12,3 +17,5 @@ export const formatMinutes = (minutes: number) => {
 
 	return hoursString + separator + minutesString;
 };
+
+export { dayjs };

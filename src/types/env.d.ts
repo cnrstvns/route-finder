@@ -10,5 +10,7 @@ declare namespace NodeJS {
 		CLERK_WEBHOOK_SIGNING_SECRET: string;
 		NEXT_PUBLIC_POSTHOG_KEY: string;
 		NEXT_PUBLIC_POSTHOG_HOST: string;
+		REDIS_URL: string;
+		REDIS_TOKEN: string;
 	}
 }

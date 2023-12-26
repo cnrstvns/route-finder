@@ -7,6 +7,7 @@ import { routes } from './navbar';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Feedback } from './feedback';
 
 const MobileMenu = () => {
 	const pathName = usePathname();

@@ -1,9 +1,10 @@
 import { Header } from '@/components/navigation/header';
+import { PageTitle } from '@/components/ui/page-title';
 import { airline, db, route } from '@/db';
+import { currentUser } from '@clerk/nextjs';
 import { sql } from 'drizzle-orm';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Title } from './title';
 
 type Airline = {
 	id: string;
@@ -16,6 +17,8 @@ type Airline = {
 type PageParams = { searchParams: { q: string } };
 
 export default async function Home({ searchParams }: PageParams) {
+	const user = await currentUser();
+
 	const query = sql`
     select a.id, a.name, a.slug, a.logo_path, count(r.id) as route_count
     from ${airline} a
@@ -38,7 +41,11 @@ export default async function Home({ searchParams }: PageParams) {
 		<div>
 			<Header searchPlaceholder="Search for an airline..." profile />
 
-			<Title />
+			<PageTitle
+				title={`Welcome back ${user?.firstName}`}
+				subtitle="Where will we fly today? To get started, choose an airline."
+				header
+			/>
 
 			<div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 dark:bg-zinc-900">
 				{airlines.map((airline) => (

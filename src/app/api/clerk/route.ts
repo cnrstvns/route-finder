@@ -35,6 +35,8 @@ export async function POST(req: Request) {
 				profilePictureUrl: createdUser.image_url,
 				emailAddress: primaryEmailAddress?.email_address,
 				requestedDeletionAt: null,
+				firstName: createdUser.first_name,
+				lastName: createdUser.last_name,
 			});
 
 			posthog.capture({
@@ -42,6 +44,7 @@ export async function POST(req: Request) {
 				event: 'User signed up',
 				properties: {
 					email: primaryEmailAddress?.email_address,
+					name: `${createdUser.first_name} ${createdUser.last_name}`,
 				},
 			});
 
@@ -69,6 +72,7 @@ export async function POST(req: Request) {
 				event: 'User updated email',
 				properties: {
 					email: primaryEmailAddress?.email_address,
+					name: `${updatedUser.first_name} ${updatedUser.last_name}`,
 				},
 			});
 
