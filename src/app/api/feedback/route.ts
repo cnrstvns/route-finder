@@ -27,6 +27,7 @@ export async function POST(req: Request) {
 		.where(eq(userTable.clerkId, userId));
 	const user = userResult[0];
 
+	// If no user, send 401
 	if (!user) {
 		return new Response('Unauthorized', { status: 401 });
 	}
