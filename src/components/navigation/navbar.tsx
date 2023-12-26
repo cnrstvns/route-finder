@@ -36,7 +36,7 @@ export const adminRoutes = [
 		href: '/admin/feedback',
 		icon: faMessage,
 	},
-];
+] as const;
 
 const Navbar = async () => {
 	const admin = await isAdmin();
@@ -48,8 +48,8 @@ const Navbar = async () => {
 					<NavLink key={r.href} href={r.href} title={r.title} icon={r.icon} />
 				))}
 				{admin && (
-					<div>
-						<div className="text-sm font-medium my-2 text-neutral-500 dark:text-zinc-500">
+					<div className="mt-2">
+						<div className="text-sm font-medium my-1 text-neutral-500 dark:text-zinc-500">
 							Admin
 						</div>
 						{adminRoutes.map((r) => (
