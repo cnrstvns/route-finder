@@ -21,3 +21,11 @@
 .cl-userButtonPopoverActionButtonText {
   @apply dark:text-zinc-300;
 }
+
+.cl-internal-1ivq37y {
+  @apply px-4;
+}
+
+.cl-internal-yrq74 {
+  @apply px-1;
+}

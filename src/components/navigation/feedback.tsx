@@ -11,7 +11,7 @@ import {
 } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import * as yup from 'yup';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
@@ -37,24 +37,29 @@ const Feedback = () => {
 	const [open, setOpen] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
 
-	const handleSubmit = useCallback(async (values: FormValues) => {
-		setSubmitting(true);
-		const response = await fetch('/api/feedback', {
-			method: 'POST',
-			body: JSON.stringify(values),
-		});
+	const handleSubmit = useCallback(
+		async (values: FormValues, actions: FormikHelpers<FormValues>) => {
+			setSubmitting(true);
+			const response = await fetch('/api/feedback', {
+				method: 'POST',
+				body: JSON.stringify(values),
+			});
 
-		if (!response.ok) {
+			if (!response.ok) {
+				const error = JSON.parse(await response.text()) as { message: string };
+				setSubmitting(false);
+				actions.setFieldError('feedback', error.message);
+				return toast.warning(
+					'Looks like something went wrong. Please try again later.',
+				);
+			}
+
+			setOpen(false);
+			toast.success('Thank you! Your feedback has been recorded.');
 			setSubmitting(false);
-			return toast.warning(
-				'Looks like something went wrong. Please try again later.',
-			);
-		}
-
-		setOpen(false);
-		toast.success('Thank you! Your feedback has been recorded.');
-		setSubmitting(false);
-	}, []);
+		},
+		[],
+	);
 
 	return (
 		<div className="w-full">

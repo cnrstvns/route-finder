@@ -38,7 +38,15 @@ export default function RootLayout({ children }: LayoutProps) {
 				<html lang="en">
 					<body className="overscroll-none">
 						{children}
-						<Toaster />
+						<Toaster
+							toastOptions={{
+								unstyled: true,
+								classNames: {
+									success:
+										'border dark:border-white/10 bg-white dark:bg-zinc-800 dark:text-white rounded space-x-3 text-sm p-3 flex items-center',
+								},
+							}}
+						/>
 					</body>
 				</html>
 			</PostHog>
