@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: PageParams) {
 			<Header searchPlaceholder="Search for an airline..." profile />
 
 			<PageTitle
-				title={`Welcome back ${user?.firstName}`}
+				title={`Welcome back, ${user?.firstName}`}
 				subtitle="Where will we fly today? To get started, choose an airline."
 				header
 			/>
