@@ -11,7 +11,7 @@ type PaginationProps = {
 	resource: string;
 };
 
-export const Pagination = ({ totalCount, resource }: PaginationProps) => {
+const Pagination = ({ totalCount, resource }: PaginationProps) => {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -77,3 +77,7 @@ export const Pagination = ({ totalCount, resource }: PaginationProps) => {
 		</div>
 	);
 };
+
+Pagination.displayName = 'Pagination';
+
+export { Pagination };

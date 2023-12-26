@@ -26,4 +26,6 @@ const Tooltip = ({ trigger, children }: TooltipProps) => {
 	);
 };
 
+Tooltip.displayName = 'Tooltip';
+
 export { Tooltip };

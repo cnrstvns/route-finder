@@ -11,7 +11,7 @@
 }
 
 .cl-userButtonPopoverActionButton {
-  @apply dark:hover:bg-zinc-800 px-2 gap-1;
+  @apply dark:hover:bg-zinc-800 px-2 gap-1 tracking-normal;
 }
 
 .cl-userButtonPopoverActionButtonIconBox svg {

@@ -1,4 +1,5 @@
 import {
+	boolean,
 	index,
 	integer,
 	pgTable,
@@ -90,6 +91,9 @@ export const user = pgTable(
 		requestedDeletionAt: timestamp('requested_deletion_at', {
 			withTimezone: true,
 		}),
+		admin: boolean('admin').default(false),
+		firstName: varchar('first_name'),
+		lastName: varchar('last_name'),
 	},
 	(table) => {
 		return {
@@ -97,3 +101,12 @@ export const user = pgTable(
 		};
 	},
 );
+
+export const feedback = pgTable('feedback', {
+	id: serial('id').primaryKey(),
+	userId: integer('user_id')
+		.notNull()
+		.references(() => user.id),
+	feedbackText: varchar('feedback_text', { length: 500 }).notNull(),
+	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+});

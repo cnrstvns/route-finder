@@ -2,6 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { PostHog } from './posthog';
+import { Toaster } from 'sonner';
 
 export const viewport: Viewport = {
 	themeColor: '#171717',
@@ -35,7 +36,10 @@ export default function RootLayout({ children }: LayoutProps) {
 		<ClerkProvider>
 			<PostHog>
 				<html lang="en">
-					<body className="overscroll-none">{children}</body>
+					<body className="overscroll-none">
+						{children}
+						<Toaster />
+					</body>
 				</html>
 			</PostHog>
 		</ClerkProvider>

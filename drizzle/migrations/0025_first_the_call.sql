@@ -1,0 +1,1 @@
+ALTER TABLE "feedback" ALTER COLUMN "feedback_text" SET DATA TYPE varchar(500);

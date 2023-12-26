@@ -61,4 +61,4 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
 
 Search.displayName = 'Search';
 
-export { Search, type SearchProps };
+export { Search };
