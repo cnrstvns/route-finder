@@ -1,11 +1,11 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata, Viewport } from 'next';
+import { Toaster } from 'sonner';
 import './globals.css';
 import { PostHog } from './posthog';
-import { Toaster } from 'sonner';
 
 export const viewport: Viewport = {
-	themeColor: '#171717',
+	themeColor: '#4F46E5',
 };
 
 export const metadata: Metadata = {

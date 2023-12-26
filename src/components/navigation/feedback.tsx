@@ -1,21 +1,21 @@
 'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
 import { faMessage } from '@fortawesome/pro-solid-svg-icons/faMessage';
-import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogDescription,
-} from '../ui/dialog';
-import { Button } from '../ui/button';
-import { Textarea } from '../ui/textarea';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikHelpers } from 'formik';
-import * as yup from 'yup';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import * as yup from 'yup';
+import { Button } from '../ui/button';
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '../ui/dialog';
+import { Textarea } from '../ui/textarea';
 
 type FormValues = {
 	feedback: string;

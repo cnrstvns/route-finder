@@ -1,8 +1,8 @@
-import '@/lib/env';
-import { airport as airportTable, db } from '@/db';
 import fs from 'fs';
-import { eq } from 'drizzle-orm';
 import path from 'path';
+import { airport as airportTable, db } from '@/db';
+import '@/lib/env';
+import { eq } from 'drizzle-orm';
 
 (async () => {
 	const fileData = fs.readFileSync(

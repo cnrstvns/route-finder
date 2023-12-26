@@ -1,12 +1,12 @@
 'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { cn } from '@/lib/utils';
 import { faBars } from '@fortawesome/pro-regular-svg-icons/faBars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dialog } from '@headlessui/react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { routes } from './navbar';
-import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
 
 const MobileMenu = () => {
 	const pathName = usePathname();

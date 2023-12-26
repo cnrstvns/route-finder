@@ -1,3 +1,4 @@
+import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
 import {
@@ -11,7 +12,6 @@ import { db, route } from '@/db';
 import { PAGE_SIZE } from '@/lib/constants';
 import { like, or, sql } from 'drizzle-orm';
 import Row from './row';
-import { Header } from '@/components/navigation/header';
 
 type PageParams = {
 	searchParams: {

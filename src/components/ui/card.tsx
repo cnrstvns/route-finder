@@ -1,7 +1,7 @@
 'use client';
-import { useCallback, forwardRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import copy from 'copy-to-clipboard';
+import { forwardRef, useCallback, useState } from 'react';
 
 type CardRowProps = React.HTMLAttributes<HTMLDivElement> & {
 	label: string;
