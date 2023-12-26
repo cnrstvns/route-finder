@@ -1,10 +1,8 @@
 'use client';
 
 import { useClerk, useUser } from '@clerk/nextjs';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faRightFromBracket } from '@fortawesome/pro-solid-svg-icons/faRightFromBracket';
 import { faUser } from '@fortawesome/pro-solid-svg-icons/faUser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
@@ -14,29 +12,6 @@ import {
 	DropdownPortal,
 	DropdownTrigger,
 } from '../ui/dropdown';
-
-type ProfileButtonProps = {
-	onClick: () => void;
-	label: string;
-	icon: IconProp;
-};
-
-const ProfileButton = ({ onClick, label, icon }: ProfileButtonProps) => {
-	return (
-		<button
-			type="button"
-			onClick={onClick}
-			className="w-full flex rounded-md text-start text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-300 hover:outline-0 hover:bg-neutral-100"
-		>
-			<div className="px-2 py-2 flex items-center ml-2">
-				<div className="h-5 w-5 flex items-center justify-center px-3">
-					<FontAwesomeIcon className="mr-5" icon={icon} />
-				</div>
-				<div className="text-sm font-medium">{label}</div>
-			</div>
-		</button>
-	);
-};
 
 const UserProfile = () => {
 	const { isLoaded, user } = useUser();
