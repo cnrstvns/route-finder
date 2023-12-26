@@ -1,9 +1,9 @@
 'use client';
-import React, { ReactNode } from 'react';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/pro-regular-svg-icons/faXmark';
 import { cn } from '@/lib/utils';
+import { faXmark } from '@fortawesome/pro-regular-svg-icons/faXmark';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import React, { ReactNode } from 'react';
 
 type DialogProps = {
 	open: boolean;

@@ -1,6 +1,6 @@
+import { isAdmin } from '@/lib/is-admin';
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
-import { isAdmin } from '@/lib/is-admin';
 
 type LayoutProps = {
 	children: ReactNode;

@@ -1,7 +1,7 @@
 import { airport as airportTable, db } from '@/db';
 import '@/lib/env';
-import icao from './icao.json';
 import { eq } from 'drizzle-orm';
+import icao from './icao.json';
 
 (async () => {
 	for (const airport of icao) {
