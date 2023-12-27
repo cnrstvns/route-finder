@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { trpc } from '@/app/_trpc/trpc';
 import { useCallback } from 'react';
-import { RouterOutputs } from '@/server/routers/_app';
+import type { RouterOutputs } from '@/server/routers/_app';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/pro-regular-svg-icons/faBookmark';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/pro-solid-svg-icons/faBookmark';
 

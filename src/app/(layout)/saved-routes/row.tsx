@@ -1,5 +1,5 @@
 'use client';
-import { RouterOutputs } from '@/server/routers/_app';
+import type { RouterOutputs } from '@/server/routers/_app';
 import { TableRow, TableCell } from '@/components/ui/table';
 import { Tooltip } from '@/components/ui/tooltip';
 import { formatMinutes } from '@/lib/time';
