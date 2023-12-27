@@ -1,0 +1,1 @@
+ALTER TABLE "user_route" ADD COLUMN "created_at" timestamp with time zone DEFAULT now();

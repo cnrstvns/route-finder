@@ -10,55 +10,35 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { PageTitle } from '@/components/ui/page-title';
-import { aircraft as aircraftTable, db, route as routeTable } from '@/db';
+import {
+	aircraft as aircraftTable,
+	db,
+	route as routeTable,
+	userRoute as userRouteTable,
+} from '@/db';
 import { distanceInNauticalMiles } from '@/lib/distance';
 import { formatElevation } from '@/lib/elevation';
 import { generateFlightNumber } from '@/lib/flight-number';
 import { formatMinutes } from '@/lib/time';
 import { faMap } from '@fortawesome/pro-solid-svg-icons/faMap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { eq, like, or, sql } from 'drizzle-orm';
+import { and, eq, like, or, sql } from 'drizzle-orm';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import type { RouteResult } from './types';
+import { SaveRoute } from './save-route';
+import { currentUser } from '@/lib/get-user';
 
 const Preview = dynamic(() => import('./preview'), {
 	ssr: false,
-	loading: () => <p>...</p>,
+	loading: () => <></>,
 });
 
 type PageParams = {
 	params: {
 		routeId: string;
 	};
-	searchParams: {
-		aircraft: string;
-	};
-};
-
-type RouteResult = {
-	id: number;
-	average_duration: number;
-	airline_iata: string;
-	airline_name: string;
-	airline_logo: string;
-	origin_iata: string;
-	origin_icao: string;
-	origin_name: string;
-	origin_city: string;
-	origin_country: string;
-	origin_elevation: string;
-	origin_latitude: string;
-	origin_longitude: string;
-	destination_iata: string;
-	destination_icao: string;
-	destination_name: string;
-	destination_city: string;
-	destination_country: string;
-	destination_latitude: string;
-	destination_longitude: string;
-	destination_elevation: string;
 };
 
 type AircraftResult = {
@@ -68,13 +48,14 @@ type AircraftResult = {
 	short_name: string;
 };
 
-export default async function Page({ params, searchParams }: PageParams) {
-	if (!searchParams.aircraft) redirect('/home');
+export default async function Page({ params }: PageParams) {
+	const user = await currentUser();
 
 	const query = sql`
 		SELECT
 			route.id,
 			route.average_duration,
+			route.aircraft_codes,
 			airline.iata_code as airline_iata,
 			airline.name as airline_name,
 			airline.logo_path as airline_logo,
@@ -109,7 +90,7 @@ export default async function Page({ params, searchParams }: PageParams) {
 	const result = await db.execute<RouteResult>(query);
 	const route = result.rows[0];
 
-	const parsedAircraft = searchParams.aircraft.split(',');
+	const parsedAircraft = route.aircraft_codes.split(',');
 	const aircraftWhere = parsedAircraft.map((a) =>
 		like(aircraftTable.iataCode, `%${a}%`),
 	);
@@ -132,6 +113,16 @@ export default async function Page({ params, searchParams }: PageParams) {
 		route.destination_longitude,
 	);
 
+	const [userRoute] = await db
+		.select()
+		.from(userRouteTable)
+		.where(
+			and(
+				eq(userRouteTable.routeId, route.id),
+				eq(userRouteTable.userId, user.id),
+			),
+		);
+
 	return (
 		<div>
 			<Header profile />
@@ -139,7 +130,12 @@ export default async function Page({ params, searchParams }: PageParams) {
 				title={`Today's flight to ${route.destination_city}`}
 				subtitle={`${flightNumber} from ${route.origin_city} to ${route.destination_city}`}
 				header
-			/>
+			>
+				<SaveRoute
+					routeId={route.id}
+					initialData={{ success: true, route: userRoute }}
+				/>
+			</PageTitle>
 
 			<div className="w-full grid grid-cols-1 md:grid-cols-2 p-4 gap-4 items-start">
 				<Card>
@@ -261,16 +257,14 @@ export default async function Page({ params, searchParams }: PageParams) {
 							</div>
 						</Button>
 
-						<Button variant="black" size="md" className="w-full" asChild>
+						<Button variant="black" size="md" className="w-full">
 							<Link
 								href={`https://skyvector.com?fpl=${route.origin_icao}%20${route.destination_icao}`}
 								target="_blank"
 								className="w-full"
 							>
-								<div className="flex items-center">
-									Open in SkyVector
-									<FontAwesomeIcon icon={faMap} className="h-5 w-5 ml-2" />
-								</div>
+								Open in SkyVector
+								<FontAwesomeIcon icon={faMap} className="h-5 w-5 ml-2" />
 							</Link>
 						</Button>
 					</CardFooter>

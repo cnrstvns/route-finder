@@ -1,4 +1,5 @@
 'use client';
+import { cn } from '@/lib/utils';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as DropdownPrimitive from '@radix-ui/react-dropdown-menu';
@@ -10,7 +11,9 @@ type DropdownItemProps = ComponentProps<typeof DropdownItemPrimitive> & {
 	icon: IconProp;
 };
 
-type DropdownContentProps = ComponentProps<typeof DropdownContentPrimitive>;
+type DropdownContentProps = ComponentProps<typeof DropdownContentPrimitive> & {
+	className?: string;
+};
 
 const Dropdown = DropdownPrimitive.Root;
 const DropdownTrigger = DropdownPrimitive.Trigger;
@@ -38,13 +41,22 @@ const DropdownItem = ({ onClick, label, icon }: DropdownItemProps) => {
 };
 DropdownItem.displayName = 'DropdownItem';
 
-const DropdownContent = ({ children, ...props }: DropdownContentProps) => {
+const DropdownContent = ({
+	children,
+	className,
+	...props
+}: DropdownContentProps) => {
 	return (
 		<DropdownPrimitive.Content
 			align="end"
 			sideOffset={-10}
 			side="top"
-			className="drop-shadow-2xl z-50 mt-4 pb-2 w-[270px] rounded-md border bg-neutral-50 dark:bg-zinc-900 dark:border-white/10 text-black"
+			className={cn(
+				'drop-shadow-2xl z-50 mt-4 pb-2 rounded-md border bg-neutral-50 dark:bg-zinc-900 dark:border-white/10 text-black',
+				{
+					className,
+				},
+			)}
 			{...props}
 		>
 			{children}

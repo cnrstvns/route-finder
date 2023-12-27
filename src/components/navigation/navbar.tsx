@@ -6,8 +6,16 @@ import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
 import { faTowerControl } from '@fortawesome/pro-solid-svg-icons/faTowerControl';
 import { Feedback } from './feedback';
 import { NavLink } from './nav-link';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faBookmark } from '@fortawesome/pro-solid-svg-icons/faBookmark';
 
-export const routes = [
+type Route = {
+	title: string;
+	href: string;
+	icon: IconProp;
+};
+
+export const routes: Route[] = [
 	{
 		title: 'Home',
 		href: '/home',
@@ -27,6 +35,11 @@ export const routes = [
 		title: 'Airports',
 		href: '/airports',
 		icon: faTowerControl,
+	},
+	{
+		title: 'Saved Routes',
+		href: '/saved-routes',
+		icon: faBookmark,
 	},
 ] as const;
 

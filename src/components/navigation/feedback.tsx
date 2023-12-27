@@ -1,5 +1,4 @@
 'use client';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
 import { faMessage } from '@fortawesome/pro-solid-svg-icons/faMessage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -16,6 +15,7 @@ import {
 	DialogTrigger,
 } from '../ui/dialog';
 import { Textarea } from '../ui/textarea';
+import { trpc } from '@/app/_trpc/trpc';
 
 type FormValues = {
 	feedback: string;
@@ -35,20 +35,16 @@ const initialValues = {
 
 const Feedback = () => {
 	const [open, setOpen] = useState(false);
-	const [submitting, setSubmitting] = useState(false);
+	const { mutateAsync, isLoading, error } =
+		trpc.feedback.submitFeedback.useMutation();
 
 	const handleSubmit = useCallback(
 		async (values: FormValues, actions: FormikHelpers<FormValues>) => {
-			setSubmitting(true);
-			const response = await fetch('/api/feedback', {
-				method: 'POST',
-				body: JSON.stringify(values),
-			});
+			const result = await mutateAsync(values);
 
-			if (!response.ok) {
-				const error = JSON.parse(await response.text()) as { message: string };
-				setSubmitting(false);
-				actions.setFieldError('feedback', error.message);
+			if (!result.success) {
+				actions.setFieldError('feedback', error?.message);
+
 				return toast.warning(
 					'Looks like something went wrong. Please try again later.',
 				);
@@ -56,9 +52,8 @@ const Feedback = () => {
 
 			setOpen(false);
 			toast.success('Thank you! Your feedback has been recorded.');
-			setSubmitting(false);
 		},
-		[],
+		[mutateAsync, error],
 	);
 
 	return (
@@ -103,15 +98,9 @@ const Feedback = () => {
 										type="submit"
 										variant="default"
 										disabled={!isValid}
+										loading={isLoading}
 									>
-										{submitting ? (
-											<FontAwesomeIcon
-												icon={faSpinnerThird}
-												className="fa-spin"
-											/>
-										) : (
-											'Submit'
-										)}
+										Submit
 									</Button>
 								</div>
 							</Form>

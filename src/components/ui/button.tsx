@@ -1,15 +1,23 @@
 import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	asChild?: boolean;
 	variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link' | 'black';
 	size: 'sm' | 'md' | 'lg' | 'icon';
+	loading?: boolean;
+	icon?: IconProp;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, asChild = false, ...props }, ref) => {
+	(
+		{ children, className, variant, size, asChild = false, loading, icon, ...props },
+		ref,
+	) => {
 		const Comp = asChild ? Slot : 'button';
 		return (
 			<Comp
@@ -38,7 +46,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				)}
 				ref={ref}
 				{...props}
-			/>
+			>
+				<>
+					{!loading && icon && <FontAwesomeIcon icon={icon} className="h-5 w-5 mr-2" />}
+					{loading && <FontAwesomeIcon icon={faSpinnerThird} className="fa-spin h-5 w-5 mr-2" />}
+					{children}
+				</>
+			</Comp>
 		);
 	},
 );
