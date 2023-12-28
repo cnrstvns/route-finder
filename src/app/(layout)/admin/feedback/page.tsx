@@ -9,65 +9,14 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { db, feedback as feedbackTable, user as userTable } from '@/db';
-import { PAGE_SIZE } from '@/lib/constants';
 import { dayjs } from '@/lib/time';
-import { sql } from 'drizzle-orm';
+import { api } from '@/server/api';
+import { PaginatedWithQuery } from '@/types/search';
 import Image from 'next/image';
 
-type PageParams = { searchParams: { page?: string; q?: string } };
-type FeedbackResult = {
-	id: number;
-	user_id: number;
-	feedback_text: string;
-	created_at: Date;
-	profile_picture_url: string;
-	email_address: string;
-	user_name: string;
-};
-
-export default async function Feedback({ searchParams }: PageParams) {
-	const page = Number(searchParams.page ?? 1);
-	const query = sql`
-		SELECT
-			feedback.id,
-			feedback.user_id,
-			feedback.feedback_text,
-			feedback.created_at,
-			"user".profile_picture_url,
-			"user".email_address,
-			CONCAT("user".first_name, ' ', "user".last_name) as user_name
-		FROM
-			${feedbackTable}
-		JOIN
-			${userTable} on feedback.user_id = "user".id
-		`;
-
-	const countQuery = await db.execute<{ count: number }>(
-		sql`SELECT count(*) FROM (${query}) `,
-	);
-	const totalCount = countQuery.rows[0].count;
-
-	if (searchParams.q) {
-		query.append(
-			sql`
-			WHERE
-				CONCAT("user".first_name, ' ', "user".last_name) ilike ${`%${searchParams.q}%`}
-				OR feedback.feedback_text ilike ${`%${searchParams.q}%`}
-				OR "user".email_address ilike ${`%${searchParams.q}%`}`,
-		);
-	}
-
-	query.append(sql`
-		ORDER BY
-			feedback.created_at DESC
-		LIMIT
-      ${PAGE_SIZE}
-    OFFSET
-      ${page * PAGE_SIZE - PAGE_SIZE}
-  `);
-
-	const { rows: feedback } = await db.execute<FeedbackResult>(query);
+export default async function Feedback({ searchParams }: PaginatedWithQuery) {
+	const { totalCount, data: feedback } =
+		await api.admin.feedback.list.query(searchParams);
 
 	return (
 		<div>
@@ -94,26 +43,24 @@ export default async function Feedback({ searchParams }: PageParams) {
 								<TableCell>
 									<div className="flex space-x-3">
 										<Image
-											src={userFeedback.profile_picture_url}
+											src={userFeedback.profilePictureUrl || ''}
 											height={40}
 											width={40}
-											alt={userFeedback.user_name}
+											alt={userFeedback.userName}
 											className="rounded-full"
 										/>
 										<div className="flex flex-col">
 											<div className="text-neutral-700 dark:text-zinc-300 font-medium">
-												{userFeedback.user_name}
+												{userFeedback.userName}
 											</div>
 											<div className="text-neutral-600 dark:text-zinc-400">
-												{userFeedback.email_address}
+												{userFeedback.emailAddress}
 											</div>
 										</div>
 									</div>
 								</TableCell>
-								<TableCell>{userFeedback.feedback_text}</TableCell>
-								<TableCell>
-									{dayjs(userFeedback.created_at).fromNow()}
-								</TableCell>
+								<TableCell>{userFeedback.feedbackText}</TableCell>
+								<TableCell>{dayjs(userFeedback.createdAt).fromNow()}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

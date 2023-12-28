@@ -10,24 +10,19 @@ import {
 } from '@/components/ui/table';
 import { api } from '@/server/api';
 import { Row } from './row';
+import { Paginated } from '@/types/search';
 
-type PageParams = {
+type PageParams = Paginated & {
 	searchParams: {
 		maxDuration: string;
 		minDuration: string;
 		aircraft: string;
 		airline: string;
-		page?: string;
 	};
 };
 
 export default async function Routes({ searchParams }: PageParams) {
-	const routes = await api.route.search.query({
-		airline: searchParams.airline,
-		aircraft: searchParams.aircraft,
-		minDuration: searchParams.minDuration,
-		maxDuration: searchParams.maxDuration,
-	});
+	const routes = await api.route.search.query(searchParams);
 
 	return (
 		<div>

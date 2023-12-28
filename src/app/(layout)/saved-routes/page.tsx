@@ -10,15 +10,13 @@ import {
 } from '@/components/ui/table';
 import { api } from '@/server/api';
 import { Row } from './row';
+import { PaginatedWithQuery } from '@/types/search';
 
-type PageParams = { searchParams: { q: string; page?: string } };
-
-export default async function SavedRoutes({ searchParams }: PageParams) {
+export default async function SavedRoutes({
+	searchParams,
+}: PaginatedWithQuery) {
 	const { totalCount, data: savedRoutes } =
-		await api.userRoute.listSavedRoutes.query({
-			q: searchParams.q,
-			page: searchParams.page,
-		});
+		await api.userRoute.listSavedRoutes.query(searchParams);
 
 	return (
 		<div>

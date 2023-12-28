@@ -9,45 +9,12 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { airline, db } from '@/db';
-import { PAGE_SIZE } from '@/lib/constants';
-import { ilike, or, sql } from 'drizzle-orm';
+import { api } from '@/server/api';
+import { PaginatedWithQuery } from '@/types/search';
 
-type PageParams = { searchParams: { q: string; page?: string } };
-type AirlineResult = {
-	id: number;
-	name: string;
-	iata_code: string;
-};
-
-export default async function Airlines({ searchParams }: PageParams) {
-	const page = Number(searchParams.page ?? 1);
-	const query = sql`SELECT * from ${airline}`;
-
-	if (searchParams.q) {
-		query.append(
-			sql`WHERE ${or(
-				ilike(airline.name, `%${searchParams.q}%`),
-				ilike(airline.iataCode, `%${searchParams.q}%`),
-			)}`,
-		);
-	}
-
-	const countQuery = await db.execute<{ count: number }>(
-		sql`SELECT count(*) FROM (${query})`,
-	);
-	const totalCount = countQuery.rows[0].count;
-
-	query.append(sql`
-		ORDER BY
-			${airline.iataCode}
-		LIMIT
-			${PAGE_SIZE}
-		OFFSET
-			${page * PAGE_SIZE - PAGE_SIZE}
-`);
-
-	const { rows: airlines } = await db.execute<AirlineResult>(query);
+export default async function Airlines({ searchParams }: PaginatedWithQuery) {
+	const { data: airlines, totalCount } =
+		await api.airline.list.query(searchParams);
 
 	return (
 		<div>
@@ -75,7 +42,7 @@ export default async function Airlines({ searchParams }: PageParams) {
 										{airline.name}
 									</span>
 								</TableCell>
-								<TableCell>{airline.iata_code}</TableCell>
+								<TableCell>{airline.iataCode}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

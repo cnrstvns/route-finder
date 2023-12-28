@@ -1,41 +1,21 @@
 import { Header } from '@/components/navigation/header';
+import { Empty } from '@/components/ui/empty';
 import { PageTitle } from '@/components/ui/page-title';
-import { airline, db, route } from '@/db';
+import { api } from '@/server/api';
+import { RouterOutputs } from '@/server/routers/_app';
+import { SearchWithQuery } from '@/types/search';
 import { currentUser } from '@clerk/nextjs';
-import { sql } from 'drizzle-orm';
+import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
 import Image from 'next/image';
 import Link from 'next/link';
 
-type Airline = {
-	id: string;
-	name: string;
-	slug: string;
-	logo_path: string;
-	route_count: string;
-};
+type Airline =
+	RouterOutputs['airline']['listWithRouteCount']['data'][number]['airline'];
 
-type PageParams = { searchParams: { q: string } };
-
-export default async function Home({ searchParams }: PageParams) {
+export default async function Home({ searchParams }: SearchWithQuery) {
 	const user = await currentUser();
-
-	const query = sql`
-    select a.id, a.name, a.slug, a.logo_path, count(r.id) as route_count
-    from ${airline} a
-    join ${route} r on r.airline_iata = a.iata_code group by a.id, a.name
-		order by a.name
-  `;
-
-	if (searchParams.q) {
-		query.append(sql` having a.name ilike ${`%${searchParams.q}%`};`);
-	}
-
-	if (!searchParams.q) {
-		query.append(sql`;`);
-	}
-
-	const results = await db.execute(query);
-	const airlines = results.rows as Airline[];
+	const { data: rows } =
+		await api.airline.listWithRouteCount.query(searchParams);
 
 	return (
 		<div>
@@ -48,10 +28,18 @@ export default async function Home({ searchParams }: PageParams) {
 			/>
 
 			<div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 dark:bg-zinc-900">
-				{airlines.map((airline) => (
-					<AirlineCard key={airline.id} airline={airline} />
+				{rows.map((row) => (
+					<AirlineCard key={row.airline.id} airline={row.airline} />
 				))}
 			</div>
+			{!rows.length && (
+				<Empty
+					icon={faSeatAirline}
+					title="No airlines found"
+					subtitle="Try changing your search criteria"
+					className="mx-8"
+				/>
+			)}
 		</div>
 	);
 }
@@ -65,7 +53,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 			<div className="flex flex-col h-full justify-center">
 				<Image
 					className="rounded-full"
-					src={`/logos/${airline.logo_path}`}
+					src={`/logos/${airline.logoPath}`}
 					alt={airline.name}
 					width={48}
 					height={48}
@@ -76,7 +64,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 					{airline.name}
 				</div>
 				<div className="text-neutral-500 dark:text-zinc-400">
-					{airline.route_count} routes
+					{airline.routeCount} routes
 				</div>
 			</div>
 		</Link>
