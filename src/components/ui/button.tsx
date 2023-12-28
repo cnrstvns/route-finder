@@ -48,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				{...props}
 			>
 				<>
-					{!loading && icon && <FontAwesomeIcon icon={icon} className="h-5 w-5 mr-2" />}
+					{!loading && icon && <FontAwesomeIcon icon={icon} className={cn("h-5 w-5", { "mr-2" : size !== 'icon'})} />}
 					{loading && <FontAwesomeIcon icon={faSpinnerThird} className="fa-spin h-5 w-5 mr-2" />}
 					{children}
 				</>

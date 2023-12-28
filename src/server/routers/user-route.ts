@@ -1,7 +1,7 @@
 import { protectedProcedure, router } from '../trpc';
 import z from 'zod';
 import { airline, airport, route, userRoute } from '@/db';
-import { and, desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
 import { getOffset } from '@/lib/db';
 import { PAGE_SIZE } from '@/lib/constants';
@@ -22,6 +22,7 @@ export const userRouteRouter = router({
 
 			return { route: existingUserRoute, success: true };
 		}),
+
 	toggleRouteSaved: protectedProcedure
 		.input(
 			z.object({
@@ -62,6 +63,7 @@ export const userRouteRouter = router({
 
 			return { data: savedRoute, success: true };
 		}),
+
 	listSavedRoutes: protectedProcedure
 		.input(
 			z.object({
@@ -83,6 +85,17 @@ export const userRouteRouter = router({
 				.leftJoin(origin, eq(route.originIata, origin.iataCode))
 				.leftJoin(destination, eq(route.destinationIata, destination.iataCode))
 				.leftJoin(airline, eq(route.airlineIata, airline.iataCode));
+
+			if (input.q) {
+				query.where(
+					or(
+						ilike(route.originIata, input.q),
+						ilike(route.destinationIata, input.q),
+						ilike(airline.name, input.q),
+						ilike(route.aircraftCodes, input.q),
+					),
+				);
+			}
 
 			const countQuery = await ctx.db.execute<{ count: number }>(
 				sql`SELECT count(*) FROM (${query}) `,

@@ -18,7 +18,7 @@ export const feedbackRouter = router({
 		)
 		.mutation(async ({ ctx, input }) => {
 			await ctx.db.insert(feedback).values({
-				userId: ctx.user.id,
+				userId: ctx.user!.id,
 				feedbackText: input.feedback,
 			});
 

@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/table';
 import { Pagination } from '@/components/ui/pagination';
 import { Row } from './row';
+import { Button } from '@/components/ui/button';
+import { faBarsFilter } from '@fortawesome/pro-regular-svg-icons/faBarsFilter';
 
 type PageParams = { searchParams: { q: string; page?: string } };
 
@@ -28,7 +30,14 @@ export default async function SavedRoutes({ searchParams }: PageParams) {
 				title="Saved Routes"
 				subtitle="List of routes you've saved for later."
 				header
-			/>
+			>
+				<Button
+					size="icon"
+					type="button"
+					variant="secondary"
+					icon={faBarsFilter}
+				/>
+			</PageTitle>
 
 			<div className="overflow-auto w-screen md:w-full">
 				<Table>
