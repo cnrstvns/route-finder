@@ -4,10 +4,6 @@ type Result = {
 	limit: number;
 	remaining: number;
 	success: boolean;
-	getHeaders: () => {
-		'X-RateLimit-Limit': string;
-		'X-RateLimit-Remaining': string;
-	};
 };
 
 const rateLimit = async (
@@ -24,12 +20,6 @@ const rateLimit = async (
 			limit,
 			remaining: limit - count,
 			success: false,
-			getHeaders: () => {
-				return {
-					'X-RateLimit-Limit': limit.toString(),
-					'X-RateLimit-Remaining': (limit - count).toString(),
-				};
-			},
 		};
 	}
 
@@ -40,12 +30,6 @@ const rateLimit = async (
 		limit,
 		remaining: limit - (count + 1),
 		success: true,
-		getHeaders: () => {
-			return {
-				'X-RateLimit-Limit': limit.toString(),
-				'X-RateLimit-Remaining': (limit - (count + 1)).toString(),
-			};
-		},
 	};
 };
 

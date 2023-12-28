@@ -1,21 +1,21 @@
 'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/pro-solid-svg-icons/faMessage';
-import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-	DialogDescription,
-} from '../ui/dialog';
-import { Button } from '../ui/button';
-import { Textarea } from '../ui/textarea';
-import { Form, Formik } from 'formik';
-import * as yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Form, Formik, FormikHelpers } from 'formik';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import * as yup from 'yup';
+import { Button } from '../ui/button';
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '../ui/dialog';
+import { Textarea } from '../ui/textarea';
+import { trpc } from '@/app/_trpc/trpc';
 
 type FormValues = {
 	feedback: string;
@@ -35,26 +35,26 @@ const initialValues = {
 
 const Feedback = () => {
 	const [open, setOpen] = useState(false);
-	const [submitting, setSubmitting] = useState(false);
+	const { mutateAsync, isLoading, error } =
+		trpc.feedback.submitFeedback.useMutation();
 
-	const handleSubmit = useCallback(async (values: FormValues) => {
-		setSubmitting(true);
-		const response = await fetch('/api/feedback', {
-			method: 'POST',
-			body: JSON.stringify(values),
-		});
+	const handleSubmit = useCallback(
+		async (values: FormValues, actions: FormikHelpers<FormValues>) => {
+			const result = await mutateAsync(values);
 
-		if (!response.ok) {
-			setSubmitting(false);
-			return toast.warning(
-				'Looks like something went wrong. Please try again later.',
-			);
-		}
+			if (!result.success) {
+				actions.setFieldError('feedback', error?.message);
 
-		setOpen(false);
-		toast.success('Thank you! Your feedback has been recorded.');
-		setSubmitting(false);
-	}, []);
+				return toast.warning(
+					'Looks like something went wrong. Please try again later.',
+				);
+			}
+
+			setOpen(false);
+			toast.success('Thank you! Your feedback has been recorded.');
+		},
+		[mutateAsync, error],
+	);
 
 	return (
 		<div className="w-full">
@@ -98,15 +98,9 @@ const Feedback = () => {
 										type="submit"
 										variant="default"
 										disabled={!isValid}
+										loading={isLoading}
 									>
-										{submitting ? (
-											<FontAwesomeIcon
-												icon={faSpinnerThird}
-												className="fa-spin"
-											/>
-										) : (
-											'Submit'
-										)}
+										Submit
 									</Button>
 								</div>
 							</Form>

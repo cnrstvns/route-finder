@@ -1,0 +1,27 @@
+export type RouteResult = {
+	id: number;
+	aircraft_codes: string;
+	average_duration: number;
+	airline_iata: string;
+	airline_name: string;
+	airline_logo: string;
+	origin_iata: string;
+	origin_icao: string;
+	origin_name: string;
+	origin_city: string;
+	origin_country: string;
+	origin_elevation: string;
+	origin_latitude: string;
+	origin_longitude: string;
+	destination_iata: string;
+	destination_icao: string;
+	destination_name: string;
+	destination_city: string;
+	destination_country: string;
+	destination_latitude: string;
+	destination_longitude: string;
+	destination_elevation: string;
+	user_route_id: number;
+	user_route_route_id: number;
+	user_route_user_id: number;
+};

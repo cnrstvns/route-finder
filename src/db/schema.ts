@@ -5,6 +5,7 @@ import {
 	pgTable,
 	serial,
 	timestamp,
+	unique,
 	varchar,
 } from 'drizzle-orm/pg-core';
 
@@ -110,3 +111,25 @@ export const feedback = pgTable('feedback', {
 	feedbackText: varchar('feedback_text', { length: 500 }).notNull(),
 	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
+
+export const userRoute = pgTable(
+	'user_route',
+	{
+		id: serial('id').primaryKey(),
+		userId: integer('user_id')
+			.notNull()
+			.references(() => user.id),
+		routeId: integer('route_id')
+			.notNull()
+			.references(() => route.id),
+		createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+	},
+	(table) => {
+		return {
+			userRouteIndex: unique('user_route_index').on(
+				table.routeId,
+				table.userId,
+			),
+		};
+	},
+);

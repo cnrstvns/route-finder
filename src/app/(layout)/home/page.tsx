@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: PageParams) {
 			<Header searchPlaceholder="Search for an airline..." profile />
 
 			<PageTitle
-				title={`Welcome back ${user?.firstName}`}
+				title={`Welcome back, ${user?.firstName}`}
 				subtitle="Where will we fly today? To get started, choose an airline."
 				header
 			/>
@@ -60,7 +60,7 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 	return (
 		<Link
 			href={`/new/${airline.slug}`}
-			className="border flex space-x-3 rounded-md shadow-sm py-4 px-4 hover:shadow-md hover:bg-neutral-50 dark:hover:bg-zinc-800/50 transition-all duration-100 cursor-default dark:border-white/10"
+			className="border flex space-x-3 rounded-md shadow-sm py-4 px-4 hover:shadow-md hover:bg-neutral-50 dark:hover:bg-zinc-800/50 cursor-default dark:border-white/10"
 		>
 			<div className="flex flex-col h-full justify-center">
 				<Image

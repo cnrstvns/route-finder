@@ -1,3 +1,4 @@
+import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
 import {
@@ -10,8 +11,8 @@ import {
 import { db, route } from '@/db';
 import { PAGE_SIZE } from '@/lib/constants';
 import { like, or, sql } from 'drizzle-orm';
-import Row from './row';
-import { Header } from '@/components/navigation/header';
+import { Row } from './row';
+import { currentUser } from '@/lib/get-user';
 
 type PageParams = {
 	searchParams: {
@@ -31,9 +32,11 @@ type RouteResult = {
 	destination_name: string;
 	average_duration: number;
 	aircraft_short_names: string;
+	user_route_id: string;
 };
 
 export default async function Routes({ searchParams }: PageParams) {
+	const user = await currentUser();
 	const page = Number(searchParams.page ?? 1);
 	const aircraft = searchParams.aircraft.split(',');
 	const aircraftWhere = aircraft.map((a) =>
@@ -48,13 +51,15 @@ export default async function Routes({ searchParams }: PageParams) {
 			route.average_duration,
 			origin.name AS origin_name,
 			destination.name AS destination_name,
-			STRING_AGG(aircraft.iata_code, ',') AS aircraft_short_names
+			STRING_AGG(aircraft.iata_code, ',') AS aircraft_short_names,
+			user_route.id as user_route_id
 		FROM
 			route
 			JOIN airport AS origin ON route.origin_iata = origin.iata_code
 			JOIN airport AS destination ON route.destination_iata = destination.iata_code
 			JOIN LATERAL UNNEST(string_to_array(route.aircraft_codes, ',')) AS ac_codes ON TRUE
 			JOIN aircraft ON aircraft.iata_code = ac_codes
+			LEFT JOIN user_route ON user_route.route_id = route.id
 		WHERE
 			airline_iata = ${searchParams.airline}
 			AND average_duration > ${searchParams.minDuration}
@@ -63,7 +68,8 @@ export default async function Routes({ searchParams }: PageParams) {
 		GROUP BY
 			route.id,
 			origin.name,
-			destination.name
+			destination.name,
+			user_route.id
 		ORDER BY
 			average_duration
 	`;

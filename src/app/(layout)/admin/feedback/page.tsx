@@ -9,13 +9,13 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { feedback as feedbackTable, user as userTable, db } from '@/db';
+import { db, feedback as feedbackTable, user as userTable } from '@/db';
 import { PAGE_SIZE } from '@/lib/constants';
+import { dayjs } from '@/lib/time';
 import { sql } from 'drizzle-orm';
 import Image from 'next/image';
-import { dayjs } from '@/lib/time';
 
-type PageParams = { searchParams: { page?: string } };
+type PageParams = { searchParams: { page?: string; q?: string } };
 type FeedbackResult = {
 	id: number;
 	user_id: number;
@@ -47,6 +47,16 @@ export default async function Feedback({ searchParams }: PageParams) {
 		sql`SELECT count(*) FROM (${query}) `,
 	);
 	const totalCount = countQuery.rows[0].count;
+
+	if (searchParams.q) {
+		query.append(
+			sql`
+			WHERE
+				CONCAT("user".first_name, ' ', "user".last_name) ilike ${`%${searchParams.q}%`}
+				OR feedback.feedback_text ilike ${`%${searchParams.q}%`}
+				OR "user".email_address ilike ${`%${searchParams.q}%`}`,
+		);
+	}
 
 	query.append(sql`
 		ORDER BY
