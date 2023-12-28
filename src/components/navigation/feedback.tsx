@@ -1,4 +1,5 @@
 'use client';
+import { trpc } from '@/app/_trpc/trpc';
 import { faMessage } from '@fortawesome/pro-solid-svg-icons/faMessage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik, FormikHelpers } from 'formik';
@@ -15,7 +16,6 @@ import {
 	DialogTrigger,
 } from '../ui/dialog';
 import { Textarea } from '../ui/textarea';
-import { trpc } from '@/app/_trpc/trpc';
 
 type FormValues = {
 	feedback: string;

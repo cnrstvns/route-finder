@@ -1,6 +1,6 @@
 import { feedback } from '@/db';
-import { rateLimitMiddleware, protectedProcedure, router } from '../trpc';
 import { z } from 'zod';
+import { protectedProcedure, rateLimitMiddleware, router } from '../trpc';
 
 const LIMIT_PER_HOUR = 10;
 const HOUR_IN_SECONDS = 3600;

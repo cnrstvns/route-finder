@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	asChild?: boolean;

@@ -1,8 +1,8 @@
+import { inferRouterOutputs } from '@trpc/server';
 import { router } from '../trpc';
 import { feedbackRouter } from './feedback';
 import { routeRouter } from './route';
 import { userRouteRouter } from './user-route';
-import { inferRouterOutputs } from '@trpc/server';
 
 export const appRouter = router({
 	userRoute: userRouteRouter,

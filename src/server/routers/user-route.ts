@@ -1,11 +1,11 @@
-import { protectedProcedure, router } from '../trpc';
-import z from 'zod';
 import { airline, airport, route, userRoute } from '@/db';
+import { PAGE_SIZE } from '@/lib/constants';
+import { getOffset } from '@/lib/db';
 import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
-import { getOffset } from '@/lib/db';
-import { PAGE_SIZE } from '@/lib/constants';
+import z from 'zod';
 import { paginatedInput } from '../helpers';
+import { protectedProcedure, router } from '../trpc';
 
 export const userRouteRouter = router({
 	fetchById: protectedProcedure

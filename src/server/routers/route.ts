@@ -1,9 +1,9 @@
+import { db, route } from '@/db';
+import { PAGE_SIZE } from '@/lib/constants';
+import { like, or, sql } from 'drizzle-orm';
+import { z } from 'zod';
 import { paginatedInput } from '../helpers';
 import { protectedProcedure, router } from '../trpc';
-import { z } from 'zod';
-import { sql, like, or } from 'drizzle-orm';
-import { PAGE_SIZE } from '@/lib/constants';
-import { db, route } from '@/db';
 
 export type RouteResult = {
 	id: number;

@@ -1,9 +1,9 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import { appRouter } from '@/server/routers/_app';
-import { auth } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
-import status from 'http-status';
 import { createTRPCContext } from '@/server/trpc';
+import { auth } from '@clerk/nextjs/server';
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
+import status from 'http-status';
+import { NextResponse } from 'next/server';
 
 const handler = async (req: Request) => {
 	const { userId } = auth();

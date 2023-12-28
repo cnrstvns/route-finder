@@ -1,11 +1,11 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import { trpc } from '@/app/_trpc/trpc';
-import { useCallback } from 'react';
+import { Button } from '@/components/ui/button';
+import type { ButtonProps } from '@/components/ui/button';
 import type { RouterOutputs } from '@/server/routers/_app';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/pro-regular-svg-icons/faBookmark';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/pro-solid-svg-icons/faBookmark';
-import type { ButtonProps } from '@/components/ui/button';
+import { useCallback } from 'react';
 import type { MouseEvent } from 'react';
 
 type InitialData = RouterOutputs['userRoute']['fetchById'];
