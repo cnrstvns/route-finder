@@ -61,7 +61,7 @@ const Navbar = async () => {
 					<NavLink key={r.href} href={r.href} title={r.title} icon={r.icon} />
 				))}
 				{admin && (
-					<div className="mt-2">
+					<div>
 						<div className="text-sm font-medium my-1 text-neutral-500 dark:text-zinc-500">
 							Admin
 						</div>
