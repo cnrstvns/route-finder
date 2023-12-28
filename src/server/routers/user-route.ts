@@ -21,6 +21,13 @@ export const userRouteRouter = router({
 					),
 				);
 
+			if (!existingUserRoute) {
+				return {
+					route: null,
+					success: true,
+				};
+			}
+
 			return { route: existingUserRoute, success: true };
 		}),
 

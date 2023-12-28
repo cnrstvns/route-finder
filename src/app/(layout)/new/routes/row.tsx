@@ -70,12 +70,14 @@ const Row = ({ route }: RowProps) => {
 					size="icon-sm"
 					routeId={route.id}
 					initialData={{
-						route: {
-							routeId: route.id,
-							id: route.user_route_id,
-							userId: route.user_route_user_id,
-							createdAt: route.user_route_created_at,
-						},
+						route: route.user_route_id
+							? {
+									routeId: route.id,
+									id: route.user_route_id,
+									userId: route.user_route_user_id,
+									createdAt: route.user_route_created_at,
+							  }
+							: null,
 						success: true,
 					}}
 				/>
