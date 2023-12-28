@@ -9,42 +9,12 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { aircraft, db } from '@/db';
-import { PAGE_SIZE } from '@/lib/constants';
-import { ilike, or, sql } from 'drizzle-orm';
+import { api } from '@/server/api';
+import { PaginatedWithQuery } from '@/types/search';
 
-type PageParams = { searchParams: { q: string; page?: number } };
-type AircraftResult = {
-	id: number;
-	iata_code: string;
-	model_name: string;
-	short_name: string;
-};
-
-export default async function Aircraft({ searchParams }: PageParams) {
-	const page = Number(searchParams.page ?? 1);
-	const query = db
-		.select()
-		.from(aircraft)
-		.where(
-			searchParams.q
-				? or(
-						ilike(aircraft.modelName, `%${searchParams.q}%`),
-						ilike(aircraft.iataCode, `%${searchParams.q}%`),
-				  )
-				: undefined,
-		)
-		.orderBy(aircraft.modelName);
-
-	const countQuery = await db.execute<{ count: number }>(
-		sql`SELECT count(*) FROM ${query}`,
-	);
-	const totalCount = countQuery.rows[0].count;
-
-	query.limit(PAGE_SIZE);
-	query.offset(page * PAGE_SIZE - PAGE_SIZE);
-
-	const { rows: aircrafts } = await db.execute<AircraftResult>(query);
+export default async function Aircraft({ searchParams }: PaginatedWithQuery) {
+	const { data: aircraft, totalCount } =
+		await api.aircraft.list.query(searchParams);
 
 	return (
 		<div>
@@ -65,15 +35,15 @@ export default async function Aircraft({ searchParams }: PageParams) {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{aircrafts.map((aircraft) => (
+						{aircraft.map((aircraft) => (
 							<TableRow key={aircraft.id}>
 								<TableCell>
 									<span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
-										{aircraft.model_name}
+										{aircraft.modelName}
 									</span>
 								</TableCell>
-								<TableCell>{aircraft.iata_code}</TableCell>
-								<TableCell>{aircraft.short_name}</TableCell>
+								<TableCell>{aircraft.iataCode}</TableCell>
+								<TableCell>{aircraft.shortName}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

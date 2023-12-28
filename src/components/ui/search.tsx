@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons/faMagnifyingGlass';
 import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 
 type SearchProps = {
@@ -14,6 +14,7 @@ type SearchProps = {
 const Search = ({ disabled, placeholder }: SearchProps) => {
 	const { replace } = useRouter();
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const [isPending, startTransition] = useTransition();
 
 	function handleSearch(term: string) {
