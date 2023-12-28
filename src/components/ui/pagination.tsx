@@ -3,7 +3,7 @@ import { PAGE_SIZE } from '@/lib/constants';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import posthog from 'posthog-js';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Button } from './button';
 
 type PaginationProps = {
@@ -19,10 +19,16 @@ const Pagination = ({ totalCount, resource }: PaginationProps) => {
 	const page = Number(searchParams.get('page') || 1);
 	const hasMore = page * PAGE_SIZE < totalCount;
 	const hasPrev = page > 1;
-	const showing = `Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
-		page * PAGE_SIZE,
-		totalCount,
-	)} of ${totalCount} ${totalCount === 1 ? resource : `${resource}s`}`;
+	const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+
+	const showing = useMemo(
+		() =>
+			`Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
+				page * PAGE_SIZE,
+				totalCount,
+			)} of ${totalCount} ${totalCount === 1 ? resource : `${resource}s`}`,
+		[page, totalCount, resource],
+	);
 
 	const goToPrevious = useCallback(() => {
 		const params = new URLSearchParams(searchParams);
@@ -52,7 +58,10 @@ const Pagination = ({ totalCount, resource }: PaginationProps) => {
 
 	return (
 		<div className="flex w-full justify-between items-center border-t dark:border-white/10 py-2 px-6">
-			<div className="text-neutral-500 text-sm">{showing}</div>
+			<div className="text-neutral-500 text-sm hidden sm:block">{showing}</div>
+			<div className="text-neutral-500 text-sm sm:hidden">
+				Page {page} of {totalPages}
+			</div>
 
 			<div className="space-x-2">
 				<Button
