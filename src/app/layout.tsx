@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
 import './globals.css';
 import { PostHog } from './posthog';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
 export const viewport: Viewport = {
 	themeColor: '#4F46E5',

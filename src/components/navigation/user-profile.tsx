@@ -33,7 +33,7 @@ const UserProfile = () => {
 				/>
 			</DropdownTrigger>
 			<DropdownPortal>
-				<DropdownContent>
+				<DropdownContent className="w-[270px]">
 					<div className="flex space-x-3 px-3 py-3">
 						<Image
 							src={user?.imageUrl}

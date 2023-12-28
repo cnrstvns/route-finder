@@ -21,11 +21,11 @@ type RowProps = {
 	route: RouteResult;
 };
 
-export default function Row({ aircraft, route }: RowProps) {
+const Row = ({ aircraft, route }: RowProps) => {
 	const router = useRouter();
 	const navigate = useCallback(() => {
-		router.push(`/new/routes/${route.id}?aircraft=${aircraft.toString()}`);
-	}, [router, aircraft, route]);
+		router.push(`/routes/${route.id}`);
+	}, [router, route]);
 
 	return (
 		<TableRow onClick={navigate}>
@@ -70,4 +70,6 @@ export default function Row({ aircraft, route }: RowProps) {
 			</TableCell>
 		</TableRow>
 	);
-}
+};
+
+export { Row };
