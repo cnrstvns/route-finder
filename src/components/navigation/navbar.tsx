@@ -1,4 +1,6 @@
 import { isAdmin } from '@/lib/is-admin';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faBookmark } from '@fortawesome/pro-solid-svg-icons/faBookmark';
 import { faHomeAlt } from '@fortawesome/pro-solid-svg-icons/faHomeAlt';
 import { faMessage } from '@fortawesome/pro-solid-svg-icons/faMessage';
 import { faPlane } from '@fortawesome/pro-solid-svg-icons/faPlane';
@@ -6,8 +8,6 @@ import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
 import { faTowerControl } from '@fortawesome/pro-solid-svg-icons/faTowerControl';
 import { Feedback } from './feedback';
 import { NavLink } from './nav-link';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { faBookmark } from '@fortawesome/pro-solid-svg-icons/faBookmark';
 
 type Route = {
 	title: string;

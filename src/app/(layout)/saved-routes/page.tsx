@@ -1,6 +1,6 @@
 import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
-import { api } from '@/server/api';
+import { Pagination } from '@/components/ui/pagination';
 import {
 	Table,
 	TableBody,
@@ -8,7 +8,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import { Pagination } from '@/components/ui/pagination';
+import { api } from '@/server/api';
 import { Row } from './row';
 
 type PageParams = { searchParams: { q: string; page?: string } };

@@ -1,14 +1,14 @@
 import { cn } from '@/lib/utils';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	asChild?: boolean;
 	variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link' | 'black';
-	size: 'sm' | 'md' | 'lg' | 'icon';
+	size: 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm';
 	loading?: boolean;
 	icon?: IconProp;
 }
@@ -24,10 +24,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				className={cn(
 					'inline-flex cursor-default items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
 					{
-						'h-9 rounded-md px-3': size === 'sm',
+						'h-8 rounded-md px-3': size === 'sm',
 						'h-10 px-4 py-2': size === 'md',
 						'h-11 rounded-md px-8': size === 'lg',
 						'h-10 w-10': size === 'icon',
+						'h-8 w-8': size === 'icon-sm',
 					},
 					{
 						'text-white bg-indigo-500 hover:bg-indigo-500/80 active:bg-indigo-500/60':
@@ -48,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 				{...props}
 			>
 				<>
-					{!loading && icon && <FontAwesomeIcon icon={icon} className={cn("h-5 w-5", { "mr-2" : size !== 'icon'})} />}
+					{!loading && icon && <FontAwesomeIcon icon={icon} className={cn("h-5 w-5", { "mr-2" : !size.includes('icon')})} />}
 					{loading && <FontAwesomeIcon icon={faSpinnerThird} className="fa-spin h-5 w-5 mr-2" />}
 					{children}
 				</>

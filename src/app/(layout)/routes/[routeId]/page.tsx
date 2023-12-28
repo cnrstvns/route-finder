@@ -1,4 +1,5 @@
 import { Header } from '@/components/navigation/header';
+import { SaveRoute } from '@/components/routes/save-route';
 import { Button } from '@/components/ui/button';
 import {
 	Card,
@@ -19,6 +20,7 @@ import {
 import { distanceInNauticalMiles } from '@/lib/distance';
 import { formatElevation } from '@/lib/elevation';
 import { generateFlightNumber } from '@/lib/flight-number';
+import { currentUser } from '@/lib/get-user';
 import { formatMinutes } from '@/lib/time';
 import { faMap } from '@fortawesome/pro-solid-svg-icons/faMap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,8 +29,6 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { RouteResult } from './types';
-import { SaveRoute } from './save-route';
-import { currentUser } from '@/lib/get-user';
 
 const Preview = dynamic(() => import('./preview'), {
 	ssr: false,

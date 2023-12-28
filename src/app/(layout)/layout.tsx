@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/navigation/navbar';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Link from 'next/link';
 import TrpcProvider from '../_trpc/provider';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 type LayoutProps = {
 	children: React.ReactNode;
@@ -35,7 +35,7 @@ export default function Layout({ children }: LayoutProps) {
 							</div>
 						</div>
 					</div>
-					<ReactQueryDevtools />
+					<ReactQueryDevtools buttonPosition="bottom-left" />
 				</TrpcProvider>
 			</main>
 		</body>

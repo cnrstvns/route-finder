@@ -1,12 +1,12 @@
 'use client';
-import type { RouterOutputs } from '@/server/routers/_app';
-import { TableRow, TableCell } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { TableCell, TableRow } from '@/components/ui/table';
 import { Tooltip } from '@/components/ui/tooltip';
 import { formatMinutes } from '@/lib/time';
-import { Badge } from '@/components/ui/badge';
 import { dayjs } from '@/lib/time';
-import { useCallback } from 'react';
+import type { RouterOutputs } from '@/server/routers/_app';
 import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
 type SavedRoute = RouterOutputs['userRoute']['listSavedRoutes']['data'][number];
 type RowProps = {
