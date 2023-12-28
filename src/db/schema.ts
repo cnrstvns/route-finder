@@ -107,7 +107,7 @@ export const feedback = pgTable('feedback', {
 	id: serial('id').primaryKey(),
 	userId: integer('user_id')
 		.notNull()
-		.references(() => user.id),
+		.references(() => user.id, { onDelete: 'cascade' }),
 	feedbackText: varchar('feedback_text', { length: 500 }).notNull(),
 	createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
@@ -118,7 +118,7 @@ export const userRoute = pgTable(
 		id: serial('id').primaryKey(),
 		userId: integer('user_id')
 			.notNull()
-			.references(() => user.id),
+			.references(() => user.id, { onDelete: 'cascade' }),
 		routeId: integer('route_id')
 			.notNull()
 			.references(() => route.id),
