@@ -17,10 +17,7 @@ const MobileMenu = () => {
 					<div
 						className={cn(
 							'h-9 w-9 cursor-default flex items-center justify-center hover:border hover:border-neutral-300 hover:bg-neutral-200 dark:hover:bg-zinc-800 dark:hover:border-zinc-700 rounded-md',
-							{
-								'bg-neutral-200 dark:bg-zinc-800 border dark:border-zinc-700':
-									open,
-							},
+							'data-[state=open]:bg-neutral-200 data-[state=open]:dark:bg-zinc-800 data-[state=open]:border data-[state=open]:dark:border-zinc-700',
 						)}
 					>
 						<FontAwesomeIcon className="dark:text-white/60" icon={faBars} />

@@ -5,14 +5,17 @@ import { useCallback } from 'react';
 import type { RouterOutputs } from '@/server/routers/_app';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/pro-regular-svg-icons/faBookmark';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/pro-solid-svg-icons/faBookmark';
+import type { ButtonProps } from '@/components/ui/button';
+import type { MouseEvent } from 'react';
 
 type InitialData = RouterOutputs['userRoute']['fetchById'];
 type SaveRouteProps = {
 	routeId: number;
 	initialData: InitialData;
+	size?: ButtonProps['size'];
 };
 
-const SaveRoute = ({ routeId, initialData }: SaveRouteProps) => {
+const SaveRoute = ({ routeId, initialData, size }: SaveRouteProps) => {
 	const utils = trpc.useUtils();
 	const { data } = trpc.userRoute.fetchById.useQuery(
 		{ routeId },
@@ -26,20 +29,25 @@ const SaveRoute = ({ routeId, initialData }: SaveRouteProps) => {
 			onSettled: () => utils.userRoute.fetchById.invalidate({ routeId }),
 		});
 
-	const handleSave = useCallback(async () => {
-		await mutateAsync({ routeId });
-	}, [mutateAsync, routeId]);
+	const handleSave = useCallback(
+		async (e: MouseEvent<HTMLButtonElement>) => {
+			e.preventDefault();
+			e.stopPropagation();
+			await mutateAsync({ routeId });
+		},
+		[mutateAsync, routeId],
+	);
 
 	return (
 		<Button
 			type="button"
 			variant="secondary"
-			size="md"
+			size={size || 'md'}
 			onClick={handleSave}
 			loading={isLoading}
 			icon={data.route ? faBookmarkSolid : faBookmarkRegular}
 		>
-			{data.route ? 'Unsave' : 'Save'}
+			{!size?.includes('icon') && (data.route ? 'Unsave' : 'Save')}
 		</Button>
 	);
 };

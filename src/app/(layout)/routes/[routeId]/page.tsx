@@ -27,7 +27,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { RouteResult } from './types';
-import { SaveRoute } from './save-route';
+import { SaveRoute } from '@/components/routes/save-route';
 import { currentUser } from '@/lib/get-user';
 
 const Preview = dynamic(() => import('./preview'), {

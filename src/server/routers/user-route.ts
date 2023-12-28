@@ -5,6 +5,7 @@ import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 import { alias } from 'drizzle-orm/pg-core';
 import { getOffset } from '@/lib/db';
 import { PAGE_SIZE } from '@/lib/constants';
+import { paginatedInput } from '../helpers';
 
 export const userRouteRouter = router({
 	fetchById: protectedProcedure
@@ -24,11 +25,7 @@ export const userRouteRouter = router({
 		}),
 
 	toggleRouteSaved: protectedProcedure
-		.input(
-			z.object({
-				routeId: z.number(),
-			}),
-		)
+		.input(z.object({ routeId: z.number() }))
 		.mutation(async ({ input, ctx }) => {
 			// If the user has already saved this route, we want to delete the saved route. Otherwise, we want to create it.
 			const [existingUserRoute] = await ctx.db
@@ -65,15 +62,7 @@ export const userRouteRouter = router({
 		}),
 
 	listSavedRoutes: protectedProcedure
-		.input(
-			z.object({
-				q: z.string().nullish(),
-				page: z
-					.string()
-					.transform((page) => parseInt(page))
-					.default('1'),
-			}),
-		)
+		.input(paginatedInput)
 		.query(async ({ input, ctx }) => {
 			const origin = alias(airport, 'origin');
 			const destination = alias(airport, 'destination');

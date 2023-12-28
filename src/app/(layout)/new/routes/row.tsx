@@ -3,26 +3,23 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Tooltip } from '@/components/ui/tooltip';
 import { formatMinutes } from '@/lib/time';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
-
-type RouteResult = {
-	id: number;
-	origin_iata: string;
-	destination_iata: string;
-	origin_name: string;
-	destination_name: string;
-	average_duration: number;
-	aircraft_short_names: string;
-};
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
+import { SaveRoute } from '@/components/routes/save-route';
+import type { RouteResult } from './types';
 
 type RowProps = {
-	aircraft: string[];
 	route: RouteResult;
 };
 
-const Row = ({ aircraft, route }: RowProps) => {
+const Row = ({ route }: RowProps) => {
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const aircraft = useMemo(
+		() => searchParams.get('aircraft')?.split(',') || [],
+		[searchParams],
+	);
+
 	const navigate = useCallback(() => {
 		router.push(`/routes/${route.id}`);
 	}, [router, route]);
@@ -67,6 +64,21 @@ const Row = ({ aircraft, route }: RowProps) => {
 							{ac}
 						</Badge>
 					))}
+			</TableCell>
+			<TableCell className="flex w-full justify-end p-0 pr-6 py-2.5">
+				<SaveRoute
+					size="icon-sm"
+					routeId={route.id}
+					initialData={{
+						route: {
+							routeId: route.id,
+							id: route.user_route_id,
+							userId: route.user_route_user_id,
+							createdAt: route.user_route_created_at,
+						},
+						success: true,
+					}}
+				/>
 			</TableCell>
 		</TableRow>
 	);

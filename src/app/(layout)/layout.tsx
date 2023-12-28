@@ -35,7 +35,7 @@ export default function Layout({ children }: LayoutProps) {
 							</div>
 						</div>
 					</div>
-					<ReactQueryDevtools />
+					<ReactQueryDevtools buttonPosition="bottom-left" />
 				</TrpcProvider>
 			</main>
 		</body>
