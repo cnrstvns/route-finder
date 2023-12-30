@@ -4,6 +4,7 @@ import { faChevronRight } from '@fortawesome/pro-regular-svg-icons/faChevronRigh
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { count } from 'drizzle-orm';
 import { unstable_cache } from 'next/cache';
+import { Stat } from './stat';
 
 const navigation = [
 	{
@@ -176,11 +177,21 @@ export default async function Page() {
 						</div>
 					</div>
 				</div>
+
+				<div className="flex w-full justify-center">
+					<img
+						height={500}
+						width={1000}
+						src="/product-light.png"
+						alt="product preview"
+					/>
+				</div>
+
 				<div className="bg-white py-24 sm:py-32">
 					<div className="mx-auto max-w-7xl px-6 lg:px-8">
 						<div className="mx-auto max-w-2xl lg:max-w-none">
 							<div className="text-center">
-								<h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+								<h2 className="text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl balance">
 									Trusted by enthusiasts{' '}
 									<span className="underline text-indigo-600">like you</span>
 								</h2>
@@ -190,21 +201,26 @@ export default async function Page() {
 									improve your experience.
 								</p>
 							</div>
-							<dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-1 lg:grid-cols-3">
-								{stats.map((stat) => (
-									<div
-										key={stat.label}
-										className="flex flex-col bg-neutral-400/5 p-8"
-									>
-										<dt className="text-sm pt-2 font-semibold leading-6 text-neutral-600">
-											{stat.label}
-										</dt>
-										<dd className="order-first text-5xl font-bold tracking-tight text-neutral-900">
-											{stat.value.toLocaleString()}
-										</dd>
-									</div>
-								))}
-							</dl>
+							<div className="relative">
+								<dl className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-md text-center sm:grid-cols-1 lg:grid-cols-3 border bg-neutral-900/5">
+									{stats.map((stat) => (
+										<div
+											key={stat.label}
+											className="flex flex-col items-start p-8 bg-white"
+										>
+											<dt className="text-sm pt-2 font-medium leading-6 text-neutral-500">
+												{stat.label}
+											</dt>
+											<dd className="text-3xl font-medium leading-10 tracking-tight text-neutral-900">
+												<Stat value={stat.value} />
+											</dd>
+										</div>
+									))}
+								</dl>
+								<div className="absolute top-0 left-[50%] translate-x-[-50%] -mt-[10px] z-50 bg-indigo-500 rounded-full text-white font-medium text-xs px-3 py-0.5">
+									Updated daily
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

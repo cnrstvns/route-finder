@@ -244,11 +244,12 @@ export default async function Page({ params }: PageParams) {
 					</CardHeader>
 
 					<CardFooter className="flex space-y-3 md:space-y-0 flex-col md:flex-row space-x-0 md:space-x-2">
-						<Button variant="black" size="md" className="w-full">
-							<Link
-								href={`https://www.simbrief.com/system/dispatch.php?orig=${route.origin_icao}&dest=${route.destination_icao}`}
-								className="flex items-center"
-							>
+						<Link
+							href={`https://www.simbrief.com/system/dispatch.php?orig=${route.origin_icao}&dest=${route.destination_icao}`}
+							target="_blank"
+							className="flex items-center w-full"
+						>
+							<Button variant="black" size="md" className="w-full">
 								Open in Simbrief
 								<Image
 									src="/external/navigraph.png"
@@ -257,19 +258,19 @@ export default async function Page({ params }: PageParams) {
 									alt="Navigraph"
 									className="ml-2"
 								/>
-							</Link>
-						</Button>
+							</Button>
+						</Link>
 
-						<Button variant="black" size="md" className="w-full">
-							<Link
-								href={`https://skyvector.com?fpl=${route.origin_icao}%20${route.destination_icao}`}
-								target="_blank"
-								className="w-full"
-							>
+						<Link
+							href={`https://skyvector.com?fpl=${route.origin_icao}%20${route.destination_icao}`}
+							target="_blank"
+							className="w-full"
+						>
+							<Button variant="black" size="md" className="w-full">
 								Open in SkyVector
 								<FontAwesomeIcon icon={faMap} className="h-5 w-5 ml-2" />
-							</Link>
-						</Button>
+							</Button>
+						</Link>
 					</CardFooter>
 				</Card>
 				<Card>
