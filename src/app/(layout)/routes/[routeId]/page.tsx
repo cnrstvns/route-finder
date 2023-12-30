@@ -245,7 +245,10 @@ export default async function Page({ params }: PageParams) {
 
 					<CardFooter className="flex space-y-3 md:space-y-0 flex-col md:flex-row space-x-0 md:space-x-2">
 						<Button variant="black" size="md" className="w-full">
-							<div className="flex items-center">
+							<Link
+								href={`https://www.simbrief.com/system/dispatch.php?orig=${route.origin_icao}&dest=${route.destination_icao}`}
+								className="flex items-center"
+							>
 								Open in Simbrief
 								<Image
 									src="/external/navigraph.png"
@@ -254,7 +257,7 @@ export default async function Page({ params }: PageParams) {
 									alt="Navigraph"
 									className="ml-2"
 								/>
-							</div>
+							</Link>
 						</Button>
 
 						<Button variant="black" size="md" className="w-full">

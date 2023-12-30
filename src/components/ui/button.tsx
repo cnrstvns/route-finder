@@ -35,7 +35,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 							variant === 'default',
 						'bg-black text-white hover:bg-black/80 active:bg-black/60 dark:hover:opacity-70':
 							variant === 'black',
-						'bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 hover:border-neutral-300 active:bg-neutral-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-white dark:hover:bg-zinc-700 dark:hover:border-zinc-600':
+						'bg-neutral-100 border border-neutral-200 hover:bg-neutral-200 hover:border-neutral-300 active:bg-neutral-300 dark:bg-zinc-800 dark:border-zinc-700 dark:text-white dark:hover:bg-zinc-700 dark:active:bg-zinc-800 dark:hover:border-zinc-600':
 							variant === 'secondary',
 						'bg-rose-600 text-white hover:bg-rose-600/90 active:bg-rose-600/80':
 							variant === 'destructive',

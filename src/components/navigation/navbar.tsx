@@ -49,6 +49,11 @@ export const adminRoutes = [
 		href: '/admin/feedback',
 		icon: faMessage,
 	},
+	{
+		title: 'Airlines',
+		href: '/admin/airlines',
+		icon: faSeatAirline,
+	},
 ] as const;
 
 const Navbar = async () => {
