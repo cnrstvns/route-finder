@@ -7,84 +7,84 @@ import { useCallback, useMemo } from 'react';
 import { Button } from './button';
 
 type PaginationProps = {
-	totalCount: number;
-	resource: string;
+  totalCount: number;
+  resource: string;
 };
 
 const Pagination = ({ totalCount, resource }: PaginationProps) => {
-	const router = useRouter();
-	const pathname = usePathname();
-	const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-	const page = Number(searchParams.get('page') || 1);
-	const hasMore = page * PAGE_SIZE < totalCount;
-	const hasPrev = page > 1;
-	const totalPages = Math.ceil(totalCount / PAGE_SIZE);
+  const page = Number(searchParams.get('page') || 1);
+  const hasMore = page * PAGE_SIZE < totalCount;
+  const hasPrev = page > 1;
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
-	const showing = useMemo(
-		() =>
-			`Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
-				page * PAGE_SIZE,
-				totalCount,
-			)} of ${totalCount} ${totalCount === 1 ? resource : `${resource}s`}`,
-		[page, totalCount, resource],
-	);
+  const showing = useMemo(
+    () =>
+      `Showing ${page * PAGE_SIZE - PAGE_SIZE + 1}-${Math.min(
+        page * PAGE_SIZE,
+        totalCount,
+      )} of ${totalCount} ${totalCount === 1 ? resource : `${resource}s`}`,
+    [page, totalCount, resource],
+  );
 
-	const goToPrevious = useCallback(() => {
-		const params = new URLSearchParams(searchParams);
-		params.set('page', (page - 1).toString());
+  const goToPrevious = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', (page - 1).toString());
 
-		posthog.capture('Clicked to previous page', {
-			pathname,
-			from: page,
-			to: page - 1,
-		});
+    posthog.capture('Clicked to previous page', {
+      pathname,
+      from: page,
+      to: page - 1,
+    });
 
-		router.push(`${pathname}?${params.toString()}`);
-	}, [pathname, searchParams, router, page]);
+    router.push(`${pathname}?${params.toString()}`);
+  }, [pathname, searchParams, router, page]);
 
-	const goToNext = useCallback(() => {
-		const params = new URLSearchParams(searchParams);
-		params.set('page', (page + 1).toString());
+  const goToNext = useCallback(() => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', (page + 1).toString());
 
-		posthog.capture('Clicked to next page', {
-			pathname,
-			from: page,
-			to: page + 1,
-		});
+    posthog.capture('Clicked to next page', {
+      pathname,
+      from: page,
+      to: page + 1,
+    });
 
-		router.push(`${pathname}?${params.toString()}`);
-	}, [pathname, searchParams, router, page]);
+    router.push(`${pathname}?${params.toString()}`);
+  }, [pathname, searchParams, router, page]);
 
-	return (
-		<div className="flex w-full justify-between items-center border-t dark:border-white/10 py-2 px-6">
-			<div className="text-neutral-500 text-sm hidden sm:block">{showing}</div>
-			<div className="text-neutral-500 text-sm sm:hidden">
-				Page {page} of {totalPages}
-			</div>
+  return (
+    <div className="flex w-full justify-between items-center border-t dark:border-white/10 py-2 px-6">
+      <div className="text-neutral-500 text-sm hidden sm:block">{showing}</div>
+      <div className="text-neutral-500 text-sm sm:hidden">
+        Page {page} of {totalPages}
+      </div>
 
-			<div className="space-x-2">
-				<Button
-					onClick={goToPrevious}
-					disabled={!hasPrev}
-					type="button"
-					variant="secondary"
-					size="sm"
-				>
-					Previous
-				</Button>
-				<Button
-					onClick={goToNext}
-					disabled={!hasMore}
-					type="button"
-					variant="secondary"
-					size="sm"
-				>
-					Next
-				</Button>
-			</div>
-		</div>
-	);
+      <div className="space-x-2">
+        <Button
+          onClick={goToPrevious}
+          disabled={!hasPrev}
+          type="button"
+          variant="secondary"
+          size="sm"
+        >
+          Previous
+        </Button>
+        <Button
+          onClick={goToNext}
+          disabled={!hasMore}
+          type="button"
+          variant="secondary"
+          size="sm"
+        >
+          Next
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 Pagination.displayName = 'Pagination';

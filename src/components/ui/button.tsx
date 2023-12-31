@@ -6,11 +6,11 @@ import { Slot } from '@radix-ui/react-slot';
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	asChild?: boolean;
-	variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link' | 'black';
-	size: 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm';
-	loading?: boolean;
-	icon?: IconProp;
+  asChild?: boolean;
+  variant: 'default' | 'secondary' | 'destructive' | 'ghost' | 'link' | 'black';
+  size: 'sm' | 'md' | 'lg' | 'icon' | 'icon-sm';
+  loading?: boolean;
+  icon?: IconProp;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

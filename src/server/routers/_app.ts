@@ -9,13 +9,13 @@ import { routeRouter } from './route';
 import { userRouteRouter } from './user-route';
 
 export const appRouter = router({
-	userRoute: userRouteRouter,
-	feedback: feedbackRouter,
-	route: routeRouter,
-	admin: adminRouter,
-	airline: airlineRouter,
-	aircraft: aircraftRouter,
-	airport: airportRouter,
+  userRoute: userRouteRouter,
+  feedback: feedbackRouter,
+  route: routeRouter,
+  admin: adminRouter,
+  airline: airlineRouter,
+  aircraft: aircraftRouter,
+  airport: airportRouter,
 });
 
 export type AppRouter = typeof appRouter;

@@ -2,23 +2,23 @@ import { authMiddleware } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 export default authMiddleware({
-	beforeAuth: (request: Request) => {
-		const url = new URL(request.url);
-		const pathname = url.pathname;
-		const requestHeaders = new Headers(request.headers);
+  beforeAuth: (request: Request) => {
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+    const requestHeaders = new Headers(request.headers);
 
-		requestHeaders.set('x-pathname', pathname);
+    requestHeaders.set('x-pathname', pathname);
 
-		return NextResponse.next({
-			request: {
-				headers: requestHeaders,
-			},
-		});
-	},
-	ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk', '/api/inngest'],
-	publicRoutes: ['/'],
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+  },
+  ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk', '/api/inngest'],
+  publicRoutes: ['/'],
 });
 
 export const config = {
-	matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };
