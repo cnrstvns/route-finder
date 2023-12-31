@@ -1,18 +1,18 @@
 export type Paginated = {
-	searchParams: {
-		page?: string;
-	};
+  searchParams: {
+    page?: string;
+  };
 };
 
 export type PaginatedWithQuery = {
-	searchParams: {
-		q?: string;
-		page?: string;
-	};
+  searchParams: {
+    q?: string;
+    page?: string;
+  };
 };
 
 export type SearchWithQuery = {
-	searchParams: {
-		q?: string;
-	};
+  searchParams: {
+    q?: string;
+  };
 };

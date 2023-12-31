@@ -13,7 +13,8 @@
 		}
 	},
 	"formatter": {
-		"enabled": true
+		"enabled": true,
+		"indentStyle": "space"
 	},
 	"javascript": {
 		"formatter": {
