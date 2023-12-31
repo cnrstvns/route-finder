@@ -1,4 +1,3 @@
-import { Route } from '@/workers/data/types';
 import { EventSchemas, Inngest } from 'inngest';
 
 type AdminAddAirline = {

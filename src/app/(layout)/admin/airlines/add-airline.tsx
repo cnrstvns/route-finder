@@ -1,26 +1,26 @@
 'use client';
+import { trpc } from '@/app/_trpc/trpc';
 import { Button } from '@/components/ui/button';
-import { faPlus } from '@fortawesome/pro-regular-svg-icons/faPlus';
-import { useCallback, useState } from 'react';
 import {
 	Dialog,
-	DialogDescription,
-	DialogTrigger,
 	DialogContent,
-	DialogTitle,
+	DialogDescription,
 	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
 } from '@/components/ui/dialog';
-import { Form, Formik } from 'formik';
-import * as yup from 'yup';
+import { Dropzone } from '@/components/ui/dropzone';
+import { ErrorLabel } from '@/components/ui/error-label';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ErrorLabel } from '@/components/ui/error-label';
-import { Dropzone } from '@/components/ui/dropzone';
-import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEmptySet } from '@fortawesome/pro-regular-svg-icons/faEmptySet';
-import { trpc } from '@/app/_trpc/trpc';
+import { faPlus } from '@fortawesome/pro-regular-svg-icons/faPlus';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Form, Formik } from 'formik';
+import Image from 'next/image';
+import { useCallback, useState } from 'react';
 import { toast } from 'sonner';
+import * as yup from 'yup';
 
 type FormValues = {
 	name: string;

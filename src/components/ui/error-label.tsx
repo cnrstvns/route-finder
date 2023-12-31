@@ -1,5 +1,5 @@
-import React from 'react';
 import { ErrorMessage } from 'formik';
+import React from 'react';
 
 type ErrorLabelProps = {
 	name: string;

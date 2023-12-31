@@ -9,8 +9,8 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 import { api } from '@/server/api';
-import { Row } from './row';
 import { Paginated } from '@/types/search';
+import { Row } from './row';
 
 type PageParams = Paginated & {
 	searchParams: {

@@ -5,9 +5,9 @@ import type { ButtonProps } from '@/components/ui/button';
 import type { RouterOutputs } from '@/server/routers/_app';
 import { faBookmark as faBookmarkRegular } from '@fortawesome/pro-regular-svg-icons/faBookmark';
 import { faBookmark as faBookmarkSolid } from '@fortawesome/pro-solid-svg-icons/faBookmark';
+import posthog from 'posthog-js';
 import { useCallback } from 'react';
 import type { MouseEvent } from 'react';
-import posthog from 'posthog-js';
 
 type InitialData = RouterOutputs['userRoute']['fetchById'];
 type SaveRouteProps = {

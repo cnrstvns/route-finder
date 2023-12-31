@@ -1,10 +1,10 @@
-import { router, protectedProcedure } from '../trpc';
 import { airline, route } from '@/db';
+import { PAGE_SIZE } from '@/lib/constants';
+import { getOffset } from '@/lib/db';
 import { eq, getTableColumns, ilike, or, sql } from 'drizzle-orm';
 import { z } from 'zod';
 import { paginatedInput } from '../helpers';
-import { PAGE_SIZE } from '@/lib/constants';
-import { getOffset } from '@/lib/db';
+import { protectedProcedure, router } from '../trpc';
 
 export const airlineRouter = router({
 	listWithRouteCount: protectedProcedure

@@ -1,19 +1,19 @@
 'use client';
-import React, { useCallback, useState } from 'react';
+import type { FileRouter } from '@/app/api/uploadthing/lib';
+import { useUploadThing } from '@/lib/uploadthing';
+import { cn } from '@/lib/utils';
+import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
+import { faUpload } from '@fortawesome/pro-regular-svg-icons/faUpload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { FileWithPath } from '@uploadthing/react';
 import { useDropzone } from '@uploadthing/react/hooks';
+import React, { useCallback, useState } from 'react';
+import { toast } from 'sonner';
 import {
 	UploadFileResponse,
 	generateClientDropzoneAccept,
 } from 'uploadthing/client';
-import { useUploadThing } from '@/lib/uploadthing';
-import type { FileRouter } from '@/app/api/uploadthing/lib';
-import { toast } from 'sonner';
 import { inferEndpointOutput } from 'uploadthing/server';
-import { faUpload } from '@fortawesome/pro-regular-svg-icons/faUpload';
-import { cn } from '@/lib/utils';
-import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
 
 type DropzoneProps = {
 	endpoint: keyof FileRouter;

@@ -1,10 +1,10 @@
-import { adminProcedure, router } from '@/server/trpc';
-import { z } from 'zod';
 import { airline } from '@/db';
-import { eq } from 'drizzle-orm';
-import { TRPCError } from '@trpc/server';
-import { getRoutes } from '@/services/flights-from';
 import { inngest } from '@/lib/inngest';
+import { adminProcedure, router } from '@/server/trpc';
+import { getRoutes } from '@/services/flights-from';
+import { TRPCError } from '@trpc/server';
+import { eq } from 'drizzle-orm';
+import { z } from 'zod';
 
 export const airlineRouter = router({
 	create: adminProcedure

@@ -1,10 +1,10 @@
-import { airport as airportTable, route as routeTable, db } from '@/db';
+import { airport as airportTable, db, route as routeTable } from '@/db';
 import { inngest } from '@/lib/inngest';
 import { getRoutes } from '@/services/flights-from';
 import { and, eq, isNull } from 'drizzle-orm';
 import { NonRetriableError } from 'inngest';
-import icao from './data/icao.json';
 import elevations from './data/elevations.json';
+import icao from './data/icao.json';
 
 export const addAirline = inngest.createFunction(
 	{ id: 'add-airline' },

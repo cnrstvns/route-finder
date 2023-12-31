@@ -1,9 +1,9 @@
 import { airport } from '@/db';
-import { paginatedInput } from '../helpers';
-import { protectedProcedure, router } from '../trpc';
-import { ilike, or, sql } from 'drizzle-orm';
 import { PAGE_SIZE } from '@/lib/constants';
 import { getOffset } from '@/lib/db';
+import { ilike, or, sql } from 'drizzle-orm';
+import { paginatedInput } from '../helpers';
+import { protectedProcedure, router } from '../trpc';
 
 export const airportRouter = router({
 	list: protectedProcedure

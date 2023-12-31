@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components/ui/page-title';
+import { api } from '@/server/api';
 import { redirect } from 'next/navigation';
 import { RouteForm } from './form';
-import { api } from '@/server/api';
 
 type PageParams = { params: { airlineId: string } };
 

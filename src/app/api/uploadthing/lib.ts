@@ -1,7 +1,7 @@
 import { isAdmin } from '@/lib/is-admin';
 import {
-	createUploadthing,
 	type FileRouter as UTFileRouter,
+	createUploadthing,
 } from 'uploadthing/next';
 
 const f = createUploadthing();
