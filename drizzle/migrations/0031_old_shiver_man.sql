@@ -1,0 +1,1 @@
+ALTER TABLE "airline" ALTER COLUMN "logo_path" SET DEFAULT '';

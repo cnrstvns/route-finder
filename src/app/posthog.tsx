@@ -7,7 +7,8 @@ type PostHogProps = {
 	children: ReactNode;
 };
 
-if (typeof window !== 'undefined') {
+// Only load on the client and in production
+if (typeof window !== 'undefined' && process.env.VERCEL_ENV === 'production') {
 	posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
 		api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
 		persistence: 'localStorage+cookie',

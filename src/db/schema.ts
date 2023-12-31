@@ -16,7 +16,7 @@ export const airline = pgTable(
 		slug: varchar('slug').notNull(),
 		name: varchar('name').notNull(),
 		iataCode: varchar('iata_code').notNull().unique(),
-		logoPath: varchar('logo_path'),
+		logoPath: varchar('logo_path').notNull().default(''),
 	},
 	(table) => {
 		return {

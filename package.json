@@ -11,7 +11,8 @@
 		"db:push:dev": "doppler run -- drizzle-kit push:pg --config=drizzle.config.ts",
 		"db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
 		"lint": "biome check src",
-		"lint:fix": "biome check --apply src"
+		"lint:fix": "biome check --apply src",
+		"worker:dev": "pnpm dlx inngest-cli@latest dev"
 	},
 	"dependencies": {
 		"@clerk/clerk-sdk-node": "^4.13.1",
@@ -43,6 +44,7 @@
 		"drizzle-zod": "^0.5.1",
 		"formik": "^2.4.5",
 		"http-status": "^1.7.3",
+		"inngest": "^3.7.4",
 		"next": "14.0.4",
 		"posthog-js": "^1.96.1",
 		"posthog-node": "^3.2.0",

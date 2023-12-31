@@ -7,6 +7,7 @@ import { faBookmark as faBookmarkRegular } from '@fortawesome/pro-regular-svg-ic
 import { faBookmark as faBookmarkSolid } from '@fortawesome/pro-solid-svg-icons/faBookmark';
 import { useCallback } from 'react';
 import type { MouseEvent } from 'react';
+import posthog from 'posthog-js';
 
 type InitialData = RouterOutputs['userRoute']['fetchById'];
 type SaveRouteProps = {
@@ -26,7 +27,10 @@ const SaveRoute = ({ routeId, initialData, size }: SaveRouteProps) => {
 
 	const { mutateAsync, isLoading } =
 		trpc.userRoute.toggleRouteSaved.useMutation({
-			onSettled: () => utils.userRoute.fetchById.invalidate({ routeId }),
+			onSettled: () => {
+				utils.userRoute.fetchById.invalidate({ routeId });
+				posthog.capture('Toggled route saved');
+			},
 		});
 
 	const handleSave = useCallback(

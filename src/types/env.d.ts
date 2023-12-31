@@ -12,5 +12,6 @@ declare namespace NodeJS {
 		NEXT_PUBLIC_POSTHOG_HOST: string;
 		REDIS_URL: string;
 		REDIS_TOKEN: string;
+		INNGEST_ID: string;
 	}
 }

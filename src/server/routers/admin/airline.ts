@@ -4,9 +4,10 @@ import { airline } from '@/db';
 import { eq } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
 import { getRoutes } from '@/services/flights-from';
+import { inngest } from '@/lib/inngest';
 
 export const airlineRouter = router({
-	createAirline: adminProcedure
+	create: adminProcedure
 		.input(
 			z.object({
 				name: z.string(),
@@ -40,6 +41,15 @@ export const airlineRouter = router({
 				});
 			}
 
-			// start job
+			await ctx.db.insert(airline).values({
+				...input,
+			});
+
+			await inngest.send({
+				name: 'admin/airline.add',
+				data: {
+					iataCode: input.iataCode,
+				},
+			});
 		}),
 });

@@ -1,6 +1,7 @@
 import { Header } from '@/components/navigation/header';
 import { Empty } from '@/components/ui/empty';
 import { PageTitle } from '@/components/ui/page-title';
+import { isUrl } from '@/lib/url';
 import { api } from '@/server/api';
 import { RouterOutputs } from '@/server/routers/_app';
 import { SearchWithQuery } from '@/types/search';
@@ -52,8 +53,8 @@ async function AirlineCard({ airline }: { airline: Airline }) {
 		>
 			<div className="flex flex-col h-full justify-center">
 				<Image
-					className="rounded-full"
-					src={`/logos/${airline.logoPath}`}
+					className="rounded-full object-cover h-12"
+					src={airline.logoPath}
 					alt={airline.name}
 					width={48}
 					height={48}

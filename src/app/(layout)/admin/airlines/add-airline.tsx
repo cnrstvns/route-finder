@@ -10,7 +10,7 @@ import {
 	DialogTitle,
 	DialogHeader,
 } from '@/components/ui/dialog';
-import { Form, Formik, FormikHelpers } from 'formik';
+import { Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,6 +19,8 @@ import { Dropzone } from '@/components/ui/dropzone';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEmptySet } from '@fortawesome/pro-regular-svg-icons/faEmptySet';
+import { trpc } from '@/app/_trpc/trpc';
+import { toast } from 'sonner';
 
 type FormValues = {
 	name: string;
@@ -46,12 +48,23 @@ const initialValues = {
 
 const AddAirline = () => {
 	const [open, setOpen] = useState(false);
+	const { mutateAsync } = trpc.admin.airline.create.useMutation({
+		onSettled: (_data, error) => {
+			if (error) {
+				toast.error(error.message);
+				return;
+			}
+
+			setOpen(false);
+			toast.success('Airline created. Background task has been queued.');
+		},
+	});
 
 	const handleSubmit = useCallback(
-		async (values: FormValues, actions: FormikHelpers<FormValues>) => {
-			console.log(values);
+		async (values: FormValues) => {
+			await mutateAsync(values);
 		},
-		[],
+		[mutateAsync],
 	);
 
 	return (
@@ -75,7 +88,13 @@ const AddAirline = () => {
 						validationSchema={validationSchema}
 						onSubmit={handleSubmit}
 					>
-						{({ isValid, getFieldProps, setFieldValue, values }) => (
+						{({
+							isValid,
+							getFieldProps,
+							setFieldValue,
+							values,
+							isSubmitting,
+						}) => (
 							<Form className="mt-4 space-y-4">
 								<div className="flex space-x-3 w-full">
 									<div className="flex flex-col space-y-4 w-full">
@@ -139,8 +158,8 @@ const AddAirline = () => {
 										size="md"
 										type="submit"
 										variant="default"
-										disabled={!isValid}
-										loading={false}
+										disabled={!isValid || isSubmitting}
+										loading={isSubmitting}
 									>
 										Submit
 									</Button>
