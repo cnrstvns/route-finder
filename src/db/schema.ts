@@ -2,6 +2,7 @@ import {
   boolean,
   index,
   integer,
+  pgEnum,
   pgTable,
   serial,
   timestamp,
@@ -40,6 +41,12 @@ export const route = pgTable('route', {
   averageDuration: integer('average_duration').notNull(),
 });
 
+export const airportSizeEnum = pgEnum('airport_size', [
+  'small',
+  'medium',
+  'large',
+]);
+
 export const airport = pgTable(
   'airport',
   {
@@ -52,6 +59,7 @@ export const airport = pgTable(
     latitude: varchar('latitude').notNull().default(''),
     longitude: varchar('longitude').notNull().default(''),
     elevation: varchar('elevation'),
+    size: airportSizeEnum('size'),
   },
   (table) => {
     return {

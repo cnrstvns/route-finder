@@ -225,6 +225,13 @@
       "when": 1703984808711,
       "tag": "0031_old_shiver_man",
       "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "5",
+      "when": 1704037164823,
+      "tag": "0032_overjoyed_kate_bishop",
+      "breakpoints": true
     }
   ]
 }

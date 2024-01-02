@@ -27,7 +27,7 @@ const DropdownItem = ({ onClick, label, icon }: DropdownItemProps) => {
       <button
         type="button"
         onClick={onClick}
-        className="w-full flex rounded-md text-start text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-300 hover:outline-0 hover:bg-neutral-100 dark:active:bg-zinc-800 dark:hover:bg-zinc-800"
+        className="w-full flex rounded text-start text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:text-zinc-400 dark:hover:text-zinc-300 hover:outline-0 hover:bg-neutral-100 dark:active:bg-zinc-800 dark:hover:bg-zinc-800"
       >
         <div className="px-2 py-2 flex items-center ml-2">
           <div className="h-5 w-5 flex items-center justify-center px-3">

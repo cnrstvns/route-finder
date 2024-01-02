@@ -152,6 +152,30 @@ export const addAirline = inngest.createFunction(
       });
     }
 
+    const airportsWithoutSize = await step.run(
+      'find-airports-needing-size',
+      async () => {
+        return db.select().from(airportTable).where(isNull(airportTable.size));
+      },
+    );
+
+    for (const airport of airportsWithoutSize) {
+      await step.run('attempt-backfill-size', async () => {
+        const sizeAirport = elevations.find(
+          (e) => e.iata_code === airport.iataCode,
+        );
+        if (!sizeAirport) return;
+
+        return await db
+          .update(airportTable)
+          .set({
+            size: sizeAirport.type.split('_')[0],
+          })
+          .where(eq(airportTable.iataCode, airport.iataCode))
+          .returning();
+      });
+    }
+
     return {
       status: 'completed',
       event,

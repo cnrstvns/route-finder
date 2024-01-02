@@ -60,9 +60,6 @@ export const routeRouter = router({
           AND average_duration > ${input.minDuration}
           AND average_duration < ${input.maxDuration}
           AND ${or(...aircraftWhere)}
-      `;
-
-      query.append(sql`
         GROUP BY
           route.id,
           origin.name,
@@ -70,7 +67,7 @@ export const routeRouter = router({
           user_route.id
         ORDER BY
           average_duration
-      `);
+      `;
 
       const countQuery = await db.execute<{ count: number }>(
         sql`SELECT count(*) FROM (${query});`,
