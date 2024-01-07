@@ -1,5 +1,4 @@
 'use client';
-
 import { useClerk, useUser } from '@clerk/nextjs';
 import { faRightFromBracket } from '@fortawesome/pro-solid-svg-icons/faRightFromBracket';
 import { faUser } from '@fortawesome/pro-solid-svg-icons/faUser';

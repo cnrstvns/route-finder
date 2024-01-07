@@ -3,8 +3,8 @@ import { cn } from '@/lib/utils';
 import { faMagnifyingGlass } from '@fortawesome/pro-regular-svg-icons/faMagnifyingGlass';
 import { faSpinnerThird } from '@fortawesome/pro-regular-svg-icons/faSpinnerThird';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useTransition } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { ChangeEventHandler, useCallback, useTransition } from 'react';
 
 type SearchProps = {
   placeholder: string;
@@ -14,21 +14,23 @@ type SearchProps = {
 const Search = ({ disabled, placeholder }: SearchProps) => {
   const { replace } = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
-  function handleSearch(term: string) {
-    const params = new URLSearchParams(window.location.search);
-    if (term) {
-      params.set('q', term);
-    } else {
-      params.delete('q');
-    }
+  const handleSearch: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      const params = new URLSearchParams(window.location.search);
+      if (e.target.value) {
+        params.set('q', e.target.value);
+      } else {
+        params.delete('q');
+      }
 
-    startTransition(() => {
-      replace(`${pathname}?${params.toString()}`);
-    });
-  }
+      startTransition(() => {
+        replace(`${pathname}?${params.toString()}`);
+      });
+    },
+    [pathname, replace],
+  );
 
   return (
     <div className="relative w-60 md:w-72">
@@ -53,7 +55,7 @@ const Search = ({ disabled, placeholder }: SearchProps) => {
           className="h-9 block focus:shadow-md focus:outline-none w-full rounded-md border border-neutral-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white dark:placeholder:text-zinc-400 pl-9 focus:border-indigo-500 focus:ring-indigo-500 focus:ring-1 text-sm"
           placeholder={placeholder}
           spellCheck={false}
-          onChange={(e) => handleSearch(e.target.value)}
+          onChange={handleSearch}
         />
       </div>
     </div>
