@@ -240,7 +240,7 @@ export default async function Page() {
             </div>
             <div className="mt-8 md:order-1 md:mt-0">
               <p className="text-center text-xs leading-5 text-neutral-500">
-                &copy; 2023 Connor Stevens. All rights reserved.
+                &copy; {new Date().getFullYear()} Connor Stevens. All rights reserved.
               </p>
             </div>
           </div>
