@@ -15,7 +15,7 @@ export default authMiddleware({
       },
     });
   },
-  ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk', '/api/inngest', '/api/uploadthing'],
+  ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk', '/api/inngest'],
   publicRoutes: ['/'],
 });
 
