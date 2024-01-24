@@ -92,12 +92,18 @@ export default async function Page() {
               </div>
             </a>
           </div>
-          <div className="flex lg:flex-1 lg:justify-end">
+          <div className="flex lg:flex-1 lg:justify-end group">
             <a
-              href="/home"
+              href="/sign-in"
               className="text-sm font-semibold leading-6 text-neutral-900"
             >
-              Sign in <span aria-hidden="true">&rarr;</span>
+              Sign in{' '}
+              <span aria-hidden="true">
+                <FontAwesomeIcon
+                  icon={faArrowRight}
+                  className="group-hover:translate-x-0.5 transition-transform"
+                />
+              </span>
             </a>
           </div>
         </nav>
@@ -165,7 +171,7 @@ export default async function Page() {
             </p>
             <div className="mt-10 justify-center flex items-center gap-x-6">
               <a
-                href="/home"
+                href="/sign-in"
                 className="rounded-md group flex items-center bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Get started for free

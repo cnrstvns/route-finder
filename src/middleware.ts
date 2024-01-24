@@ -15,8 +15,13 @@ export default authMiddleware({
       },
     });
   },
-  ignoredRoutes: ['/((?!api))(_next.*|.+.[w]+$)', '/api/clerk', '/api/inngest'],
-  publicRoutes: ['/'],
+  ignoredRoutes: [
+    '/((?!api))(_next.*|.+.[w]+$)',
+    '/api/clerk',
+    '/api/inngest',
+    '/api/uploadthing',
+  ],
+  publicRoutes: ['/', '/sign-in', '/sign-up', '/auth/callback'],
 });
 
 export const config = {
