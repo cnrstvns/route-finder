@@ -1,7 +1,6 @@
 import type { Config } from 'drizzle-kit';
-import '@/lib/env';
 
-export default {
+export default ({
   schema: './src/db/schema.ts',
   out: './drizzle/migrations',
   driver: 'pg',
@@ -12,4 +11,4 @@ export default {
     database: process.env.POSTGRES_DATABASE,
     ssl: true,
   },
-} satisfies Config;
+} satisfies Config);
