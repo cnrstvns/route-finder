@@ -9,5 +9,5 @@ export default async function Layout({ children }: PropsWithChildren) {
     redirect('/home');
   }
 
-  return children;
+  return <>{children}</>;
 }
