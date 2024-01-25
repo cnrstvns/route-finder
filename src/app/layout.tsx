@@ -34,9 +34,7 @@ type LayoutProps = {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-    >
+    <ClerkProvider>
       <PostHog>
         <html lang="en">
           <body className="overscroll-none">

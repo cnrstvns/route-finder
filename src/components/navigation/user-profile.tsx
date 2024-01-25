@@ -43,7 +43,7 @@ const UserProfile = () => {
             />
             <div className="flex flex-col text-sm">
               <div className="text-black dark:text-zinc-300 font-medium">
-                {user?.fullName || 'Aviator'}
+                {user?.fullName}
               </div>
               <div className="text-neutral-600 dark:text-zinc-400">
                 {user?.primaryEmailAddress?.emailAddress}
