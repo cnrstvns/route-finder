@@ -22,7 +22,7 @@ export default async function Home({ searchParams }: SearchWithQuery) {
       <Header searchPlaceholder="Search for an airline..." profile />
 
       <PageTitle
-        title={`Welcome back, ${user?.firstName || 'aviator'}`}
+        title={`Welcome back, ${user?.firstName || 'Aviator'}`}
         subtitle="Where will we fly today? To get started, choose an airline."
         header
       />
