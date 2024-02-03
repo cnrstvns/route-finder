@@ -63,6 +63,14 @@ export default function Page() {
           return;
         }
 
+        if (error.errors[0].message === 'Invalid authentication strategy') {
+          actions.setFieldError(
+            'password',
+            'Try signing in with a different provider.',
+          );
+          return;
+        }
+
         actions.setFieldError('password', error.errors[0].message);
       }
     },

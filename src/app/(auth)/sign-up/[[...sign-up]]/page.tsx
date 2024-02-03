@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useCreateOauthHandler } from '../../use-create-oauth-handler';
 import { PasswordInput } from '@/components/ui/password-input';
+import { pollUser } from '../../sign-in/[[...sign-in]]/poll-user';
 
 const accountInitialValues = {
   email: '',
@@ -86,17 +87,18 @@ export default function Page() {
       setIsVerifying(true);
 
       try {
-        const completeSignUp = await signUp.attemptEmailAddressVerification({
+        const result = await signUp.attemptEmailAddressVerification({
           code: values.code,
         });
 
-        if (completeSignUp.status !== 'complete') {
-          console.log(JSON.stringify(completeSignUp, null, 2));
+        if (result.status !== 'complete') {
+          console.log(JSON.stringify(result, null, 2));
           setIsVerifying(false);
         }
 
-        if (completeSignUp.status === 'complete') {
-          await setActive({ session: completeSignUp.createdSessionId });
+        if (result.status === 'complete') {
+          await pollUser(result.createdUserId);
+          await setActive({ session: result.createdSessionId });
           router.push('/home');
         }
       } catch (err: unknown) {
@@ -115,7 +117,7 @@ export default function Page() {
 
   return (
     <div className="flex w-screen h-screen items-center justify-center bg-neutral-50 dark:bg-neutral-900">
-      <Card className="p-5 w-full md:w-[350px] space-y-5 bg-white">
+      <Card className="p-5 w-full md:w-[350px] space-y-5 bg-white dark:bg-neutral-900">
         <div>
           <div className="text-xl font-medium">Welcome to RouteFinder</div>
           <div className="text-sm text-neutral-500 dark:text-zinc-400">

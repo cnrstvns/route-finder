@@ -6,6 +6,23 @@ import status from 'http-status';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
 
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+  if (!id) return NextResponse.json({ error: 'Invalid parameters' });
+
+  const [userRow] = await db
+    .select({ id: user.id })
+    .from(user)
+    .where(eq(user.clerkId, id));
+
+  if (userRow) {
+    return NextResponse.json({ ready: true });
+  }
+
+  return NextResponse.json({ ready: false });
+}
+
 export async function POST(req: Request) {
   const svixId = req.headers.get('svix-id') ?? '';
   const svixTimestamp = req.headers.get('svix-timestamp') ?? '';
