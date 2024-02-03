@@ -2,7 +2,7 @@ type PollResponse = {
   ready: boolean;
 };
 
-type PollUser = (email: string | null) => Promise<boolean>;
+type PollUser = (id: string | null) => Promise<boolean>;
 
 export const pollUser: PollUser = async (id) => {
   if (!id) return false;
