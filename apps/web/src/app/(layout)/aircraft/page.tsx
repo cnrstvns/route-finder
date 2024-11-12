@@ -1,3 +1,4 @@
+import { listAircraft } from '@/api/server/aircraft';
 import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
@@ -10,13 +11,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { PaginatedWithQuery } from '@/types/search';
+import { headers } from 'next/headers';
 
 export default async function Aircraft({ searchParams }: PaginatedWithQuery) {
-  // const { data: aircraft, totalCount } =
-  //   await api.aircraft.list.query(searchParams);
-
-  const aircraft = [];
-  const totalCount = 100;
+  const { data: aircraft } = await listAircraft(searchParams, { headers: headers() });
 
   return (
     <div>
@@ -37,7 +35,7 @@ export default async function Aircraft({ searchParams }: PaginatedWithQuery) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {aircraft.map((aircraft) => (
+            {aircraft.data.map((aircraft) => (
               <TableRow key={aircraft.id}>
                 <TableCell>
                   <span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
@@ -51,7 +49,11 @@ export default async function Aircraft({ searchParams }: PaginatedWithQuery) {
           </TableBody>
         </Table>
       </div>
-      <Pagination totalCount={totalCount} resource="aircraft" />
+      <Pagination
+        totalCount={aircraft.pagination.totalCount}
+        hasMore={aircraft.pagination.hasMore}
+        resource="aircraft"
+      />
     </div>
   );
 }

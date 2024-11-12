@@ -10,6 +10,7 @@ import { PaginationParamsSchema } from '../schemas/pagination';
 import { airline, route as airlineRoute } from '../db/schema';
 import { getOffset, getSafePageSize } from '../lib/db';
 import { eq, getTableColumns, ilike, or, sql } from 'drizzle-orm';
+import { authMiddleware } from '../middleware/auth';
 
 export const airlineRouter = new OpenAPIHono<HonoGenerics>()
   .openapi(
@@ -19,6 +20,7 @@ export const airlineRouter = new OpenAPIHono<HonoGenerics>()
       .returns(ListAirlineSchema)
       .setOperationId('listAirlines')
       .setTags(['airline'])
+      .setMiddleware(authMiddleware(false))
       .build(),
     async (c) => {
       const db = c.get('db');

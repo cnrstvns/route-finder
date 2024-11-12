@@ -1,3 +1,4 @@
+import { listAirports } from '@/api/server/airport';
 import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
@@ -10,13 +11,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { PaginatedWithQuery } from '@/types/search';
+import { headers } from 'next/headers';
 
 export default async function Airports({ searchParams }: PaginatedWithQuery) {
-  // const { data: airports, totalCount } =
-  //   await api.airport.list.query(searchParams);
-
-  const airports = [];
-  const totalCount = 100;
+  const { data: airports } = await listAirports(searchParams, { headers: headers() });
 
   return (
     <div>
@@ -39,7 +37,7 @@ export default async function Airports({ searchParams }: PaginatedWithQuery) {
             </TableRow>
           </TableHeader>
           <TableBody className="bg-white">
-            {airports.map((airport) => (
+            {airports.data.map((airport) => (
               <TableRow key={airport.id}>
                 <TableCell>
                   <div className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
@@ -54,7 +52,11 @@ export default async function Airports({ searchParams }: PaginatedWithQuery) {
           </TableBody>
         </Table>
       </div>
-      <Pagination totalCount={totalCount} resource="airport" />
+      <Pagination
+        totalCount={airports.pagination.totalCount}
+        hasMore={airports.pagination.hasMore}
+        resource="airport"
+      />
     </div>
   );
 }

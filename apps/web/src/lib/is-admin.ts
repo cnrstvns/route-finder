@@ -1,10 +1,10 @@
 import { retrieveSession } from '@/api/server/auth';
-import { serverRequestOptions } from './api';
+import { headers } from 'next/headers';
 
 export const isAdmin = async () => {
   const session = await retrieveSession({
-    ...serverRequestOptions,
     cache: 'no-store',
+    headers: headers(),
   });
 
   return session.data?.admin || false;

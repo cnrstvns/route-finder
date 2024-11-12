@@ -11,11 +11,11 @@ import {
 } from '@/components/ui/table';
 import { PaginatedWithQuery } from '@/types/search';
 import { AddAirline } from './add-airline';
-import { listAirlines } from '@/api/server/airlines';
-import { serverRequestOptions } from '@/lib/api';
+import { listAirlines } from '@/api/server/airline';
+import { headers } from 'next/headers';
 
 export default async function Airlines({ searchParams }: PaginatedWithQuery) {
-  const { data: airlines } = await listAirlines(searchParams, serverRequestOptions);
+  const { data: airlines } = await listAirlines(searchParams, { headers: headers() });
 
   return (
     <div>

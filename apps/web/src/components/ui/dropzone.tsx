@@ -7,7 +7,7 @@ import { faUpload } from '@fortawesome/pro-regular-svg-icons/faUpload';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { FileWithPath } from '@uploadthing/react';
 import { useDropzone } from '@uploadthing/react/hooks';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { toast } from 'sonner';
 import {
   UploadFileResponse,

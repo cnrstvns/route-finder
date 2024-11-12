@@ -4,7 +4,7 @@ import { RouteForm } from './form';
 
 type PageParams = { params: { airlineId: string } };
 
-export default async function NewFlight({ params }: PageParams) {
+export default function NewFlight({ params }: PageParams) {
   // const { airline, aircraft } = await api.airline.newFlight.query(params);
 
   const airline = {

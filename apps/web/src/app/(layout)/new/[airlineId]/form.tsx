@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Listbox } from '@/components/ui/listbox';
 import { Slider } from '@/components/ui/slider';
-import { RouterOutputs } from '@/server/routers/_app';
+// import { RouterOutputs } from '@/server/routers/_app';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 import posthog from 'posthog-js';
@@ -10,7 +10,7 @@ import { useCallback } from 'react';
 import * as yup from 'yup';
 
 type RouteFormProps = {
-  aircraft: RouterOutputs['airline']['newFlight']['aircraft'];
+  aircraft: [];
   airline: string;
 };
 

@@ -3,9 +3,9 @@ import { retrieveSession } from '@/api/server/auth';
 import { Header } from '@/components/navigation/header';
 import { Empty } from '@/components/ui/empty';
 import { PageTitle } from '@/components/ui/page-title';
-import { serverRequestOptions } from '@/lib/api';
 import { SearchWithQuery } from '@/types/search';
 import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,8 +18,8 @@ type Airline = {
 };
 
 export default async function Home({ searchParams }: SearchWithQuery) {
-  const { data: user } = await retrieveSession(serverRequestOptions);
-  const { data: airlines } = await listAirlines({ ...searchParams, limit: '100' }, serverRequestOptions);
+  const { data: user } = await retrieveSession({ headers: headers() });
+  const { data: airlines } = await listAirlines({ ...searchParams, limit: '100' }, { headers: headers() });
 
   return (
     <div>

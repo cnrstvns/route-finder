@@ -9,6 +9,8 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { oauthRouter } from './routes/oauth';
 import { authRouter } from './routes/auth';
+import { aircraftRouter } from './routes/aircraft';
+import { airportRouter } from './routes/airport';
 
 const app = new OpenAPIHono<HonoGenerics>();
 
@@ -25,7 +27,11 @@ app.use(
   logger(),
 );
 
-app.route('/v1', feedbackRouter).route('/v1', airlineRouter);
+app
+  .route('/v1', feedbackRouter)
+  .route('/v1', airlineRouter)
+  .route('/v1', aircraftRouter)
+  .route('/v1', airportRouter);
 
 app.route('/auth', oauthRouter).route('/auth', authRouter);
 

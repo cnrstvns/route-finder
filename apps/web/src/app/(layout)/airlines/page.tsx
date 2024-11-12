@@ -1,3 +1,4 @@
+import { listAirlines } from '@/api/server/airline';
 import { Header } from '@/components/navigation/header';
 import { PageTitle } from '@/components/ui/page-title';
 import { Pagination } from '@/components/ui/pagination';
@@ -10,13 +11,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { PaginatedWithQuery } from '@/types/search';
+import { headers } from 'next/headers';
+import Image from 'next/image';
 
 export default async function Airlines({ searchParams }: PaginatedWithQuery) {
-  // const { data: airlines, totalCount } =
-  //   await api.airline.list.query(searchParams);
-
-  const airlines = [];
-  const totalCount = 100;
+  const { data: airlines } = await listAirlines(searchParams,{ headers: headers()});
 
   return (
     <div>
@@ -34,23 +33,28 @@ export default async function Airlines({ searchParams }: PaginatedWithQuery) {
             <TableRow>
               <TableHead>Airline</TableHead>
               <TableHead>IATA Code</TableHead>
+              <TableHead>Route Count</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="bg-white">
-            {airlines.map((airline) => (
+            {airlines.data.map((airline) => (
               <TableRow key={airline.id}>
                 <TableCell className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center gap-2">
+                  <Image src={airline.logoPath} alt={airline.name} width={32} height={32} className="rounded-full" />
                   <span className="text-sm font-medium text-neutral-900 dark:text-zinc-200">
                     {airline.name}
                   </span>
+                  </div>
                 </TableCell>
                 <TableCell>{airline.iataCode}</TableCell>
+                <TableCell>{airline.routeCount}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </div>
-      <Pagination totalCount={totalCount} resource="airline" />
+      <Pagination totalCount={airlines.pagination.totalCount} hasMore={airlines.pagination.hasMore} resource="airline" />
     </div>
   );
 }

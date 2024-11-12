@@ -12,11 +12,11 @@ import {
 } from '@/components/ui/table';
 import { dayjs } from '@/lib/time';
 import { PaginatedWithQuery } from '@/types/search';
+import { headers } from 'next/headers';
 import Image from 'next/image';
-import { serverRequestOptions } from '@/lib/api';
 
 export default async function Feedback({ searchParams }: PaginatedWithQuery) {
-  const { data: feedback } = await listFeedback(searchParams, serverRequestOptions);
+  const { data: feedback } = await listFeedback(searchParams, { headers: headers() });
 
   return (
     <div>
