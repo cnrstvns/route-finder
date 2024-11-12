@@ -1,13 +1,14 @@
 'use client';
-import { useClerk } from '@clerk/nextjs';
-import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
-  const clerk = useClerk();
+  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    clerk.handleRedirectCallback({ redirectUrl: '/home' });
-  }, [clerk]);
+  const error = searchParams.get('error');
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return <div className="h-screen w-screen bg-neutral-50 dark:bg-zinc-800" />;
 }

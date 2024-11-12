@@ -1,29 +1,49 @@
-import { authMiddleware } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
+import { retrieveSession } from './api/server/auth';
+import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 
-export default authMiddleware({
-  beforeAuth: (request: Request) => {
-    const url = new URL(request.url);
-    const pathname = url.pathname;
-    const requestHeaders = new Headers(request.headers);
+export default async function middleware(request: Request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
 
-    requestHeaders.set('x-pathname', pathname);
+  const cookies = parseCookie(request.headers.get('cookie') || '');
+  console.log('[middleware] cookies', cookies);
 
-    return NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
-  },
-  ignoredRoutes: [
-    '/((?!api))(_next.*|.+.[w]+$)',
-    '/api/clerk',
-    '/api/inngest',
-    '/api/uploadthing',
-  ],
-  publicRoutes: ['/', '/sign-in', '/sign-up', '/auth/callback'],
-});
+  const sessionToken = cookies.get('session_token');
+
+  console.log('[middleware] session token', cookies);
+
+  if (
+    pathname.startsWith('/sign-in') ||
+    pathname.startsWith('/sign-up') ||
+    pathname == '/'
+  ) {
+    return NextResponse.next();
+  }
+
+  if (!sessionToken) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
+  }
+
+  console.log('[middleware] session token', sessionToken);
+  const session = await retrieveSession({
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+    },
+    cache: 'no-store',
+  });
+
+  if (pathname !== '/' && !session) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
+  }
+
+  if (pathname.startsWith('/admin') && (!session || !session.data.admin)) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/'],
+  matcher: ['/((?!.+\\.[\\w]+$|_next|sign-in|sign-up|auth).*)'],
 };

@@ -1,9 +1,7 @@
 'use client';
-import { useClerk, useUser } from '@clerk/nextjs';
 import { faRightFromBracket } from '@fortawesome/pro-solid-svg-icons/faRightFromBracket';
 import { faUser } from '@fortawesome/pro-solid-svg-icons/faUser';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import {
   Dropdown,
   DropdownContent,
@@ -11,21 +9,22 @@ import {
   DropdownPortal,
   DropdownTrigger,
 } from '../ui/dropdown';
+import { useRetrieveSession } from '@/api/client/auth';
 
-const UserProfile = () => {
-  const { isLoaded, user } = useUser();
-  const { signOut, openUserProfile } = useClerk();
-  const router = useRouter();
+export const UserProfile = () => {
+  const { isLoading, data: session } = useRetrieveSession({
+    axios: { withCredentials: true },
+  });
 
-  if (!isLoaded) return null;
-  if (!user?.id) return null;
+  if (isLoading) return null;
+  if (!session) return null;
 
   return (
     <Dropdown>
       <DropdownTrigger asChild>
         <Image
-          alt={user?.primaryEmailAddress?.emailAddress || 'User email address'}
-          src={user?.imageUrl}
+          alt={session.data.emailAddress}
+          src={session.data.profilePictureUrl}
           width={36}
           height={36}
           className="rounded-full border dark:border-white/10 drop-shadow-sm"
@@ -35,7 +34,7 @@ const UserProfile = () => {
         <DropdownContent className="w-[270px]">
           <div className="flex space-x-3 px-3 py-3">
             <Image
-              src={user?.imageUrl}
+              src={session.data.profilePictureUrl}
               height={40}
               width={40}
               alt="User image"
@@ -43,10 +42,10 @@ const UserProfile = () => {
             />
             <div className="flex flex-col text-sm">
               <div className="text-black dark:text-zinc-300 font-medium">
-                {user?.fullName || 'Aviator'}
+                {session.data.firstName || 'Aviator'}
               </div>
               <div className="text-neutral-600 dark:text-zinc-400">
-                {user?.primaryEmailAddress?.emailAddress}
+                {session.data.emailAddress}
               </div>
             </div>
           </div>
@@ -54,12 +53,12 @@ const UserProfile = () => {
             <DropdownItem
               label="Profile"
               icon={faUser}
-              onClick={() => openUserProfile()}
+              onClick={() => {}}
             />
             <DropdownItem
               label="Sign out"
               icon={faRightFromBracket}
-              onClick={() => signOut(() => router.push('/'))}
+              onClick={() => {}}
             />
           </div>
         </DropdownContent>
@@ -67,5 +66,3 @@ const UserProfile = () => {
     </Dropdown>
   );
 };
-
-export { UserProfile };

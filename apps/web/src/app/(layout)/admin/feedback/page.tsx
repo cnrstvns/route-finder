@@ -13,10 +13,10 @@ import {
 import { dayjs } from '@/lib/time';
 import { PaginatedWithQuery } from '@/types/search';
 import Image from 'next/image';
-
+import { serverRequestOptions } from '@/lib/api';
 
 export default async function Feedback({ searchParams }: PaginatedWithQuery) {
-  const { data: feedback } = await listFeedback(searchParams);
+  const { data: feedback } = await listFeedback(searchParams, serverRequestOptions);
 
   return (
     <div>

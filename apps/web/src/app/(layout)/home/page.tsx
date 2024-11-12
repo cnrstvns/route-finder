@@ -1,17 +1,16 @@
+import { listAirlines } from '@/api/server/airline';
+import { retrieveSession } from '@/api/server/auth';
 import { Header } from '@/components/navigation/header';
 import { Empty } from '@/components/ui/empty';
 import { PageTitle } from '@/components/ui/page-title';
+import { serverRequestOptions } from '@/lib/api';
 import { SearchWithQuery } from '@/types/search';
-import { currentUser } from '@clerk/nextjs';
 import { faSeatAirline } from '@fortawesome/pro-solid-svg-icons/faSeatAirline';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// type Airline =
-//   RouterOutputs['airline']['listWithRouteCount']['data'][number]['airline'];
-
 type Airline = {
-  id: string;
+  id: number;
   name: string;
   slug: string;
   logoPath: string;
@@ -19,20 +18,12 @@ type Airline = {
 };
 
 export default async function Home({ searchParams }: SearchWithQuery) {
-  // const user = await currentUser();
-  // const { data: rows } =
-  //   await api.airline.listWithRouteCount.query(searchParams);
-
-  const rows = [];
-  const user = {
-    firstName: 'John',
-  };
-
+  const { data: user } = await retrieveSession(serverRequestOptions);
+  const { data: airlines } = await listAirlines({ ...searchParams, limit: '100' }, serverRequestOptions);
 
   return (
     <div>
       <Header searchPlaceholder="Search for an airline..." profile />
-
       <PageTitle
         title={`Welcome back, ${user?.firstName || 'Aviator'}`}
         subtitle="Where will we fly today? To get started, choose an airline."
@@ -40,11 +31,11 @@ export default async function Home({ searchParams }: SearchWithQuery) {
       />
 
       <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 dark:bg-zinc-900">
-        {rows.map((row) => (
-          <AirlineCard key={row.airline.id} airline={row.airline} />
+        {airlines.data.map((row) => (
+          <AirlineCard key={row.id} airline={row} />
         ))}
       </div>
-      {!rows.length && (
+      {!airlines.data.length && (
         <Empty
           icon={faSeatAirline}
           title="No airlines found"

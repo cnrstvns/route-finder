@@ -26,8 +26,16 @@ export const AirlineSchema = z
   })
   .openapi('Airline');
 
-export const ListAirlineSchema =
-  PaginatedResponseSchema(AirlineSchema).openapi('ListAirline');
+export const ListAirlineSchema = PaginatedResponseSchema(
+  AirlineSchema.merge(
+    z.object({
+      routeCount: z.number().openapi({
+        description: 'The number of routes for the airline',
+        example: 10,
+      }),
+    }),
+  ),
+).openapi('ListAirline');
 
 export const CreateAirlineSchema = AirlineSchema.omit({ id: true }).openapi(
   'CreateAirline',

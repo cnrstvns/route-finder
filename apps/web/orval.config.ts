@@ -9,6 +9,11 @@ export default defineConfig({
       baseUrl: 'http://localhost:8787',
       mock: false,
       indexFiles: true,
+      override: {
+        requestOptions: {
+          withCredentials: true,
+        },
+      },
     },
     input: {
       target: 'http://localhost:8787/v1/schema',
@@ -22,6 +27,11 @@ export default defineConfig({
       baseUrl: 'http://localhost:8787',
       mock: false,
       indexFiles: true,
+      override: {
+        requestOptions: {
+          credentials: 'include',
+        },
+      },
     },
     input: {
       target: 'http://localhost:8787/v1/schema',

@@ -13,6 +13,7 @@ import { desc, eq, getTableColumns, ilike, or, sql } from 'drizzle-orm';
 import { feedback, user } from '../db/schema';
 import { getOffset } from '../lib/db';
 import { getSafePageSize } from '../lib/db';
+import { authMiddleware } from '../middleware/auth';
 
 export const feedbackRouter = new OpenAPIHono<HonoGenerics>()
   .openapi(
@@ -22,8 +23,9 @@ export const feedbackRouter = new OpenAPIHono<HonoGenerics>()
       .body(CreateFeedbackSchema)
       .setOperationId('feedback.create')
       .setTags(['feedback'])
+      .setMiddleware(authMiddleware(false))
       .build(),
-    (c) => {
+    async (c) => {
       return c.json({ message: 'Feedback created successfully' }, 201);
     },
   )
@@ -34,6 +36,7 @@ export const feedbackRouter = new OpenAPIHono<HonoGenerics>()
       .returns(PaginatedResponseSchema(PopulatedFeedbackSchema))
       .setOperationId('listFeedback')
       .setTags(['feedback'])
+      .setMiddleware(authMiddleware(true))
       .build(),
     async (c) => {
       const db = c.get('db');

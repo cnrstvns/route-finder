@@ -7,6 +7,8 @@ import { feedbackRouter } from './routes/feedback';
 import { airlineRouter } from './routes/airline';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { oauthRouter } from './routes/oauth';
+import { authRouter } from './routes/auth';
 
 const app = new OpenAPIHono<HonoGenerics>();
 
@@ -17,9 +19,15 @@ app.use('*', async (c, next) => {
   await next();
 });
 
-app.use('*', cors(), logger());
+app.use(
+  '*',
+  cors({ origin: 'http://localhost:3000', credentials: true }),
+  logger(),
+);
 
 app.route('/v1', feedbackRouter).route('/v1', airlineRouter);
+
+app.route('/auth', oauthRouter).route('/auth', authRouter);
 
 app.doc31('/v1/schema', {
   info: {

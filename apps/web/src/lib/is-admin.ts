@@ -1,16 +1,11 @@
+import { retrieveSession } from '@/api/server/auth';
+import { serverRequestOptions } from './api';
+
 export const isAdmin = async () => {
-  // const clerkUser = await currentUser();
-  // if (!clerkUser) return false;
+  const session = await retrieveSession({
+    ...serverRequestOptions,
+    cache: 'no-store',
+  });
 
-  // const userResult = await db
-  //   .select()
-  //   .from(userTable)
-  //   .where(eq(userTable.clerkId, clerkUser.id));
-  // const user = userResult[0];
-
-  // if (!user) return false;
-
-  // return user.admin || false;
-
-  return true;
+  return session.data?.admin || false;
 };

@@ -1,4 +1,3 @@
-import { ClerkProvider } from '@clerk/nextjs';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import type { Metadata, Viewport } from 'next';
 import { Toaster } from 'sonner';
@@ -35,27 +34,23 @@ type LayoutProps = {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-    >
-      <PostHog>
-        <Providers>
-          <html lang="en">
-            <body className="overscroll-none">
-              {children}
-              <Toaster
-                toastOptions={{
-                  unstyled: true,
-                  classNames: {
-                    success:
-                      'border dark:border-white/10 bg-white dark:bg-zinc-800 dark:text-white rounded space-x-3 text-sm p-3 flex items-center',
-                  },
-                }}
-              />
-            </body>
-          </html>
-        </Providers>
-      </PostHog>
-    </ClerkProvider>
+    <PostHog>
+      <Providers>
+        <html lang="en">
+          <body className="overscroll-none">
+            {children}
+            <Toaster
+              toastOptions={{
+                unstyled: true,
+                classNames: {
+                  success:
+                    'border dark:border-white/10 bg-white dark:bg-zinc-800 dark:text-white rounded space-x-3 text-sm p-3 flex items-center',
+                },
+              }}
+            />
+          </body>
+        </html>
+      </Providers>
+    </PostHog>
   );
 }

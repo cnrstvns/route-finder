@@ -12,9 +12,10 @@ import {
 import { PaginatedWithQuery } from '@/types/search';
 import { AddAirline } from './add-airline';
 import { listAirlines } from '@/api/server/airlines';
+import { serverRequestOptions } from '@/lib/api';
 
 export default async function Airlines({ searchParams }: PaginatedWithQuery) {
-  const { data: airlines } = await listAirlines(searchParams);
+  const { data: airlines } = await listAirlines(searchParams, serverRequestOptions);
 
   return (
     <div>

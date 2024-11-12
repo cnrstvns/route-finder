@@ -1,0 +1,639 @@
+{
+  "id": "9b52a6f4-3562-4d4f-925c-24695a1c098f",
+  "prevId": "2c48e2f8-41b5-4858-8185-ddc4e83baa1e",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "aircraft": {
+      "name": "aircraft",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model_name": {
+          "name": "model_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "short_name": {
+          "name": "short_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        },
+        "model_name_index": {
+          "name": "model_name_index",
+          "columns": [
+            "model_name"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "aircraft_iata_code_unique": {
+          "name": "aircraft_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "airline": {
+      "name": "airline",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logo_path": {
+          "name": "logo_path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "airline_iata_code_unique": {
+          "name": "airline_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "airport": {
+      "name": "airport",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "iata_code": {
+          "name": "iata_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icao_code": {
+          "name": "icao_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "latitude": {
+          "name": "latitude",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "elevation": {
+          "name": "elevation",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "size": {
+          "name": "size",
+          "type": "airport_size",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "iata_code_index": {
+          "name": "iata_code_index",
+          "columns": [
+            "iata_code"
+          ],
+          "isUnique": false
+        },
+        "icao_code": {
+          "name": "icao_code",
+          "columns": [
+            "icao_code"
+          ],
+          "isUnique": false
+        },
+        "name_index": {
+          "name": "name_index",
+          "columns": [
+            "name"
+          ],
+          "isUnique": false
+        },
+        "city_index": {
+          "name": "city_index",
+          "columns": [
+            "city"
+          ],
+          "isUnique": false
+        },
+        "country_index": {
+          "name": "country_index",
+          "columns": [
+            "country"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "airport_iata_code_unique": {
+          "name": "airport_iata_code_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "iata_code"
+          ]
+        }
+      }
+    },
+    "feedback": {
+      "name": "feedback",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "feedback_text": {
+          "name": "feedback_text",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "feedback_user_id_user_id_fk": {
+          "name": "feedback_user_id_user_id_fk",
+          "tableFrom": "feedback",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "oauth_session": {
+      "name": "oauth_session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "provider",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "scope": {
+          "name": "scope",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "redirect_url": {
+          "name": "redirect_url",
+          "type": "varchar(250)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "state_index": {
+          "name": "state_index",
+          "columns": [
+            "state"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "oauth_session_state_unique": {
+          "name": "oauth_session_state_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "state"
+          ]
+        }
+      }
+    },
+    "route": {
+      "name": "route",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "airline_iata": {
+          "name": "airline_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "origin_iata": {
+          "name": "origin_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "destination_iata": {
+          "name": "destination_iata",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "aircraft_codes": {
+          "name": "aircraft_codes",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "average_duration": {
+          "name": "average_duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "route_airline_iata_airline_iata_code_fk": {
+          "name": "route_airline_iata_airline_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airline",
+          "columnsFrom": [
+            "airline_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "route_origin_iata_airport_iata_code_fk": {
+          "name": "route_origin_iata_airport_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airport",
+          "columnsFrom": [
+            "origin_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "route_destination_iata_airport_iata_code_fk": {
+          "name": "route_destination_iata_airport_iata_code_fk",
+          "tableFrom": "route",
+          "tableTo": "airport",
+          "columnsFrom": [
+            "destination_iata"
+          ],
+          "columnsTo": [
+            "iata_code"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "session": {
+      "name": "session",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "token": {
+          "name": "token",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "user": {
+      "name": "user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email_address": {
+          "name": "email_address",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "profile_picture_url": {
+          "name": "profile_picture_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "admin": {
+          "name": "admin",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_email_address_unique": {
+          "name": "user_email_address_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email_address"
+          ]
+        }
+      }
+    },
+    "user_route": {
+      "name": "user_route",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "route_id": {
+          "name": "route_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_route_user_id_user_id_fk": {
+          "name": "user_route_user_id_user_id_fk",
+          "tableFrom": "user_route",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_route_route_id_route_id_fk": {
+          "name": "user_route_route_id_route_id_fk",
+          "tableFrom": "user_route",
+          "tableTo": "route",
+          "columnsFrom": [
+            "route_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_route_index": {
+          "name": "user_route_index",
+          "nullsNotDistinct": false,
+          "columns": [
+            "route_id",
+            "user_id"
+          ]
+        }
+      }
+    }
+  },
+  "enums": {
+    "airport_size": {
+      "name": "airport_size",
+      "values": {
+        "small": "small",
+        "medium": "medium",
+        "large": "large"
+      }
+    },
+    "provider": {
+      "name": "provider",
+      "values": {
+        "google": "google",
+        "discord": "discord"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

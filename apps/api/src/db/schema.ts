@@ -88,28 +88,41 @@ export const aircraft = pgTable(
   },
 );
 
-export const user = pgTable(
-  'user',
+export const user = pgTable('user', {
+  id: serial('id').primaryKey(),
+  emailAddress: varchar('email_address').unique(),
+  profilePictureUrl: varchar('profile_picture_url'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }),
+  createdAt: timestamp('created_at', { withTimezone: true }),
+  admin: boolean('admin').default(false),
+  firstName: varchar('first_name'),
+  lastName: varchar('last_name'),
+});
+
+export const providerEnum = pgEnum('provider', ['google', 'discord']);
+
+export const oauthSession = pgTable(
+  'oauth_session',
   {
     id: serial('id').primaryKey(),
-    clerkId: varchar('clerk_id').unique(),
-    emailAddress: varchar('email_address').unique(),
-    profilePictureUrl: varchar('profile_picture_url'),
-    updatedAt: timestamp('updated_at', { withTimezone: true }),
-    createdAt: timestamp('created_at', { withTimezone: true }),
-    requestedDeletionAt: timestamp('requested_deletion_at', {
-      withTimezone: true,
-    }),
-    admin: boolean('admin').default(false),
-    firstName: varchar('first_name'),
-    lastName: varchar('last_name'),
+    provider: providerEnum('provider').notNull(),
+    state: varchar('state', { length: 50 }).notNull().unique(),
+    redirectUrl: varchar('redirect_url', { length: 250 }).notNull(),
+    ttl: timestamp('ttl', { withTimezone: true }).notNull(),
   },
   (table) => {
     return {
-      clerkIdIndex: index('clerk_id_index').on(table.clerkId),
+      stateIndex: index('state_index').on(table.state),
     };
   },
 );
+
+export const session = pgTable('session', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').references(() => user.id),
+  expiresAt: timestamp('expires_at', { withTimezone: true }),
+  token: varchar('token').notNull(),
+});
 
 export const feedback = pgTable('feedback', {
   id: serial('id').primaryKey(),
@@ -143,3 +156,5 @@ export const userRoute = pgTable(
     };
   },
 );
+
+export type User = typeof user.$inferSelect;

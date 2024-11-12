@@ -2,7 +2,9 @@
   "name": "api",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg --config=drizzle.config.ts"
   },
   "dependencies": {
     "@hono/zod-openapi": "^0.17.0",

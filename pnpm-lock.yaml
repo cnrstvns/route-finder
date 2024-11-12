@@ -114,6 +114,9 @@ importers:
       '@vercel/postgres':
         specifier: ^0.5.1
         version: 0.5.1
+      axios:
+        specifier: ^1.7.7
+        version: 1.7.7
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
@@ -141,6 +144,9 @@ importers:
       inngest:
         specifier: ^3.7.4
         version: 3.7.4(typescript@5.3.3)
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -193,6 +199,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.4.1
         version: 1.4.1
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: ^20
         version: 20.10.4
@@ -2749,6 +2758,10 @@ packages:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
     dev: false
 
+  /@types/js-cookie@3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
+    dev: true
+
   /@types/json-schema@7.0.15:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: false
@@ -3089,10 +3102,10 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: false
 
-  /axios@1.6.2:
-    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
+  /axios@1.7.7:
+    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.9
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -4199,8 +4212,8 @@ packages:
       path-exists: 4.0.0
     dev: false
 
-  /follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+  /follow-redirects@1.15.9:
+    resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -4774,6 +4787,11 @@ packages:
   /js-cookie@3.0.1:
     resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
     engines: {node: '>=12'}
+    dev: false
+
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-tokens@4.0.0:
@@ -5609,7 +5627,7 @@ packages:
     resolution: {integrity: sha512-R/kNgZuJNt/vZ0ghEFzSZw5V0VjdhyBcXkDQN4fahbJy491u+FhBqghl1JIi8AHAoOxTdG0eDTedPvHp5usGmQ==}
     engines: {node: '>=15.0.0'}
     dependencies:
-      axios: 1.6.2
+      axios: 1.7.7
       rusha: 0.8.14
     transitivePeerDependencies:
       - debug

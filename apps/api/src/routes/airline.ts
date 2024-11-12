@@ -7,9 +7,9 @@ import {
   AirlineSchema,
 } from '../schemas/airline';
 import { PaginationParamsSchema } from '../schemas/pagination';
-import { airline } from '../db/schema';
+import { airline, route as airlineRoute } from '../db/schema';
 import { getOffset, getSafePageSize } from '../lib/db';
-import { ilike, or, sql } from 'drizzle-orm';
+import { eq, getTableColumns, ilike, or, sql } from 'drizzle-orm';
 
 export const airlineRouter = new OpenAPIHono<HonoGenerics>()
   .openapi(
@@ -24,10 +24,21 @@ export const airlineRouter = new OpenAPIHono<HonoGenerics>()
       const db = c.get('db');
       const { q, page, limit } = c.req.valid('query');
 
-      const query = db.select().from(airline).$dynamic();
+      const airlineColumns = getTableColumns(airline);
+      const query = db
+        .select({
+          airline: {
+            ...airlineColumns,
+            routeCount: sql`count(${airlineRoute.id})`.mapWith(Number),
+          },
+        })
+        .from(airline)
+        .leftJoin(airlineRoute, eq(airline.iataCode, airlineRoute.airlineIata))
+        .groupBy(airline.id, airline.name)
+        .$dynamic();
 
       if (q) {
-        query.where(
+        query.having(
           or(ilike(airline.name, `%${q}%`), ilike(airline.iataCode, `%${q}%`)),
         );
       }
@@ -46,7 +57,7 @@ export const airlineRouter = new OpenAPIHono<HonoGenerics>()
 
       return c.json(
         {
-          data,
+          data: data.map((d) => d.airline),
           pagination: {
             page,
             totalCount,

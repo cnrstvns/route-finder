@@ -1,5 +1,7 @@
 import { createRoute } from '@hono/zod-openapi';
 import type { AnyZodObject, ZodSchema } from 'zod';
+import type { MiddlewareHandler } from 'hono/types';
+import type { HonoGenerics } from '../types';
 
 export const route = {
   get: <Path extends string>(path: Path) => makeRoute('get', path),
@@ -34,6 +36,7 @@ class RouteSchema<
   private querySchema: Query | undefined = undefined;
   private tags: string[] | undefined = undefined;
   private operationId: string | undefined = undefined;
+  private middleware: MiddlewareHandler<HonoGenerics> | undefined = undefined;
 
   constructor(method: Method, path: Path) {
     this.method = method;
@@ -98,6 +101,18 @@ class RouteSchema<
     >;
   }
 
+  public setMiddleware(middleware: MiddlewareHandler<HonoGenerics>) {
+    this.middleware = middleware;
+    return this as unknown as RouteSchema<
+      Path,
+      Method,
+      Return,
+      Body,
+      Params,
+      Query
+    >;
+  }
+
   public build() {
     const responseCode = this.method === 'post' ? 201 : 200;
     const body = (
@@ -142,6 +157,7 @@ class RouteSchema<
           description: 'The resource',
         },
       },
+      middleware: this.middleware,
     } as const;
 
     return createRoute(schema);
