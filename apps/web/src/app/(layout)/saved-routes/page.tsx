@@ -10,15 +10,13 @@ import {
 } from '@/components/ui/table';
 import { PaginatedWithQuery } from '@/types/search';
 import { Row } from './row';
+import { listUserRoutes } from '@/api/server/user-route';
+import { headers } from 'next/headers';
 
 export default async function SavedRoutes({
   searchParams,
 }: PaginatedWithQuery) {
-  // const { totalCount, data: savedRoutes } =
-  //   await api.userRoute.listSavedRoutes.query(searchParams);
-
-  const savedRoutes = [];
-  const totalCount = 100;
+  const { data: savedRoutes } = await listUserRoutes(searchParams, { headers: headers() })
 
   return (
     <div>
@@ -43,13 +41,17 @@ export default async function SavedRoutes({
             </TableRow>
           </TableHeader>
           <TableBody className="bg-white">
-            {savedRoutes.map((route) => (
+            {savedRoutes.data.map((route) => (
               <Row key={route.user_route.id} route={route} />
             ))}
           </TableBody>
         </Table>
       </div>
-      <Pagination totalCount={totalCount} resource="saved route" />
+      <Pagination
+        totalCount={savedRoutes.pagination.totalCount}
+        hasMore={savedRoutes.pagination.hasMore}
+        resource="saved route"
+      />
     </div>
   );
 }

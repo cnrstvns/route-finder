@@ -145,7 +145,9 @@ export const userRoute = pgTable(
     routeId: integer('route_id')
       .notNull()
       .references(() => route.id),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
   },
   (table) => {
     return {
