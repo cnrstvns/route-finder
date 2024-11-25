@@ -2,8 +2,11 @@ type Profiles = {
   raw: unknown;
   standard: {
     id: string;
-    photo_url: string;
-    name: string;
+    photoUrl: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    verified: boolean;
   };
 };
 

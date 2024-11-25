@@ -1,4 +1,4 @@
-import { OpenAPIHono } from '@hono/zod-openapi';
+import { OpenAPIHono, z } from '@hono/zod-openapi';
 import { HonoGenerics } from '../types';
 import { route } from '../lib/openapi';
 import {
@@ -85,5 +85,60 @@ export const airlineRouter = new OpenAPIHono<HonoGenerics>()
       const [data] = await db.insert(airline).values(airlineData).returning();
 
       return c.json(data, 201);
+    },
+  )
+  .openapi(
+    route
+      .get('airlines/{id}/aircraft')
+      .params(z.object({ id: z.string() }))
+      .returns(
+        z.object({
+          airline: AirlineSchema,
+          aircraft: z.array(
+            z.object({
+              iata_code: z.string(),
+              model_name: z.string(),
+            }),
+          ),
+        }),
+      )
+      .setOperationId('listAirlineAircraft')
+      .setTags(['airline'])
+      .build(),
+    async (c) => {
+      const db = c.get('db');
+      const { id } = c.req.valid('param');
+
+      type AircraftResults = {
+        iata_code: string;
+        model_name: string;
+      };
+
+      const [airlineData] = await db
+        .select()
+        .from(airline)
+        .where(eq(airline.id, Number(id)));
+
+      const aircraftQuery = sql`
+				SELECT distinct aircraft.iata_code as iata_code, aircraft.model_name as model_name
+				FROM route
+				JOIN LATERAL UNNEST(string_to_array(route.aircraft_codes, ',')) as t(aircraft_type) on true
+				JOIN aircraft on aircraft.iata_code = t.aircraft_type
+				WHERE route.airline_iata = ${airlineData.iataCode}
+        ORDER BY aircraft.model_name;
+			`;
+
+      const aircraftResults = await db.execute<AircraftResults>(aircraftQuery);
+
+      return c.json(
+        {
+          airline: airlineData,
+          aircraft: (aircraftResults.rows as AircraftResults[]).map((r) => ({
+            iataCode: r.iata_code,
+            modelName: r.model_name,
+          })),
+        },
+        200,
+      );
     },
   );

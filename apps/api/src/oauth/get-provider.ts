@@ -1,5 +1,6 @@
 import { Google } from './google';
 import { Discord } from './discord';
+import { Apple } from './apple';
 import type { Bindings } from '../types';
 
 export const getProvider = async ({
@@ -15,6 +16,9 @@ export const getProvider = async ({
 
     case 'discord':
       return new Discord(env);
+
+    case 'apple':
+      return new Apple(env);
 
     default:
       throw new Error(`Unknown provider: ${provider}`);

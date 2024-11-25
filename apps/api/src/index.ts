@@ -12,6 +12,7 @@ import { authRouter } from './routes/auth';
 import { aircraftRouter } from './routes/aircraft';
 import { airportRouter } from './routes/airport';
 import { userRouteRouter } from './routes/user-route';
+import { routeRouter } from './routes/route';
 
 const app = new OpenAPIHono<HonoGenerics>();
 
@@ -33,7 +34,8 @@ app
   .route('/v1', airlineRouter)
   .route('/v1', aircraftRouter)
   .route('/v1', airportRouter)
-  .route('/v1', userRouteRouter);
+  .route('/v1', userRouteRouter)
+  .route('/v1', routeRouter);
 
 app.route('/auth', oauthRouter).route('/auth', authRouter);
 

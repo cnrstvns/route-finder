@@ -1,5 +1,9 @@
 import { z } from '@hono/zod-openapi';
 import { PaginatedResponseSchema } from './pagination';
+import { AirportSchema } from './airport';
+import { AirlineSchema } from './airline';
+import { RouteSchema } from './route';
+import { AircraftSchema } from './aircraft';
 
 export const UserRouteSchema = z
   .object({
@@ -28,4 +32,15 @@ export const CreateUserRouteSchema = UserRouteSchema.omit({
   id: true,
   createdAt: true,
   userId: true,
+});
+
+export const PopulatedUserRouteSchema = z.object({
+  userRoute: UserRouteSchema,
+  origin: AirportSchema,
+  destination: AirportSchema,
+  airline: AirlineSchema,
+  route: RouteSchema,
+  aircraft: z.array(AircraftSchema),
+  distanceInNm: z.string(),
+  flightNumber: z.string(),
 });

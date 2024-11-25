@@ -113,7 +113,7 @@ export class Google implements Provider {
       raw: responseData,
       standard: {
         id: parsedProfile.id,
-        photo_url: parsedProfile.picture,
+        photoUrl: parsedProfile.picture,
         name: parsedProfile.name,
         email: parsedProfile.email,
         firstName: parsedProfile.given_name,

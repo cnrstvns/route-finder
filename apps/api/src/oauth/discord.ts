@@ -105,7 +105,7 @@ export class Discord implements Provider {
       raw: responseData,
       standard: {
         id: parsedProfile.id,
-        photo_url: `https://cdn.discordapp.com/avatars/${parsedProfile.id}/${parsedProfile.avatar}.png`,
+        photoUrl: `https://cdn.discordapp.com/avatars/${parsedProfile.id}/${parsedProfile.avatar}.png`,
         name: parsedProfile.global_name,
         email: parsedProfile.email,
         firstName: parsedProfile.global_name || parsedProfile.username,

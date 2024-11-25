@@ -1,4 +1,4 @@
-name = "api"
+name = "route-finder-api"
 main = "src/index.ts"
 compatibility_date = "2024-11-06"
 
@@ -26,3 +26,6 @@ compatibility_flags = [ "nodejs_compat" ]
 # [observability]
 # enabled = true
 # head_sampling_rate = 1
+
+[observability]
+enabled = true

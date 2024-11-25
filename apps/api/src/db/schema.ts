@@ -99,7 +99,7 @@ export const user = pgTable('user', {
   lastName: varchar('last_name'),
 });
 
-export const providerEnum = pgEnum('provider', ['google', 'discord']);
+export const providerEnum = pgEnum('provider', ['google', 'discord', 'apple']);
 
 export const oauthSession = pgTable(
   'oauth_session',

@@ -11,10 +11,13 @@ export const AirportSchema = z
       description: 'The IATA code of the airport',
       example: 'LAX',
     }),
-    icaoCode: z.string().openapi({
-      description: 'The ICAO code of the airport',
-      example: 'KLAX',
-    }),
+    icaoCode: z
+      .string()
+      .openapi({
+        description: 'The ICAO code of the airport',
+        example: 'KLAX',
+      })
+      .nullable(),
     name: z.string().openapi({
       description: 'The name of the airport',
       example: 'Los Angeles International Airport',
@@ -35,14 +38,20 @@ export const AirportSchema = z
       description: 'The longitude of the airport',
       example: '-118.4085',
     }),
-    elevation: z.string().openapi({
-      description: 'The elevation of the airport',
-      example: '123',
-    }),
-    size: z.enum(['small', 'medium', 'large']).openapi({
-      description: 'The size of the airport',
-      example: 'large',
-    }),
+    elevation: z
+      .string()
+      .openapi({
+        description: 'The elevation of the airport',
+        example: '123',
+      })
+      .nullable(),
+    size: z
+      .enum(['small', 'medium', 'large'])
+      .openapi({
+        description: 'The size of the airport',
+        example: 'large',
+      })
+      .nullable(),
   })
   .openapi('Airport');
 

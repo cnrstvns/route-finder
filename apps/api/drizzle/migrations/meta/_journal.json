@@ -260,6 +260,13 @@
       "when": 1731350890027,
       "tag": "0036_rapid_mole_man",
       "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "5",
+      "when": 1732552063039,
+      "tag": "0037_pale_miracleman",
+      "breakpoints": true
     }
   ]
 }

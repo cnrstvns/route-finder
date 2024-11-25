@@ -56,25 +56,6 @@ export default async function Page({ params }: PageParams) {
 			route.id,
 			route.average_duration,
 			route.aircraft_codes,
-			airline.iata_code as airline_iata,
-			airline.name as airline_name,
-			airline.logo_path as airline_logo,
-			origin_airport.iata_code as origin_iata,
-			origin_airport.icao_code as origin_icao,
-			origin_airport.name as origin_name,
-			origin_airport.city as origin_city,
-			origin_airport.country as origin_country,
-			origin_airport.latitude as origin_latitude,
-			origin_airport.longitude as origin_longitude,
-			origin_airport.elevation as origin_elevation,
-			destination_airport.iata_code as destination_iata,
-			destination_airport.icao_code as destination_icao,
-			destination_airport.name as destination_name,
-			destination_airport.city as destination_city,
-			destination_airport.country as destination_country,
-			destination_airport.latitude as destination_latitude,
-			destination_airport.longitude as destination_longitude,
-			destination_airport.elevation as destination_elevation
 		FROM
 			route
 		JOIN

@@ -13,7 +13,11 @@ const oauthRouter = new Hono<HonoGenerics>();
 function validateRedirect(redirect: string | undefined) {
   assert(redirect, 400, 'Redirect query param is required');
   const parsed = decodeURIComponent(redirect);
-  assert(parsed.startsWith('/'), 400, 'Redirect must be a relative url');
+  assert(
+    parsed.startsWith('/') || parsed.startsWith('routefinder://'),
+    400,
+    'Redirect must be a relative url or routefinder:// scheme',
+  );
   return parsed;
 }
 
@@ -22,7 +26,10 @@ function generateState() {
 }
 
 oauthRouter.get('/:provider/init', async (c) => {
-  const provider = z.enum(['google', 'discord']).parse(c.req.param('provider'));
+  const provider = z
+    .enum(['google', 'discord', 'apple'])
+    .parse(c.req.param('provider'));
+
   const redirect = validateRedirect(c.req.query('redirect'));
 
   const OAuthProvider = await getProvider({ provider, env: c.env });
@@ -45,7 +52,9 @@ oauthRouter.get('/:provider/init', async (c) => {
 });
 
 oauthRouter.get('/:provider/callback', async (c) => {
-  const provider = z.enum(['google', 'discord']).parse(c.req.param('provider'));
+  const provider = z
+    .enum(['google', 'discord', 'apple'])
+    .parse(c.req.param('provider'));
 
   const { state, code, error } = z
     .object({
@@ -88,12 +97,20 @@ oauthRouter.get('/:provider/callback', async (c) => {
       emailAddress: profiles.standard.email,
       firstName: profiles.standard.firstName,
       lastName: profiles.standard.lastName,
+      profilePictureUrl: profiles.standard.photoUrl,
     })
     .onConflictDoUpdate({
       target: [user.emailAddress],
       set: {
-        firstName: profiles.standard.firstName,
-        lastName: profiles.standard.lastName,
+        ...(profiles.standard.firstName && {
+          firstName: profiles.standard.firstName,
+        }),
+        ...(profiles.standard.lastName && {
+          lastName: profiles.standard.lastName,
+        }),
+        ...(profiles.standard.photoUrl && {
+          profilePictureUrl: profiles.standard.photoUrl,
+        }),
       },
     })
     .returning();
@@ -109,6 +126,13 @@ oauthRouter.get('/:provider/callback', async (c) => {
     })
     .returning();
 
+  const returnUrl = new URL(sessionData.redirectUrl, c.env.APP_BASE_URL);
+
+  if (sessionData.redirectUrl.startsWith('routefinder://')) {
+    returnUrl.searchParams.set('token', createdSession.token);
+    return c.redirect(returnUrl.href);
+  }
+
   setCookie(c, 'session_token', createdSession.token, {
     path: '/',
     httpOnly: true,
@@ -116,7 +140,80 @@ oauthRouter.get('/:provider/callback', async (c) => {
     expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7 days
   });
 
+  return c.redirect(returnUrl.href);
+});
+
+oauthRouter.post('/apple/callback', async (c) => {
+  const formSchema = z.object({
+    code: z.string(),
+    state: z.string(),
+  });
+
+  const formData = await c.req.formData();
+  const { state, code } = formSchema.parse(Object.fromEntries(formData));
+
+  const [sessionData] = await c.var.db
+    .select()
+    .from(oauthSession)
+    .where(eq(oauthSession.state, state));
+
+  assert(sessionData, 404, 'Session not found');
+  assert(sessionData.ttl > new Date(), 403, 'Session not valid');
+
+  const OAuthProvider = await getProvider({ provider: 'apple', env: c.env });
+
+  assert(code, 403, 'Code not valid');
+
+  const { profiles } = await OAuthProvider.exchangeCode({ code });
+
+  if (!profiles.standard.verified) {
+    return c.redirect(
+      new URL('/auth/callback?error=email-not-verified', c.env.APP_BASE_URL),
+    );
+  }
+
+  const [userData] = await c.var.db
+    .insert(user)
+    .values({
+      emailAddress: profiles.standard.email,
+      firstName: profiles.standard.firstName,
+      lastName: profiles.standard.lastName,
+      profilePictureUrl: profiles.standard.photoUrl,
+    })
+    .onConflictDoUpdate({
+      target: [user.emailAddress],
+      set: {
+        firstName: profiles.standard.firstName,
+        lastName: profiles.standard.lastName,
+        profilePictureUrl: profiles.standard.photoUrl,
+      },
+    })
+    .returning();
+
+  await c.var.db.delete(oauthSession).where(eq(oauthSession.state, state));
+
+  const [createdSession] = await c.var.db
+    .insert(session)
+    .values({
+      userId: userData.id,
+      expiresAt: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7 days
+      token: randomBytes(32).toString('hex'),
+    })
+    .returning();
+
   const returnUrl = new URL(sessionData.redirectUrl, c.env.APP_BASE_URL);
+
+  if (sessionData.redirectUrl.startsWith('routefinder://')) {
+    returnUrl.searchParams.set('token', createdSession.token);
+    return c.redirect(returnUrl.href);
+  }
+
+  setCookie(c, 'session_token', createdSession.token, {
+    path: '/',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7 days
+  });
 
   return c.redirect(returnUrl.href);
 });
