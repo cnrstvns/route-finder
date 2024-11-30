@@ -183,9 +183,15 @@ oauthRouter.post('/apple/callback', async (c) => {
     .onConflictDoUpdate({
       target: [user.emailAddress],
       set: {
-        firstName: profiles.standard.firstName,
-        lastName: profiles.standard.lastName,
-        profilePictureUrl: profiles.standard.photoUrl,
+        ...(profiles.standard.firstName && {
+          firstName: profiles.standard.firstName,
+        }),
+        ...(profiles.standard.lastName && {
+          lastName: profiles.standard.lastName,
+        }),
+        ...(profiles.standard.photoUrl && {
+          profilePictureUrl: profiles.standard.photoUrl,
+        }),
       },
     })
     .returning();
