@@ -1,0 +1,1 @@
+ALTER TABLE "oauth_session" ADD COLUMN "ttl" timestamp with time zone NOT NULL;
